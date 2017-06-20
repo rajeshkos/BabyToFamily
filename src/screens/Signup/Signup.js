@@ -16,63 +16,17 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
+  Platform,
 } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, SocialIcon } from 'react-native-elements';
 import {connect} from 'react-redux';
 import InputWithIcon  from '../../components/InputWithIcon'
+import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
 import {loginUpdate,loginChecking} from './LoginAction';
 //import Hr from 'react-native-hr'
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 0.3,
-  },
-  canvas: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: width.width,
-  },
-  forgot: {
-    alignSelf: "flex-end",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-  },
-  or: {
-    padding: 15,
-    backgroundColor: "transparent",
-    alignSelf: "center",
-    color: '#8F8F8F',
-    opacity: 1,
-    fontFamily: 'GothamRounded-Book',
-  },
-  newuser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-end",
-    color: '#969696',
-    opacity: 1,
-    fontFamily: 'GothamRounded-Book',
-  },
-  registeruser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-start",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-    fontFamily: 'GothamRounded-Book',
-  },
-  forgotContainer: {
-    marginRight:20,
-  }
-});
 
  class Login extends Component {
 
@@ -81,17 +35,17 @@ var styles = StyleSheet.create({
     const {loginUpdate,loginChecking,email,password,loading,auth}=this.props;
 
     return (
-        <View style={{flex:1, flexDirection: 'column'}}>
+        <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
         <StatusBar hidden={true} />
          <View style={styles.container}>
           <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
          </View>
-            <View style={{flex:0.7,width:width/1.55, alignSelf:'center'}}>
-            <KeyboardAvoidingView  behavior="padding" style={{flex:1,backgroundColor:'#FFFFFF',alignItems:'center',justifyContent:'center'}}>
+            <View style={styles.componentContainer}>
+            <KeyboardAvoidingView  behavior="padding" style={styles.keyboardStyle}>
 
-          <View style={{flex:1,flexDirection:'column', alignItems:'center'}}>
+          <View style={styles.componentSubContainer}>
 
-            <View style={{ flex:0.5 }}>
+            <View style={styles.halfFlex}>
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
@@ -103,7 +57,7 @@ var styles = StyleSheet.create({
                 />
             </View>
 
-              <View style={{ flex:0.5 }}>
+              <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/mail/mail.png')}
                     value={email}
@@ -115,7 +69,7 @@ var styles = StyleSheet.create({
                   />
               </View>
 
-              <View style={{ flex:0.5 }}>
+              <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/mobile/mob.png')}
                     value={email}
@@ -127,7 +81,7 @@ var styles = StyleSheet.create({
                   />
               </View>
 
-              <View style={{ flex:0.5 }}>
+              <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={email}
@@ -139,7 +93,7 @@ var styles = StyleSheet.create({
                   />
               </View>
 
-              <View style={{ flex:0.5 }}>
+              <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={email}
@@ -153,29 +107,34 @@ var styles = StyleSheet.create({
 
             <View style={{ flex:0.3, alignSelf: 'stretch'}}>
               <Button
-                buttonStyle={{height: 30, backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 1.0, shadowOffset:{
-                    width: 1,
-                    height: 1,
-                },}}
-                textStyle={{textAlign: 'center'}}
+                buttonStyle={styles.btnStyle}
+                textStyle={{textAlign: 'center', ...Platform.select({
+                  ios: {
+                    fontFamily: 'GothamRounded-Book',
+                  },
+                  android: {
+                    fontFamily: 'gotham_rounded_book',
+                  },
+                }),
+              }}
                 title={`Sign Up`}
               />
             </View>
 
-            <View style={{ flex:0.3, alignSelf: 'center' }}>
+            <View style={styles.orText}>
               <Text style={styles.or}>or</Text>
             </View>
 
 
-            <View style={{flex:0.4,marginTop:5, alignSelf:'center', flexDirection: 'row'}}>
-                 <View style={{ flex:0.2, alignItems: 'flex-end', marginRight: 1}}>
+            <View style={styles.socialMediaContainer}>
+                 <View style={styles.fbContainer}>
                  <TouchableHighlight onPress={this._onPressButton}>
                      <Image
                        source={require('./Images/Facebook/facebook.png')}
                      />
                    </TouchableHighlight>
                    </View>
-                   <View style={{flex:0.2,alignItems: 'flex-start', marginLeft: 1}}>
+                   <View style={styles.instaContainer}>
                 <TouchableHighlight onPress={this._onPressButton}>
                        <Image
                          source={require('./Images/Instagram/instagram.png')}
@@ -185,19 +144,14 @@ var styles = StyleSheet.create({
                  </View>
 
 
-                 <View style={{flex: 0.5,flexDirection: 'row', alignItems: 'center',
-                    justifyContent: 'center'}}>
-                      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+                 <View style={styles.bottomUserContainer}>
+                      <View style={styles.userSubContainer}>
                       <Text style={styles.newuser}>Current User?</Text>
                       </View>
-                      <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 5}}>
+                      <View style={styles.registerSubContainer}>
                       <Text style={styles.registeruser}>Login Here</Text>
                       </View>
                     </View>
-
-
-
-
             </View>
             </KeyboardAvoidingView>
             </View>

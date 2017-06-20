@@ -14,7 +14,7 @@ export default class App extends Component{
   console.log(store.getState());
   return(
     <Provider store={store}>
-      <Login />
+      <Signup />
     </Provider>
   )
   }
