@@ -13,19 +13,31 @@ return {
   }
 
 }
-export const  loginChecking=({email,password})=>(dispatch)=>{
+
+
+export  const loginChecking=({email,password})=>(dispatch)=>{
+
+    console.log(email,password,"foro");
     dispatch({type:LOGIN_CHECK});
-    console.log(email,password);
-    fetch('http://172.24.5.36:3000/users/login',{method:"POST",body:JSON.stringify({email:email,password:password})})
+fetch('http://172.24.3.104:3000/login',{method:"POST",
+     headers: { 'Accept': 'application/json',  'Content-Type': 'application/json',
+   },body:JSON.stringify({email:email,password:password})})
     .then((response) => response.json())
      .then((responseJson) =>{
-        console.log(responseJson);
-      dispatch({type: LOGIN_SUCCESSFULL});
-      alert('Login Success');
+
+
+      dispatch({type: LOGIN_SUCCESSFULL,payload:responseJson});
+      if(responseJson.message){
+        alert(responseJson.message)
+      }else{
+        alert('Login Success')
+      }
+
+
     })
     .catch((error) => {
           dispatch({type: LOGIN_FAIL});
-          alert('Login Failed');
+          alert('Login Failed'+error);
       });
 
 }

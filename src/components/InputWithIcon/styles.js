@@ -78,7 +78,7 @@ container:{
        color:'blue'
     },
     image:{
-       marginTop: (Platform.OS === 'ios') ? 10 : 15,
+       marginTop: (Platform.OS === 'ios') ? 11 : 15,
        alignSelf: 'flex-start',
        height: 18,
        width: 18,
@@ -87,13 +87,14 @@ container:{
     input:{
       ...Platform.select({
         ios: {
-          paddingLeft: 30,
-          paddingBottom: 3,
+          paddingLeft: 25,
+          paddingBottom: 2,
           fontFamily: 'GothamRounded-Book',
+            width: 300,
         },
         android: {
           paddingBottom: 0,
-          paddingLeft: 15,
+          paddingLeft: 13,
           width: 200,
           fontFamily: 'gotham_rounded_book',
         },

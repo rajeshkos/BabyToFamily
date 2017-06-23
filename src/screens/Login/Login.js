@@ -17,14 +17,23 @@ import {
   TouchableHighlight,
   ScrollView,
   Platform,
+  ActivityIndicator,
+  Modal
 } from 'react-native';
+import { Actions} from 'react-native-router-flux';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, SocialIcon } from 'react-native-elements';
 import {connect} from 'react-redux';
+//import ErrorPanel from '../../components/input';
+
 import InputWithIcon  from '../../components/InputWithIcon'
+import   ProgressBar  from '../../components/ProgressBar'
+import Loading from '../../components/ProgressBar';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
 import {loginUpdate,loginChecking} from './LoginAction';
+//import validate from 'validate.js';
+
 //import Hr from 'react-native-hr'
 
 var styles = StyleSheet.create({
@@ -110,16 +119,33 @@ var styles = StyleSheet.create({
 
  class Login extends Component {
 
+
+   Login=(email, password)=>{
+
+     if (!email) {
+         alert('Email Required')
+       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+         alert( 'Invalid email address');
+       }else if(!password){
+        alert('Password Required')
+      }else{
+        console.log(email,password,"else");
+        this.props.loginChecking({email,password});
+      }
+  }
+
   render() {
-    console.log("hello",this.props.loading,this.props.auth);
-    const {loginUpdate,loginChecking,email,password,loading,auth}=this.props;
 
+    const {loginUpdate,loginChecking,email,password,loading,auth,user}=this.props;
+console.log("loading",loading);
     return (
-        <View style={{flex:1, flexDirection: 'column', backgroundColor:'white'}}>
+      <View style={{flex:1}}>
 
+        <View style={{flex:1, flexDirection: 'column', backgroundColor:'white'}}>
          <StatusBar hidden={true} />
 
-         <View style={styles.container}>
+           <View style={styles.container}>
+
           <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
          </View>
             <View style={{flex:0.6,width:width/1.55, alignSelf:'center'}}>
@@ -143,18 +169,21 @@ var styles = StyleSheet.create({
               <View style={{flex:0.1, paddingTop: 7}}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
-                    value={email}
+                    value={password}
                     placeholder="Password"
                     secureTextEntry={true}
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onChangeText={(text)=>loginUpdate({prop:'email',value:text})}
+                    onChangeText={(text)=>loginUpdate({prop:'password',value:text})}
                   />
               </View>
 
               <View style={{alignSelf: 'flex-end', flex:0.1, paddingRight: 10}}>
-                <Text style={styles.forgot}>Forgot Password?</Text>
+                <Text style={styles.forgot} onPress={()=>Actions.ForgotPassword()}>Forgot Password?</Text>
               </View>
+                      {loading?
+                          <ProgressBar/>
+                        : null}
 
             <View style={{flex:0.1, alignSelf: 'stretch'}}>
               <Button
@@ -172,6 +201,7 @@ var styles = StyleSheet.create({
                     width: 1,
                     height: 1,
                 },}}
+                onPress={()=>this.Login(email, password)}
                 textStyle={{textAlign: 'center', ...Platform.select({
                   ios: {
                     fontFamily: 'GothamRounded-Book',
@@ -214,32 +244,35 @@ var styles = StyleSheet.create({
                       <Text style={styles.newuser}>New User?</Text>
                       </View>
                       <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 5}}>
-                      <Text style={styles.registeruser}>Register Now</Text>
+                      <Text style={styles.registeruser} onPress={()=>Actions.Signup()}>Register Now</Text>
                       </View>
                     </View>
 
+          </View>
 
+         </KeyboardAvoidingView>
+
+
+        </View>
 
 
             </View>
-            </KeyboardAvoidingView>
-
-            </View>
-       </View>
 
 
+</View>
 
     );
   }
 }
-const mapStateToProps=({Login})=>{
-  const {email,password,loading,auth}=Login;
-  return{
+
+const mapStateToProps=({Login})=> {
+  const {email,password,loading,auth,user}=Login;
+  return {
       email,
       password,
       loading,
-      auth
-
-}
+      auth,
+      user
+    }
 }
 export default connect(mapStateToProps,{loginUpdate,loginChecking})(Login)

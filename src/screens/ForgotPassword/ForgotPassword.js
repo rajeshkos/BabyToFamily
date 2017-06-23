@@ -23,7 +23,8 @@ import {connect} from 'react-redux';
 import InputWithIcon  from '../../components/InputWithIcon'
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
-import {loginUpdate,loginChecking} from './LoginAction';
+import {Actions} from 'react-native-router-flux';
+import {forgotUpdate,forgotPassword} from './ForgotActions'
 //import Hr from 'react-native-hr'
 
 var styles = StyleSheet.create({
@@ -75,22 +76,68 @@ var styles = StyleSheet.create({
   }
 });
 
- class Login extends Component {
+ class ForgotPassword extends Component {
+handleSend=(email)=>{
 
+
+        // if (!email) {
+        //     alert('Email Required')
+        //   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+        //     alert( 'Invalid email address');
+        //   }else if(isNaN(Number(email))){
+        //   alert('Mobile should be a nuber')
+        // }else{
+        //    this.props.forgotPassword(email);
+        // }
+
+        let intRegex = /[0-9 -()+]+$/;
+
+  if(intRegex.test(email)) {
+     console.log("is phone");
+           if((email.length < 9) || (!intRegex.test(email)))
+        {
+             alert('Please enter a valid phone number.');
+             //return false;
+        }
+
+        }
+      else
+      {
+   let eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+          console.log("is email");
+          if (eml.test(email) == false) {
+      alert("Please enter valid email address.");
+     // $("#<%=txtEmail.ClientID %>").focus();
+      //return false;
+   }
+      }
+
+
+
+
+
+
+
+}
   render() {
-    console.log("hello",this.props.loading,this.props.auth);
-    const {loginUpdate,loginChecking,email,password,loading,auth}=this.props;
+const {email,password,loading,forgotUpdate}=this.props;
 
     return (
         <View style={{flex:1, flexDirection: 'column'}}>
         <StatusBar hidden={true} />
 
          <View style={styles.container}>
-          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
+          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} >
+          <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:50,height:50,alignItems:'center',justifyContent:'center'}}>
+           <TouchableHighlight style={{flex:1}} onPress={()=>Actions.pop()} underlayColor={'transparent'}>
+           <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
+           </TouchableHighlight>
+           </View>
+          </Image>
          </View>
             <View style={{flex:0.6,width:width/1.55, alignSelf:'center'}}>
 
-            <KeyboardAvoidingView  behavior="padding" style={{flex:1,backgroundColor:'#FFFFFF',alignItems:'center',justifyContent:'center'}}>
+            <KeyboardAvoidingView  behavior="padding" style={{flex:1,backgroundColor:'white',alignItems:'center',justifyContent:'center'}}>
 
 
             <View>
@@ -118,12 +165,15 @@ var styles = StyleSheet.create({
                     placeholder="Email or Mobile No."
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onChangeText={(text)=>loginUpdate({prop:'email',value:text})}
+                   onChangeText={(text)=>forgotUpdate({prop:'email',value:text})}
                   />
               </View>
 
 
-            <View style={{flex:0.1, alignSelf: 'stretch'}}>
+
+              <View style={{height:50}}/>
+            </KeyboardAvoidingView>
+            <View style={{flex:2, alignSelf: 'stretch'}}>
               <Button
                 buttonStyle={{height: 30, backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 1.0, shadowOffset:{
                     width: 1,
@@ -131,10 +181,9 @@ var styles = StyleSheet.create({
                 },}}
                 textStyle={{textAlign: 'center', fontFamily: 'GothamRounded-Book'}}
                 title={`Send`}
+                onPress={()=>this.handleSend(email)}
               />
             </View>
-            </KeyboardAvoidingView>
-
             </View>
        </View>
 
@@ -143,14 +192,15 @@ var styles = StyleSheet.create({
     );
   }
 }
-const mapStateToProps=({Login})=>{
-  const {email,password,loading,auth}=Login;
-  return{
-      email,
-      password,
-      loading,
-      auth
+const mapStateToProps=({Forgot})=>{
+  const {email,loading,success}=Forgot;
+return{
+    email,
+    loading,
+    success
 
 }
+
 }
-export default connect(mapStateToProps,{loginUpdate,loginChecking})(Login)
+
+export default connect(mapStateToProps,{forgotUpdate,forgotPassword})(ForgotPassword);

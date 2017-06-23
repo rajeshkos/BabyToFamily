@@ -21,7 +21,7 @@ return(
       </TouchableHighlight>
     </View>
     <View>
-      <TextInput placeholder={placeholder} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
+      <TextInput placeholder={placeholder}  secureTextEntry={secureTextEntry}  keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
     </View>
       </View>
   </View>
