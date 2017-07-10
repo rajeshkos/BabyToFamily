@@ -1,4 +1,4 @@
-import {SIGNUP_UPDATE,SIGNUP_CHECK,SIGNUP_SUCCESSFULL,SIGNUP_FAIL,EMAIL_ALREDAY,MOBILE_ALREDAY,OTP_BACK,PASSWORD_DONOTMATCH} from './SignupActions';
+import {SIGNUP_UPDATE,SIGNUP_CHECK,SIGNUP_SUCCESSFULL,SIGNUP_FAIL,EMAIL_ALREDAY,MOBILE_ALREDAY,OTP_SESSION_DESTROY,PASSWORD_DONOTMATCH} from './SignupActions';
 
 const INITIAL_STATE={email:'',password:'',name:'',mobile:'',loading:false,sucecsss:false,cpassword:'',data:{}}
 export default (state=INITIAL_STATE,action)=>{
@@ -17,7 +17,7 @@ export default (state=INITIAL_STATE,action)=>{
        return {...state,password:'',cpassword:''}
   case SIGNUP_FAIL:
    return INITIAL_STATE;
-case OTP_BACK:
+case OTP_SESSION_DESTROY:
       return INITIAL_STATE;
    default:
        return state;
