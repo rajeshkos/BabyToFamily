@@ -27,16 +27,31 @@ import styles from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
 //import {Actions } from 'react-native-router-flux';
+import CountryPicker, {getAllCountries} from 'react-native-country-picker-modal';
+import PhoneInput from 'react-native-phone-input'
+import DeviceInfo from 'react-native-device-info';
+
 import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './SignupActions'
  class Signup extends Component {
-   state = {
-     user: undefined,
-   };
 
+   constructor(props){
+     super(props);
+   this.state = {
+     user: undefined,
+     cca2:'',
+     callingCode:'',
+     Mobilenumber:''
+
+
+   };
+}
    static navigationOptions= {
            header: null
        }
-
+componentWillMount(){
+  this.setState({cca2: DeviceInfo.getDeviceCountry()});
+  //console.log(DeviceInfo.getDeviceCountry(),"hh");
+}
    componentDidMount() {
 
          Linking.addEventListener('url', this.handleOpenURL);
@@ -46,6 +61,12 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
            }
          });
 
+         this.setState({
+             pickerData: this.refs.phone.getPickerData()
+
+         })
+
+
        }
 
   componentWillUnmount() {
@@ -53,6 +74,19 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
          Linking.removeEventListener('url', this.handleOpenURL);
 
        }
+
+
+       onPressFlag=()=>{
+           this.refs.countryPicker.openModal()
+       }
+
+       selectCountry=(country)=>{
+           this.refs.phone.selectCountry(country.cca2.toLowerCase())
+           this.setState({cca2: country.cca2})
+           this.setState({callingCode:country.callingCode})
+
+       }
+
 
  handleOpenURL = ({ url }) => {
       const {navigate}=this.props.navigation;
@@ -96,13 +130,17 @@ signUp=(props)=>{
 
 //  console.log(name,email,mobile,password,cpassword);
 const {name,email,mobile,password,cpassword,navigation}=props;
+   this.props.SignupUpdate({prop:'mobile',value:this.state.Mobilenumber})
          if(!name){
          alert('Please enter your Name');}
           else if (!email) {
               alert('Please enter your Email ID')
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
               alert( 'Invalid Email ID');
-           }else if (!mobile) {
+           }else if(!this.state.callingCode){
+              alert('Select Country Code')
+
+           } else if (!mobile) {
               alert(' Please enter your Mobile Number')
            }else if(isNaN(Number(mobile))){
              alert('Mobile must be number')
@@ -124,9 +162,10 @@ const {name,email,mobile,password,cpassword,navigation}=props;
 
 }
   render() {
+    //console.log(DeviceInfo);
 
     const {email,password,name,mobile,SignupUpdate,SignupChecking,cpassword,data,loading,navigation}=this.props;
-
+ console.log(this.state.callingCode);
     return (
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
         <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
@@ -140,6 +179,30 @@ const {name,email,mobile,password,cpassword,navigation}=props;
            </View>
           </Image>
          </View>
+
+
+                  <View style={styles.containerPhone }>
+                    <View style={styles.flagContainer}>
+                        <PhoneInput
+                            ref='phone'
+                            onPressFlag={this.onPressFlag}
+                        />
+                        <CountryPicker
+                            ref='countryPicker'
+                            onChange={(value)=> this.selectCountry(value)}
+                            translation='eng'
+                            cca2={this.state.cca2}
+                        >
+                          <View ></View>
+                        </CountryPicker>
+                    </View>
+                    </View>
+
+
+
+
+
+
             <View style={styles.componentContainer}>
 
           <View style={styles.componentSubContainer}>
@@ -173,14 +236,17 @@ const {name,email,mobile,password,cpassword,navigation}=props;
              :null
               }
               <View style={styles.halfFlex}>
+
                   <InputWithIcon
-                    iconName={ require('./Images/mobile/mob.png')}
-                    value={mobile}
+                    iconName={require('./Images/mobile/mob.png')}
+                    value={this.state.Mobilenumber}
                     secureTextEntry={false}
                     placeholder="Mobile No."
                     keyboardType="numeric"
                     placeholderTextColor="#333333"
-                    onChangeText={(text)=>SignupUpdate({prop:'mobile',value:text})}
+                    callingCode={this.state.callingCode}
+                    onChangeText={(text)=>this.setState({Mobilenumber:text})}
+                    onSubmitEditing={(event) =>console.log(event,"jiii") }
                   />
               </View>
 
@@ -277,7 +343,7 @@ return{
       cpassword,
       data,
       loading,
-    
+
   }
 }
 
