@@ -13,11 +13,11 @@ export const session_start=()=>{
     type:OTP_SESSION_START
   }
 }
-export const session_destroy=()=>{
-  return{
-    type:OTP_FAIL
+  export const session_destroy=()=>{
+   return{
+      type:OTP_EXPIRE
+    }
   }
-}
 
 export const OtpUpdate=({prop,value})=>{
   return {
@@ -28,11 +28,11 @@ export const OtpUpdate=({prop,value})=>{
 
 export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
 
-
+    dispatch({type:OTP_CHECK})
   Api.makeRequest('POST',URL.OTP_CHECKURL,{},{mobile,otp})
     .then((response)=>response.json())
     .then((responseJson) =>{
-      dispatch({type:OTP_EXPIRE})
+      dispatch({type:OTP_SUCCESSFULL})
         alert('OTP Successfull')
         navigate('Login')
     })

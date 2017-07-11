@@ -3,7 +3,7 @@ import {REHYDRATE} from 'redux-persist/constants'
 const INITIAL_STATE={otp:'',loading:false,sucecsss:false,session:false,timeout:false}
 export default (state=INITIAL_STATE,action)=>{
  switch (action.type) {
-   
+
     case OTP_SESSION_START:
        return {...INITIAL_STATE,session:true}
    case OTP_UPDATE:
@@ -11,9 +11,7 @@ export default (state=INITIAL_STATE,action)=>{
    case OTP_CHECK:
      return {...state,loading:true}
    case OTP_SUCCESSFULL:
-    return {...INITIAL_STATE,loading:false,sucecsss:true,session:true}
-    case OTP_FAIL:
-          return {...state,timeout:true};
+    return {...INITIAL_STATE,loading:false,sucecsss:true,session:false}  
     case OTP_EXPIRE:
          return INITIAL_STATE
 

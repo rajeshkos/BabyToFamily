@@ -48,7 +48,7 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
        }
 
 componentWillMount(){
-  console.log(this.props.session,"session");
+//  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
   if(this.props.session===true){
     navigate('OtpScreen')

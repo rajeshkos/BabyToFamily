@@ -44,18 +44,17 @@ const {width,height}=Dimensions.get('window');
    }
 
 componentWillMount(){
-   this.props.session_destroy();
   this.props.session_start();
-
 }
 componentDidMount(){
 
   //this.props.dispatch({type:OTP_FAIL})
    setTimeout(()=> {
-
-        this.props.navigation.navigate('Signup');
+         this.props.session_destroy();
+        this.props.navigation.navigate('Login');
         this.props.Signupfail();
-   },8000);
+
+   },30000);
 }
 
 
@@ -70,16 +69,16 @@ handleSend=(otp)=>{
                   }else if(otp.length!=6){
                     alert('OTP sould be six digit');
                   }else{
-
+                  this.props.session_destroy();
                   this.props.OtpChecking({mobile,otp,navigate})
                   this.props.Signupfail();
-                  this.props.session_destroy();
+
                   }
          }
   render() {
     const {navigation,otp,loading,sucecsss,OtpUpdate,mobile,OtpResend,session,timeout}=this.props;
 
-      
+
     return (
 
 
