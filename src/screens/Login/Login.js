@@ -12,224 +12,236 @@ import {
   View,
   StatusBar,
   Dimensions,
-  KeyboardAvoidingView,
   Image,
   TouchableHighlight,
   ScrollView,
-  Platform,
   ActivityIndicator,
-  Modal
+  Modal,
+  NetInfo,
+  InteractionManager,
+  WebView,
+  Linking,
+  Platform,
 } from 'react-native';
+import SafariView from 'react-native-safari-view';
+
 import { Actions} from 'react-native-router-flux';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, SocialIcon } from 'react-native-elements';
 import {connect} from 'react-redux';
 //import ErrorPanel from '../../components/input';
-
+import styles from './style';
 import InputWithIcon  from '../../components/InputWithIcon'
 import   ProgressBar  from '../../components/ProgressBar'
 import Loading from '../../components/ProgressBar';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
 import {loginUpdate,loginChecking} from './LoginAction';
+
 //import validate from 'validate.js';
 
 //import Hr from 'react-native-hr'
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 0.4,
-  },
-  canvas: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: width.width,
-  },
-  forgot: {
-    alignSelf: "flex-end",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-    ...Platform.select({
-      ios: {
-        fontFamily: 'GothamRounded-Book',
-      },
-      android: {
-        fontSize: 16,
-        fontFamily: 'gotham_rounded_book',
-      },
-    }),
-  },
-  or: {
-    padding: 15,
-    backgroundColor: "transparent",
-    alignSelf: "center",
-    color: '#8F8F8F',
-    opacity: 1,
-    ...Platform.select({
-      ios: {
-        fontFamily: 'GothamRounded-Book',
-      },
-      android: {
-        fontSize: 18,
-        fontFamily: 'gotham_rounded_book',
-      },
-    }),
-  },
-  newuser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-end",
-    color: '#969696',
-    opacity: 1,
-    ...Platform.select({
-      ios: {
-        fontFamily: 'GothamRounded-Book',
-      },
-      android: {
-        fontSize: 18,
-        fontFamily: 'gotham_rounded_book',
-      },
-    }),
-  },
-  registeruser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-start",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-    ...Platform.select({
-      ios: {
-        fontFamily: 'GothamRounded-Book',
-      },
-      android: {
-        fontSize: 18,
-        fontFamily: 'gotham_rounded_book',
-      },
-    }),
-  },
-  forgotContainer: {
-    marginRight:20,
-  }
-});
+
 
  class Login extends Component {
+   constructor(props) {
+   super(props);
+   }
+
+   state = {
+     socialUser: undefined, // user has not logged in yet
+   };
+
+   componentDidMount() {
+     NetInfo.addEventListener(
+       'change',
+       this.handleFirstConnectivityChange
+     );
+     Linking.addEventListener('url', this.handleOpenURL);
+     // Launched from an external URL
+     Linking.getInitialURL().then((url) => {
+       if (url) {
+         this.handleOpenURL({ url });
+       }
+     });
+  };
+
+   handleFirstConnectivityChange(isConnected) {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.handleFirstConnectivityChange
+    );
+
+  }
+
+  componentWillUnmount() {
+    // Remove event listener
+    Linking.removeEventListener('url', this.handleOpenURL);
+
+
+  };
+
+  handleOpenURL = ({ url }) => {
+    // Extract stringified user string out of the URL
+    const [, user_string] = url.match(/socialUser=([^#]+)/);
+    this.setState({
+      // Decode the user string and parse it into JSON
+      socialUser: JSON.parse(decodeURI(user_string))
+    });
+    if (Platform.OS === 'ios') {
+      SafariView.dismiss();
+    }
+  };
+
+  openURL = (url) => {
+    // Use SafariView on iOS
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if(isConnected) {
+    if (Platform.OS === 'ios') {
+      SafariView.isAvailable()
+      .then(SafariView.show({
+        url: url,
+        fromBottom: true,
+      }))
+      .catch(error => {
+        console.log("Not Available");
+      });
+
+    }
+    // Or Linking.openURL on Android
+    else {
+      Linking.openURL(url);
+    }
+}
+else {
+  alert('Please check your internet connectivity and try again')
+}
+});
+
+  };
+
+
+   setFocus(event, heightUp){
+     InteractionManager.runAfterInteractions(() => {
+     this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
+    });
+   }
 
 
    Login=(email, password)=>{
-
-     if (!email) {
-         alert('Email Required')
-       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-         alert( 'Invalid email address');
-       }else if(!password){
-        alert('Password Required')
-      }else{
-        console.log(email,password,"else");
-        this.props.loginChecking({email,password});
-      }
+     NetInfo.isConnected.fetch().then(isConnected => {
+       if(isConnected) {
+         if (!email) {
+             alert('Please enter your Email ID')
+           } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+             alert( 'Invalid Email ID');
+           }else if(!password){
+            alert('Please enter your Password')
+          }else{
+            this.props.loginChecking({email,password});
+          }
+       }
+       else {
+         alert('Please check your internet connectivity and try again')
+       }
+    });
   }
+  loginWithFacebook = () => this.openURL('http://172.24.3.104:3000/auth/facebook');
+
+  // Handle Login with Google button tap
+  loginWithInstagram = () => this.openURL('http://172.24.3.104:3000/auth/instagram');
 
   render() {
+    const { socialUser } = this.state;
 
     const {loginUpdate,loginChecking,email,password,loading,auth,user}=this.props;
-console.log("loading",loading);
     return (
-      <View style={{flex:1}}>
+      <View style={{flex: 1}}>
 
-        <View style={{flex:1, flexDirection: 'column', backgroundColor:'white'}}>
+      <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
+
+      <View style={styles.fullContainer}>
+
+        <View style={styles.mainContainer}>
          <StatusBar hidden={true} />
 
            <View style={styles.container}>
 
           <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
          </View>
-            <View style={{flex:0.6,width:width/1.55, alignSelf:'center'}}>
+            <View style={styles.componentContainer}>
+          <View style={styles.componentInnerContainer}>
 
-            <KeyboardAvoidingView  behavior="padding" style={{flex:1,backgroundColor:'#FFFFFF',alignItems:'center',justifyContent:'center'}}>
-
-          <View style={{flex:0.6,flexDirection:'column', alignItems:'center'}}>
-
-            <View style={{ flex:0.1 }}>
+            <View style={styles.smallFlex}>
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
-                  placeholder="Username"
+                  placeholder="Email or Mobile No."
+                  maxLength={64}
                   secureTextEntry={false}
                   keyboardType="default"
+                  onFocus={(event) => {
+                    this.setFocus(event, (height-80));
+                    }}
+                    onBlur={(event) => {
+                      this.setFocus(event, height);
+                      }}
                   placeholderTextColor="#333333"
                   onChangeText={(text)=>loginUpdate({prop:'email',value:text})}
                 />
             </View>
 
-              <View style={{flex:0.1, paddingTop: 7}}>
+              <View style={styles.spaceTextInput}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
                     secureTextEntry={true}
+                    maxLength={10}
                     keyboardType="default"
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-50));
+                      }}
+                      onBlur={(event) => {
+                        this.setFocus(event, height);
+                        }}
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>loginUpdate({prop:'password',value:text})}
                   />
               </View>
 
-              <View style={{alignSelf: 'flex-end', flex:0.1, paddingRight: 10}}>
+              <View style={styles.forgotContainer}>
                 <Text style={styles.forgot} onPress={()=>Actions.ForgotPassword()}>Forgot Password?</Text>
               </View>
                       {loading?
                           <ProgressBar/>
                         : null}
 
-            <View style={{flex:0.1, alignSelf: 'stretch'}}>
+            <View style={styles.btnContainer}>
               <Button
-                buttonStyle={{
-                  ...Platform.select({
-                    ios: {
-                      height: 30,
-                    },
-                    android: {
-                      height: 35,
-                       elevation: 3,
-                    },
-                  }),
-                    backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 0.2, shadowOffset:{
-                    width: 1,
-                    height: 1,
-                },}}
+                buttonStyle={styles.btnStyle}
                 onPress={()=>this.Login(email, password)}
-                textStyle={{textAlign: 'center', ...Platform.select({
-                  ios: {
-                    fontFamily: 'GothamRounded-Book',
-                  },
-                  android: {
-                    fontFamily: 'gotham_rounded_book',
-                  },
-                }),
-              }}
+                textStyle={styles.btnTextStyle}
                 title={`Login`}
               />
             </View>
 
-            <View style={{ flex:0.1, alignSelf: 'center' }}>
+            <View style={styles.orContainer}>
               <Text style={styles.or}>or</Text>
             </View>
 
 
-            <View style={{flex:0.2,marginTop:5, alignSelf:'center', flexDirection: 'row'}}>
-                 <View style={{ flex:0.2, alignItems: 'flex-end', marginRight: 1}}>
-                 <TouchableHighlight onPress={this._onPressButton}>
+            <View style={styles.socialContainer}>
+                 <View style={styles.facebookContainer}>
+                 <TouchableHighlight underlayColor={'transparent'} onPress={this.loginWithFacebook}>
                      <Image
                        source={require('./Images/Facebook/facebook.png')}
                      />
                    </TouchableHighlight>
                    </View>
-                   <View style={{flex:0.2,alignItems: 'flex-start', marginLeft: 1}}>
-                <TouchableHighlight onPress={this._onPressButton}>
+                   <View style={styles.instaContainer}>
+                <TouchableHighlight underlayColor={'transparent'} onPress={this.loginWithInstagram}>
                        <Image
                          source={require('./Images/Instagram/instagram.png')}
                        />
@@ -238,29 +250,21 @@ console.log("loading",loading);
                  </View>
 
 
-                 <View style={{flex: 0.3,flexDirection: 'row', alignItems: 'center',
-                    justifyContent: 'center'}}>
-                      <View style={{flex: 1, justifyContent: 'flex-end'}}>
-                      <Text style={styles.newuser}>New User?</Text>
+                 <View style={styles.newuserContainer}>
+                      <View style={{flex: 0.5,}}>
+                      <Text style={styles.newuser}>New User? </Text>
                       </View>
-                      <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 5}}>
+                      <View style={{flex: 0.5}}>
                       <Text style={styles.registeruser} onPress={()=>Actions.Signup()}>Register Now</Text>
                       </View>
                     </View>
-
           </View>
-
-         </KeyboardAvoidingView>
-
-
         </View>
-
-
-            </View>
-
+      </View>
 
 </View>
-
+</ScrollView>
+</View>
     );
   }
 }

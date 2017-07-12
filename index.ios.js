@@ -12,7 +12,9 @@ import {
   View
 } from 'react-native';
 import App from './src/App'
-//import  App from './Test'
+import Login from './src/screens/Login'
+import Test from './Test'
+import ModalTest from './ModalTest'
 
 
 AppRegistry.registerComponent('Baby', () =>   App);
