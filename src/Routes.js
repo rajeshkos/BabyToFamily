@@ -71,15 +71,15 @@ const Routes = StackNavigator({
   Auth: {
     screen: Auth,
     navigationOptions: {
-      header: null,               // Hide the header
-      headerBackTitle: 'Back',    // Title back button Back when we navigate to Profile from Settings
+      header: null,              
+      headerBackTitle: 'Back',
     },
   },
   Home:{
     screen:DrawerPage,
     navigationOptions: {
-      header: null,             // Hide the header
-      // Title back button Back when we navigate to Profile from Settings
+      header: null,
+
     },
   }
 
