@@ -68,7 +68,7 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
            if(nextProps.auth){
               navigate('Home');
            }
-        
+
       }
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
