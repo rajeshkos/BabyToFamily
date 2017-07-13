@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import {
+  StyleSheet,
   Text,
   View,
   StatusBar,
@@ -14,235 +15,386 @@ import {
   TouchableHighlight,
   ScrollView,
   Platform,
-  KeyboardAvoidingView,
-  NativeModules
+  NativeModules,
+  PixelRatio
 } from 'react-native';
 import { Button } from 'react-native-elements';
-//import ImagePicker from 'react-native-image-crop-picker';
-//const ImagePicker = NativeModules.ImageCropPicker;
-//import PlaceAutoComplete from 'app/components/PlaceAutoComplete'
-import InputWithIcon from 'app/components/InputWithIcon';
-import DatePicker from 'react-native-datepicker'
-//import Loading from '../../components/Loading'
-//import Modal from 'react-native-modalbox';
+import InputWithIcon  from 'app/components/InputWithIcon'
+import Loading from 'app/components/Loading'
 import styles from './style';
-//import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-
+import Icon from 'react-native-vector-icons/Ionicons';
+import DatePicker from 'react-native-datepicker'
+import {connect} from 'react-redux';
+const {width,height}=Dimensions.get('window');
+import Modal from 'react-native-modalbox';
+const ImagePicker = NativeModules.ImageCropPicker;
+var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+import {AddBabyUpdate} from  './AddBabyActions'
+import moment from 'moment'
+import {validation} from './validation';
+import Api from 'app/lib/api'
+import MCIcon from 'react-native-vector-icons/Ionicons';
+//md-close-circle
+var locationName;
  class AddBaby extends Component {
    constructor() {
      super();
      this.state = {
        image: null,
-       isDisabled: false
+       isDisabled: false,
+       isOpen: false,
+       isDisabled: false,
+       swipeToClose: true,
+       sliderValue: 0.3,
+
+       genderState:'boy'
      };
    }
-signUp=(props)=>{
-//  console.log(name,email,mobile,password,cpassword);
-const { name, email, mobile, password, cpassword }=props;
-          if (!email) {
-              alert('Please enter your Email ID')
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-              alert( 'Invalid Email ID');
-            }else if(!name){
-             alert('Please enter your Name');
-           }else if (!mobile) {
-              alert(' Please enter your Mobile Number')
-           }else if(isNaN(Number(mobile))){
-             alert('Mobile must be number')
-           }else if(!password){
-             alert('Please enter your Password')
-
-           }else if(!cpassword){
-
-             alert('Please enter your Confirm Password')
-
-           }else if(password!==cpassword){
-             alert('Both Password must be same')
-           }else{
-
-            this.props.SignupChecking({name,email,mobile,password});
-           }
+  //  onClose() {
+  //    console.log('Modal just closed');
+  //  }
+   //
+  //  onOpen() {
+  //    console.log('Modal just openned');
+  //  }
+   //
+  //  onClosingState(state) {
+  //    console.log('the open/close of the swipeToClose just changed');
+  //  }
+componentDidMount(){
+  let body = new FormData();
+      console.log("bodydata",body);
+      body.append('photo', {uri: 'imagePath',name: 'photo.png',filename :'imageName.png',type: 'image/png'});
+      body.append('Content-Type', 'image/png');
+    //  console.log("body",Api.makeUpload);
 
 
 }
 
+   setFocus(event, heightUp){
+     this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
+   }
+   setunFocus(event, heightdown){
+       this.refs.scrollView.scrollTo({y: 0, animated: true});
+
+   }
+
+submit=()=>{
+    const {AddBabyUpdate,Addbaby}=this.props;
+    AddBabyUpdate({prop:'gender',value:this.state.genderState})
+      const error=validation(Addbaby);
+     alert(error)
+  //   if(error==='Successfully Registerd'){
+      // let o1 = { email:'iamshimil@gmail.com' };
+      // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
+      // let obj = Object.assign(o1, o2);
+
+      // console.log("obj",obj);
+      //alert('Successfully Registerd')
+
+     //}
+
+
+
+
+
+}
 
 renderAsset=(image)=> {
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={{width:200,height:200,borderRadius:50}}  source={image} />
+    <Image  resizeMode="stretch" style={styles.selected}  source={image} />
     </View>
   )
 }
 pickSingleFromGallery=(cropping)=> {
-   console.log(cropping);
+  const {AddBabyUpdate}=this.props;
+  this.refs.modal.close();
+  ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: cropping,
+      includeBase64: true
+    }).then(image => {
+      console.log('received base64 image',image);
+      this.setState({
+        image: {uri: image.path, width:image.width, height: image.height},
+
+      });
+      AddBabyUpdate({prop:'image',value:true})
+    }).catch(e => alert(e));
   }
   pickSingleWithCamera(cropping) {
-   console.log(cropping);
+    this.refs.modal.close();
+    ImagePicker.openCamera({
+      cropping: cropping,
+      width: 500,
+      height: 500,
+    }).then(image => {
+      console.log('received image', image);
+      this.setState({
+        image: {uri: image.path, width: image.width, height: image.height},
+
+      });
+    }).catch(e => alert(e));
   }
-
   render() {
+    const {width,height}=Dimensions.get('window');
 
-  //  const {email,password,name,mobile,SignupUpdate,SignupChecking,cpassword,data,loading}=this.props;
-//console.log("data------>",data);
+    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate}=this.props;
+    const {genderState}=this.state;
+ //console.log("imagesxxx",this.state.image);
     return (
-<View style={{flex:1, flexDirection: 'column', alignItems: 'stretch'}}>
-  <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center',alignItems: 'stretch'}}>
-    <StatusBar hidden={true} />
-    <View style={{backgroundColor:'green',flexDirection:'row', justifyContent: 'center',alignItems: 'stretch'}}/>
-      <View style={styles.topBar}><Text>Top bar</Text></View>
-      <View style={styles.componentContainer}>
+      <View style={styles.mainContainerTop}>
+        <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
+        <StatusBar hidden={true} />
+          <Modal style={[styles.modal, styles.modal3]} animationInTiming={2000} position={"center"} ref={"modal3"} isOpen={this.state.isOpen} onClosed={() => this.setState({isOpen: false})} isDisabled={this.state.isDisabled}>
+        <View style={styles.mainContainerOne}>
+
+        <View style={styles.topBar}>
+        <View style={{position:'absolute',bottom:10}}>
+        <Text style={styles.modalHeading}>Search Location </Text>
+        </View>
+         <TouchableHighlight
+         underlayColor='transparent'
+         style={{position:'absolute',right:2,top:5,width:50,height:50,alignItems:'center',justifyContent:'center'}}
+          onPress={()=>this.setState({isOpen:false})}>
+                 <MCIcon name="md-close-circle" size={25} color="#ffff" />
+         </TouchableHighlight>
+        </View>
+        <GooglePlacesAutocomplete
+           placeholder='Search'
+           minLength={2}
+           autoFocus={true}
+           returnKeyType={'search'}
+           listViewDisplayed='auto'
+           fetchDetails={true}
+           renderDescription={(row) => row.description}
+           onPress={(data, details = null) => {
+             this.setState({isOpen: false});
+             AddBabyUpdate({prop:'location',value:details["formatted_address"]})
+           }}
+           getDefaultValue={() => {
+             return '';
+           }}
+           query={{
+
+             key: 'AIzaSyA5m8U4SYKBhV4IldQs409Jv28L3avWYtM',
+             language: 'en',
+             types: '(cities)',
+           }}
+            styles={{
+                  description: {
+                    fontWeight: 'bold',
+                  },
+                  predefinedPlacesDescription: {
+                    color: '#1faadb',
+                  },
+                  textInputContainer: {
+                    marginTop: 5,
+                    width: 300,
+                  },
+                  listView: {
+                    flex: 1,
+                  },
+                  textInput: {
+                    fontFamily: 'GothamRounded-Book',
+                  }
+                }}
+               currentLocation={false}
+               currentLocationLabel="Current location"
+               nearbyPlacesAPI='GooglePlacesSearch'
+               GoogleReverseGeocodingQuery={{
+
+               }}
+               GooglePlacesSearchQuery={{
+                 rankby: 'distance',
+                 types: 'food',
+               }}
+               debounce={200}
+
+             />
+             </View>
+        </Modal>
+        <View style={styles.topBar}><Text style={styles.navBar}>Add Baby</Text></View>
+        <View style={styles.componentContainer}>
           <View style={styles.centerImage}>
             <View style={styles.box}>
-              <TouchableHighlight  style={styles.imageWrap} onPress={() =>console.log("ggg")}>
-                <View style={styles.imageWrap}>
-                  {this.state.image ?
-                  null :
-                  <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/addbaby/baby-avtar.png')} />}
-                </View>
-              </TouchableHighlight>
-              <Text style={[styles.babyTitle,{ paddingTop:10,paddingBottom:15}]}>Baby Avtar</Text>
-            </View>
-          </View>
-            <View style={{flex:1}}>
+              <TouchableHighlight style={styles.imageWrap} onPress={() => this.refs.modal.open()}>
+              <View style={styles.imageWrap}>
+              {this.state.image ?
+                this.renderAsset(this.state.image) :
+                <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/addbaby/baby-avtar.png')} />}
 
-           </View>
-          <KeyboardAvoidingView style={{flex:2,  backgroundColor: 'white', flexDirection: 'row'}} behavior='padding'>
+               </View>
+              </TouchableHighlight>
+
+
+            </View>
+
+          </View>
           <View style={styles.componentSubContainer}>
             <View style={styles.halfFlex}>
               <InputWithIcon
                 iconName= {require('./Images/addbaby/baby1.png')}
-                value={'name'}
+                value={name}
                 placeholder="Baby's Name"
                 secureTextEntry={false}
                 keyboardType="default"
                 placeholderTextColor="#333333"
-                onChangeText={(text)=>console.log(text)}
+                onChangeText={(text)=>AddBabyUpdate({prop:'name',value:text})}
                />
             </View>
             <View style={styles.boxWrap}>
-              <View style={styles.halfBox}>
-                <InputWithIcon
-                iconName= {require('./Images/addbaby/boy.png')}
-                value={'Boy'}
-                placeholder="Boy"
-                secureTextEntry={false}
-                keyboardType="default"
-                placeholderTextColor="#333333"
-                onChangeText={(text)=>console.log(text)}
-               />
-              </View>
-              <View style={styles.halfBox2}>
-                <InputWithIcon
+              <TouchableHighlight style={styles.halfBox} onPress={()=>this.setState({genderState:'boy'})} underlayColor='transparent'>
+                <View style={{flex:1,flexDirection:'row'}}>
 
-                iconName= {require('./Images/addbaby/girl.png')}
-                value={"Girl"}
-                placeholder="Girl"
-                secureTextEntry={false}
-                keyboardType="default"
-                placeholderTextColor="#333333"
-                onChangeText={(text)=>console.log(text,"hii")}
-               />
-              </View>
+                    <Image source={genderState=='boy'?require('./Images/addbaby/boy1.png'):require('./Images/addbaby/boy.png')} style={styles.smallavatr}/>
+                    <Text style={genderState=='boy'?styles.genderactive:styles.genderdefault}>Boy</Text>
+
+
+                  </View>
+              </TouchableHighlight>
+              <TouchableHighlight style={styles.halfBox} onPress={()=>this.setState({genderState:'girl'})} underlayColor='transparent'>
+              <View style={{flex:1,flexDirection:'row'}}>
+                <Image source={genderState=='girl'?require('./Images/addbaby/girl1.png'):require('./Images/addbaby/girl.png')} style={styles.smallavatr}/>
+                <Text style={genderState=='girl'?styles.genderactive:styles.genderdefault}>Girl</Text>
+                </View>
+              </TouchableHighlight>
             </View>
             <View style={styles.boxWrap}>
               <View style={styles.dateWrap}>
-                <DatePicker
-                  style={{width: '100%', }}
-                  date={this.state.date}
-                  mode="date"
-                  placeholder="DOB"
-                  format="YYYY-MM-DD"
-                  minDate="2016-05-01"
-                  maxDate="2016-06-01"
-                  confirmBtnText="Confirm"
-                  cancelBtnText="Cancel"
-                  iconSource ={require('./Images/addbaby/dob.png')}
+              <DatePicker
+                style={{width: '100%', }}
+                date={date}
+                mode="date"
+                placeholder="DOB"
+                format="YYYY-MM-DD"
+                minDate="1980-05-01"
+                maxDate="2050-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                iconSource ={require('./Images/addbaby/dob.png')}
 
-                  customStyles={{
-                    dateIcon: {
-                      position: 'absolute',
-                      left: 0,
-                      bottom: 7,
-                      marginLeft: 0,
-                      height: 19,
-                      width: 16
-                    },
-                    btnTextCancel:{
-                      color:'blue'
-                     },
-                     btnTextConfirm:{
-                        color:'green'
-
-                     },
-                    dateInput: {
-                      marginLeft: 36,
-                      borderWidth: 0,
-                      height: 24,
-                      width: 200,
-                      flex:1,
-                      alignItems:'flex-start'
-
-                    },
-                    dateText:{
-
-                     color:'red'
-                    },
-
-                    placeholderText: {
-                      fontSize:17,
-                      width: 200,
-                      color:'black',
-                    }
-
-                  }}
-                  onDateChange={(date) => {this.setState({date: date})}}
-                />
-              </View>
-            </View>
-
-            <View style={styles.halfFlex}>
-                <InputWithIcon
-
-                iconName= {require('./Images/addbaby/relation.png')}
-                value={'name'}
-                placeholder="Relation"
-                secureTextEntry={false}
-                keyboardType="default"
-                placeholderTextColor="#333333"
-                onChangeText={(text)=>console.log("test")}
-               />
-            </View>
-
-            <View style={{flex:1, alignSelf: 'stretch'}}>
-              <Button
-                buttonStyle={styles.btnStyle}
-                textStyle={{textAlign: 'center', ...Platform.select({
-                  ios: {
-
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    bottom: 10,
+                    marginLeft: 0,
+                    height: 19,
+                    width: 16
                   },
-                  android: {
-
+                  btnTextCancel:{
+                    color:'blue'
+                   },
+                   btnTextConfirm:{
+                      color:'green'
+                   },
+                  dateInput: {
+                    marginLeft: 24,
+                    borderWidth: 0,
+                    height: 24,
+                    flex:1,
+                    alignItems:'flex-start'
                   },
-                }),
-              }}
-                title={`Add Baby`}
-                onPress={()=>console.log('hiii')}
+                  dateText:styles.dateinput,
+                  placeholderText: {
+                    fontSize:17,
+                    width: 200,
+                    color:'black',
+                  }
+                }}
+                onDateChange={(date) =>AddBabyUpdate({prop:'date',value:date})}
               />
             </View>
+            </View>
+            <View style={styles.boxWrap}>
+                 <InputWithIcon
+                        iconName= {require('./Images/addbaby/location.png')}
+                        value={location}
+                        placeholder="Location"
+                        secureTextEntry={false}
+                        keyboardType="default"
+                        placeholderTextColor="#333333"
+                        onFocus={(event) => {
+                          this.setState({isOpen: true});
+                          }}
+
+               />
+             </View>
+            <View style={styles.boxWrap}>
+                <InputWithIcon
+                    iconName= {require('./Images/addbaby/relation.png')}
+                    value={relation}
+                    placeholder="Relation"
+                    secureTextEntry={false}
+                    keyboardType="default"
+                    placeholderTextColor="#333333"
+                    onChangeText={(text)=>AddBabyUpdate({prop:'relation',value:text})}
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-250));
+                      }}
+                      onBlur={(event)=>this.setunFocus(event, (height-250))}
+               />
+            </View>
+            {loading?
+              <Loading/>
+              :null
+            }
+            <View style={{flex:1, alignSelf: 'stretch'}}>
+
+            <Button
+              buttonStyle={styles.btnStyle}
+              textStyle={{textAlign: 'center', ...Platform.select({
+                ios: {
+                  fontFamily: 'GothamRounded-Bold',
+                },
+                android: {
+                  fontFamily: 'gotham_rounded_bold',
+                },
+              }),
+            }}
+              title={`Add Baby`}
+              onPress={()=>this.submit()}
+            />
 
             </View>
-             </KeyboardAvoidingView>
-            </View>
 
-
-</ScrollView>
-
-</View>
-
+          </View>
+        </View>
+        <Modal style={styles.modal } position={"center"} ref={"modal"} isDisabled={this.state.isDisabled}>
+ <View style={{margin:10,padding:5}}>
+  <TouchableHighlight style={styles.modalCard} onPress={() => this.pickSingleWithCamera(true)} underlayColor="transparent">
+   <Text style={styles.modalFont}>Take Photo…</Text>
+  </TouchableHighlight>
+  <TouchableHighlight style={styles.modalCard}  onPress={() => this.pickSingleFromGallery(true)} underlayColor="transparent">
+   <Text style={styles.modalFont}>Choose from Library…</Text>
+  </TouchableHighlight>
+  <TouchableHighlight style={styles.modalCard} onPress={() => this.refs.modal.close()} underlayColor="transparent">
+   <Text style={styles.modalFont}>Cancel</Text>
+  </TouchableHighlight>
+  </View>
+</Modal>
+        </ScrollView>
+      </View>
     );
   }
 }
+const mapStateToProps=({Addbaby})=>{
+  const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
+  return{
+       name,
+       gender,
+       date,
+       location,
+       relation,
+       loading,
+       sucecsss,
+       Addbaby
 
+  }
 
-export default AddBaby;
+}
+
+export default connect(mapStateToProps,{AddBabyUpdate}) (AddBaby);
