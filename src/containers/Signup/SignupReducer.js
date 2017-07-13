@@ -10,7 +10,7 @@ export default (state=INITIAL_STATE,action)=>{
    case SIGNUP_SUCCESSFULL:
     return {...INITIAL_STATE,loading:false,sucecsss:true,data:action.payload,mobile:state.mobile}
     case EMAIL_ALREDAY:
-     return { ...state,email:'',password:'',cpassword:''}
+     return { ...state,email:'',password:'',cpassword:'',mobile:''}
     case MOBILE_ALREDAY:
        return { ...state,mobile:'',password:'',cpassword:''}
     case PASSWORD_DONOTMATCH:

@@ -43,7 +43,7 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password})
               }
 
           }else{
-             if(responseJson.token){
+             if(responseJson.status===200){
                  dispatch({type: SIGNUP_SUCCESSFULL,payload:responseJson});
                  alert('Success! OTP send you mobile number');
                  navigation.navigate('OtpScreen');

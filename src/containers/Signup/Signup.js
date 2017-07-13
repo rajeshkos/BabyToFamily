@@ -141,7 +141,9 @@ signUp=(props)=>{
 const {name,email,mobile,password,cpassword,navigation}=props;
 
   // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
-         if(!name){
+        if(!this.state.Mobilenumber){
+          alert('Please enter your Mobile Number')
+        }else if(!name){
          alert('Please enter your Name');}
           else if (!email) {
               alert('Please enter your Email ID')
@@ -151,7 +153,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
               alert('Select Country Code')
 
            } else if (!mobile) {
-              alert(' Please enter your Mobile Number')
+              alert('Please enter your Mobile Number')
            }else if(isNaN(Number(mobile))){
              alert('Mobile must be number')
            }else if(!password){
@@ -254,7 +256,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     placeholder="Mobile No."
                     keyboardType="numeric"
                     placeholderTextColor="#333333"
-                    callingCode={this.state.callingCode}                  
+                    callingCode={this.state.callingCode}
                      onChangeText={(text)=>this.setPhoneNumber(text)}
                      onSubmitEditing={(event)=>alert(event)}
                   />
