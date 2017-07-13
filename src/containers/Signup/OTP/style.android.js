@@ -13,8 +13,9 @@ import {
 
 var styles = StyleSheet.create({
   container: {
-    flex:0.2,
+    flex:0.3,
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
   },
   canvas: {
     position: 'absolute',
@@ -34,13 +35,14 @@ var styles = StyleSheet.create({
     justifyContent:'center',
   },
   headingMain: {
+    backgroundColor: '#FFFFFf',
     flexDirection: 'column',
-    flex: 0.3,
+    flex: 0.5,
     width:width,
     alignSelf:'center',
   },
   subHeadingMain: {
-    flex: 0.4,
+    flex: 0.5 ,
     alignSelf: 'center',
   },
   headingText: {
@@ -94,7 +96,7 @@ var styles = StyleSheet.create({
 
   },
   btnStyle: {
-    height: 30,
+    height: 35,
     backgroundColor: '#FF57A5',
     borderRadius: 5,
     shadowOpacity: 1.0,

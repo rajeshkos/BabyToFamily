@@ -13,36 +13,44 @@ import {
 
 var styles = StyleSheet.create({
   smallFlex: {
-    flex:0.1,
+    flex:0.8,
   },
   spaceTextInput: {
-    flex:0.1,
-    paddingTop: 7,
+    flex:0.8,
   },
   forgotContainer: {
     alignSelf: 'flex-end',
-    flex:0.1,
+    flex:0.5,
     paddingRight: 10,
   },
   btnStyle: {
     height: 35,
     elevation: 3,
-    backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 0.2, shadowOffset:{
+    backgroundColor: '#FF57A5', borderRadius: 5,  shadowOpacity: 0.2, shadowOffset:{
     width: 1,
     height: 1,
     },
   },
   btnContainer: {
-    flex:0.1,
+    flex:0.5,
     alignSelf: 'stretch',
   },
   orContainer: {
-    flex:0.1,
+    paddingTop: 10,
+    flex: 0.5,
     alignSelf: 'center',
   },
+
+  or: {
+    backgroundColor: "transparent",
+    alignSelf: "center",
+    color: '#8F8F8F',
+    opacity: 1,
+    fontSize: 18,
+    fontFamily: 'gotham_rounded_book',
+  },
   socialContainer: {
-    flex:0.2,
-    marginTop:5,
+    flex:1,
     alignSelf:'center',
     flexDirection: 'row',
   },
@@ -57,10 +65,11 @@ var styles = StyleSheet.create({
     marginLeft: 1,
   },
   newuserContainer: {
-    flex: 0.3,
+    paddingTop: 10,
+    marginRight: 10,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   btnTextStyle: {
     fontFamily: 'gotham_rounded_bold',
@@ -68,11 +77,11 @@ var styles = StyleSheet.create({
   },
   componentContainer: {
     flex:0.6,
-    width:width/1.55,
+    width:width/1.4,
     alignSelf:'center',
   },
   componentInnerContainer: {
-    flex:0.6,
+    flex:1,
     flexDirection:'column',
     alignItems:'center',
   },
@@ -104,20 +113,13 @@ var styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'gotham_rounded_book',
   },
-  or: {
-    padding: 15,
-    backgroundColor: "transparent",
-    alignSelf: "center",
-    color: '#8F8F8F',
-    opacity: 1,
-    fontSize: 18,
-    fontFamily: 'gotham_rounded_book',
-  },
+
   newuser: {
     backgroundColor: "transparent",
     alignSelf: "flex-end",
     color: '#969696',
     opacity: 1,
+    flex: 1,
     fontSize: 18,
     fontFamily: 'gotham_rounded_book',
   },
@@ -128,6 +130,7 @@ var styles = StyleSheet.create({
     textDecorationStyle: "solid",
     color: '#B5BBEF',
     opacity: 1,
+    flex: 1,
     fontSize: 18,
     fontFamily: 'gotham_rounded_book',
   },

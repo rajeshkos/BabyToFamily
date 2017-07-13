@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 const InputWithIcon =(props)=>{
-const {onPress,buttonText,editable=true,iconName, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode}=props;
+const {onPress,buttonText,editable=true,iconName, placeholder, maxLength, placeholderTextColor, keyboardType, secureTextEntry}=props;
 const  underlayColor='black';
 const containerStyle=[styles.container];
 if(editable===false){
@@ -15,37 +15,27 @@ return(
 
   <View style={containerStyle}>
     <View style={styles.mainContainer}>
-    <View>
+  <View >
       <TouchableHighlight underlayColor={ underlayColor} style={styles.buttonContainer} onPress={onPress}>
        <Image resizeMode="contain" style={styles.image} source={iconName} />
       </TouchableHighlight>
     </View>
     <View>
-      {!callingCode?
-      <TextInput placeholder={placeholder} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
-      :
-
-      <View style={{width:60,height:18,marginLeft:25,flexDirection:'row'}}>
-      <Text style={{marginBottom:0,fontSize:17,color:'black'}}>{callingCode}</Text>
-      <TextInput placeholder={callingCode?placeholder:''} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={{fontSize:17,width:150,color:'black',paddingLeft:8}} underlineColorAndroid='transparent' {...props}/>
-      </View>
-
-    }
-
+      <TextInput placeholder={placeholder} maxLength={maxLength} secureTextEntry={secureTextEntry}  keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
     </View>
       </View>
   </View>
 )
 InputWithIcon.propTypes={
-  onPress:PropTypes.func,
-  buttonText:PropTypes.string,
-  placeholder: PropTypes.string,
-  keyboardType: PropTypes.string,
-  secureTextEntry: PropTypes.bool,
-  placeholderTextColor: PropTypes.string,
-  editable:PropTypes.bool
-}
-
+    onPress:PropTypes.func,
+    buttonText:PropTypes.string,
+    placeholder: PropTypes.string,
+    maxLength: PropTypes.number,
+    keyboardType: PropTypes.string,
+    secureTextEntry: PropTypes.bool,
+    placeholderTextColor: PropTypes.string,
+    editable:PropTypes.bool
+  }
 };
 
 export default InputWithIcon;

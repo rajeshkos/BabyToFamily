@@ -16,20 +16,19 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   containerPhone: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      height:50,
-      justifyContent:'center',
-      marginBottom:50
-
-    },
-    flagContainer:{
-      flex: 1,
-      height:40,
-      marginHorizontal:width/2-100,
-      justifyContent:'center',
-      paddingHorizontal:50
-    },
+    alignItems: 'center',
+    flexDirection: 'row',
+    height:50,
+    justifyContent:'center',
+    marginTop: 10,
+  },
+  flagContainer:{
+    flex: 1,
+    height:40,
+    marginHorizontal:width/2-100,
+    justifyContent:'center',
+    paddingHorizontal:55
+  },
   componentContainer: {
     flex: 0.7,
     width: width/1.4,

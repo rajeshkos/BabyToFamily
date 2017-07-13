@@ -17,25 +17,28 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   containerPhone: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height:50,
-    justifyContent:'center',
-    marginBottom:50
+   alignItems: 'center',
+   flexDirection: 'row',
+   alignSelf: 'center',
+   height:50,
+   justifyContent:'center',
+   marginTop: 10,
 },
 flagContainer:{
-  flex: 1,
-  height:40,
-  marginHorizontal:width/2-100,
-  justifyContent:'center',
-
-  paddingHorizontal:50
+   alignItems: 'center',
+   alignSelf: 'center',
+ flex: 0.5,
+ height:40,
+ marginHorizontal:width/2-100,
+ justifyContent:'center',
+ paddingHorizontal:55
 },
   componentContainer: {
-    flex: 0.7,
-    width: width/1.4,
+    flex: 1,
+    width: width/1.35,
     alignSelf: 'center',
   },
+
   keyboardStyle: {
     flex: 1,
     backgroundColor: '#FFFFFF',
@@ -113,7 +116,6 @@ flagContainer:{
     alignSelf: "center",
     color: '#8F8F8F',
     opacity: 1,
-    marginTop: 2,
     fontFamily: 'GothamRounded-Book',
   },
   newuser: {
