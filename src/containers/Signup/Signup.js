@@ -127,10 +127,10 @@ openURL = (url) => {
 }
 setPhoneNumber=(text)=>{
   const {callingCode}=this.state;
-  if(!callingCode){
-   alert('Select Country Code')
- }
- this.setState({Mobilenumber:text});
+      if(!callingCode){
+       alert('Select Country Code')
+     }
+     this.setState({Mobilenumber:text});
 
 }
 
@@ -258,8 +258,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     keyboardType="numeric"
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
-                     onChangeText={(text)=>this.setPhoneNumber(text)}
-                     onSubmitEditing={(event)=>alert(event)}
+                    onChangeText={(text)=>this.setPhoneNumber(text)}
                   />
               </View>
 
