@@ -5,13 +5,15 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
 import DrawerItem from './DrawerItem'
 import {connect} from 'react-redux';
 import {logout} from 'app/containers/Login/LoginAction';
+
  class Drawer extends Component {
 
   render() {
@@ -21,7 +23,9 @@ import {logout} from 'app/containers/Login/LoginAction';
     <View style={styles.avatarContainer}>
       <View style={{ flex: 1 }}>
         <View style={styles.imageContainer}>
-           <View style={styles.image} />
+          <View style={styles.imageWrap}>
+            {/*<Image style={styles.image} source={require('./Images/Logo/logo.png')/>*/}
+          </View>
 
         </View>
         <View style={styles.nameContainer}>
@@ -42,8 +46,8 @@ import {logout} from 'app/containers/Login/LoginAction';
         />
         <DrawerItem
           label="Family Member"
-          icon="user-plus"
-          iconfamily="FontAwesome"
+          icon="people"
+          iconfamily="MaterialIcons"
           {...this.props}
         />
 
@@ -67,6 +71,8 @@ import {logout} from 'app/containers/Login/LoginAction';
         />
         <DrawerItem
          label="Logout"
+         icon="power-off"
+         iconfamily="FontAwesome"
          {...this.props}
          onPress={()=>this.props.logout()}
         />
@@ -94,17 +100,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
     paddingLeft: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   header: {
     fontSize: 20,
     marginVertical: 20,
   },
-  image: {
+  imageWrap: {
     width: 70,
     height: 70,
     borderRadius: 50,
-    backgroundColor: 'blue'
+    backgroundColor: 'red'
   },
   nameContainer: {
     flex: 1,
