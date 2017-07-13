@@ -24,7 +24,7 @@ import Gallery from 'app/containers/Gallery';
 import Dashboard from 'app/containers/Dashboard';
 import Nesting from 'app/containers/Nesting';
 import Profile from 'app/containers/Profile';
-
+import AddBaby from 'app/containers/AddBaby'
 import ForgotPassword from 'app/containers/ForgotPassword'
 import Otp from 'app/containers/Signup/OTP'
 
@@ -71,15 +71,15 @@ const Routes = StackNavigator({
   Auth: {
     screen: Auth,
     navigationOptions: {
-      header: null,               // Hide the header
-      headerBackTitle: 'Back',    // Title back button Back when we navigate to Profile from Settings
+      header: null,              
+      headerBackTitle: 'Back',
     },
   },
   Home:{
     screen:DrawerPage,
     navigationOptions: {
-      header: null,             // Hide the header
-      // Title back button Back when we navigate to Profile from Settings
+      header: null,
+
     },
   }
 

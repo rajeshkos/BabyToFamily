@@ -6,7 +6,7 @@ import Api from 'app/lib/api'
 import URL from 'app/lib/url'
 
 export const forgotUpdate=({prop,value})=>{
-  console.log("loo");
+//  console.log("loo");
 return {
         type:FORGOT_UPDATE,
         payload:{prop,value}
@@ -20,12 +20,17 @@ export const forgotPassword=({email})=>(dispatch)=>{
 Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
  .then((response) => response.json())
  .then((responseJson) =>{
-   console.log(responseJson,"forgot");
-   
+
+  if(responseJson.status===200){
     dispatch({type:FORGOT_SUCCESSFULL});
+    alert('Check your email and reset the password')
+  }else{
+     alert('Email doesnot exist');
+    dispatch({type:FORGOT_FAIL});
+  }
 })
 .catch((error) => {
-
+    
     dispatch({type:FORGOT_FAIL});
   });
 
