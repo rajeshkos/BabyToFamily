@@ -13,13 +13,14 @@ import {
 
 var styles = StyleSheet.create({
   smallFlex: {
-    flex:0.1,
+    flex:0.9,
   },
   spaceTextInput: {
-    flex:0.1,
-    paddingTop: 7,
+    flex:0.9,
   },
   forgotContainer: {
+    padding: 5,
+    justifyContent: 'flex-start',
     alignSelf: 'flex-end',
     flex:0.1,
     paddingRight: 10,
@@ -32,15 +33,17 @@ var styles = StyleSheet.create({
     },
   },
   btnContainer: {
-    flex:0.1,
+    flex:1,
     alignSelf: 'stretch',
+    justifyContent: 'flex-end',
   },
   orContainer: {
-    flex:0.1,
+    flex:1,
     alignSelf: 'center',
+    justifyContent: 'center',
   },
   socialContainer: {
-    flex:0.2,
+    flex:1,
     marginTop:5,
     alignSelf:'center',
     flexDirection: 'row',
@@ -56,7 +59,7 @@ var styles = StyleSheet.create({
   },
   componentContainer: {
     flex:0.6,
-    width:width/1.55,
+    width:width/1.4,
     alignSelf:'center',
   },
   instaContainer: {
@@ -65,13 +68,13 @@ var styles = StyleSheet.create({
     marginLeft: 1,
   },
   newuserContainer: {
-    flex: 0.3,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   componentInnerContainer: {
-    flex:0.6,
+    flex:1,
     flexDirection:'column',
     alignItems:'center',
   },
@@ -103,7 +106,6 @@ var styles = StyleSheet.create({
     fontFamily: 'GothamRounded-Book',
   },
   or: {
-    padding: 15,
     backgroundColor: "transparent",
     alignSelf: "center",
     color: '#8F8F8F',

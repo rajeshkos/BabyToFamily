@@ -49,7 +49,7 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
            header: null
        }
 componentWillMount(){
-  this.setState({cca2: DeviceInfo.getDeviceCountry()});
+  this.setState({cca2: 'US'});
   //console.log(DeviceInfo.getDeviceCountry(),"hh");
 }
    componentDidMount() {
@@ -184,7 +184,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
         <StatusBar hidden={true} />
          <View style={styles.container}>
           <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} >
-           <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:50,height:50,alignItems:'center',justifyContent:'center'}}>
+           <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:40,height:40,alignItems:'center',justifyContent:'center'}}>
             <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
             <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
             </TouchableHighlight>
@@ -195,6 +195,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
 
                   <View style={styles.containerPhone }>
                     <View style={styles.flagContainer}>
+                    <View style={{padding: 10}}></View>
                         <PhoneInput
                             ref='phone'
                             onPressFlag={this.onPressFlag}

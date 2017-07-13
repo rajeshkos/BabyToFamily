@@ -13,7 +13,8 @@ import {
 
 var styles = StyleSheet.create({
   container: {
-    flex:0.3,
+    backgroundColor: '#FFFFFF',
+    flex:0.5,
     flexDirection: 'column',
   },
   suheadingText:{
@@ -42,13 +43,14 @@ var styles = StyleSheet.create({
     justifyContent:'center',
   },
   headingMain: {
+    backgroundColor: '#FFFFFF',
     flexDirection: 'column',
     flex: 0.7,
     width:width,
     alignSelf:'center',
   },
   subHeadingMain: {
-    flex: 0.3,
+    flex: 0.5,
     alignItems: 'center',
   },
   headingText: {
