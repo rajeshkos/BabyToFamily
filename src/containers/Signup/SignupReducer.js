@@ -12,7 +12,7 @@ export default (state=INITIAL_STATE,action)=>{
     case EMAIL_ALREDAY:
      return { ...state,email:'',password:'',cpassword:'',mobile:''}
     case MOBILE_ALREDAY:
-       return { ...state,mobile:'',password:'',cpassword:''}
+       return { ...state,mobile:'',password:'',cpassword:'',}
     case PASSWORD_DONOTMATCH:
        return {...state,password:'',cpassword:''}
   case SIGNUP_FAIL:
