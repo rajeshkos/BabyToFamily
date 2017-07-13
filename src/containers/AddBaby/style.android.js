@@ -1,25 +1,58 @@
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  StatusBar,
   Dimensions,
-  KeyboardAvoidingView,
-  Image,
-  TouchableHighlight,
-  ScrollView,
+  PixelRatio,
 } from 'react-native';
 const {width,height}=Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  mainContainerTop: {
+    flex:1,
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+  },
+  input:{
+    paddingLeft: 30,
+   paddingBottom: 2,
+    height:20,
+    fontSize:17,
+    width: 200,
+    color:'black',
+  },
+  dateinput:{
+    paddingLeft: 5,
+   paddingBottom: 2,
+    width: 200,
+    height:20,
+    fontSize:17,
+    width: 200,
+    color:'black',
+  },
+  mainContainerOne: {
+    flex:1,
+    backgroundColor: "white",
+  },
+  modalHeading: {
+    flex: 1,
+    color: 'white',
+    paddingTop: 15,
+    fontSize:18,
+    fontWeight:'bold'
+  },
+  navBar: {
+    flex: 1,
+    alignSelf: 'center',
+    color: 'white',
+  },
   container: {
     flex: 0.3,
   },
   componentContainer: {
-    flex: 0.5,
-    width: width/1.4,
+    flex: 0.3,
     alignSelf: 'center',
+    paddingLeft: 20,
+    paddingRight: 20
   },
   keyboardStyle: {
     flex: 1,
@@ -28,121 +61,199 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   componentSubContainer: {
-    flex: 1,
+    width: width/1.4,
+    flex: 0.6,
     flexDirection: 'column',
     alignItems: 'center',
   },
   halfFlex: {
-    flex:0.9,
+    flex:1,
+  },
+
+  btnStyle: {
+    height: 30,
+    backgroundColor: '#FF57A5',
+    borderRadius: 5,
+    marginTop: 10,
+    shadowOpacity: 0.5,
+    shadowOffset:{
+      width: 1,
+      height: 1,
+    }
+  },
+  topBar: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#939ceb',
+    height: 50,
+    paddingTop:13
+  },
+  centerImage: {
+    flexDirection: 'column',
+    flex: 0.4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageWrap: {
+    width: PixelRatio.getPixelSizeForLayoutSize(85),
+    height: PixelRatio.getPixelSizeForLayoutSize(85),
+    flexDirection: 'column',
+    backgroundColor: '#d6d6d6',
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  babyTitle: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    color: '#343434',
+    fontSize: 16,
+    marginTop: 2,
+    fontFamily: 'GothamRounded-Book',
+  },
+  box: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  smallavatr:{
+    width:18,
+    height:18,
+    marginRight:5
+  },
+  boxWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 13,
+    marginRight: 13,
+    flex:1,
+  },
+  halfBox: {
+    flex: 1,
+    flexDirection: 'row',
+    marginRight: 10
+  },
+  dateWrap: {
+    marginBottom: 12,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginLeft: 0,
+    flex: 1,
+    borderBottomWidth: 1,
+    borderColor: '#cecece',
+  },
+  wrapper: {
+    backgroundColor: 'red',
+    flex: 1
+  },
+
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  modal2: {
+    height: 230,
+    width: width,
+    backgroundColor: "#3B5998",
+
+  },
+
+  modal3: {
+    height: 300,
+    width: 300,
+
+  },
+
+  modal4: {
+    height: 300
+  },
+
+  btn: {
+    margin: 10,
+    backgroundColor: "#3B5998",
+    color: "black",
+    padding: 10
+  },
+
+  btnModal: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    backgroundColor: "transparent"
+  },
+
+  text: {
+    color: "black",
+    fontSize: 22
   },
   btnStyle: {
-    height: 35,
-    elevation: 3,
-    backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 1.0, shadowOffset:{
+    height: 30,
+    backgroundColor: '#FF57A5',
+     borderRadius: 5,
+     marginTop: 10,
+     shadowOpacity: 1.0,
+     shadowOffset:{
     width: 1,
     height: 1,
     },
   },
-  orText: {
-    flex:0.5,
-    alignSelf: 'center',
-  },
-  socialMediaContainer: {
-
-    flex:1,
-    marginTop:5,
-    alignSelf:'center',
-    flexDirection: 'row',
-  },
-  fbContainer: {
-    flex:0.2,
-    alignItems: 'flex-end',
-    marginRight: 1,
-  },
-  instaContainer: {
-    flex:0.2,
-    alignItems: 'flex-start',
-    marginRight: 1,
-  },
-  bottomUserContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  userSubContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  registerSubContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    marginLeft: 5,
-  },
   canvas: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: width.width,
-  },
-  forgot: {
-    alignSelf: "flex-end",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-  },
-  or: {
-    backgroundColor: "transparent",
-    alignSelf: "center",
-    color: '#8F8F8F',
-    opacity: 1,
-    fontSize: 18,
-    //fontFamily: 'gotham_rounded_book',
-  },
-  newuser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-end",
-    color: '#969696',
-    opacity: 1,
-    fontSize: 18,
-  //  fontFamily: 'gotham_rounded_book',
-  },
-  registeruser: {
-    backgroundColor: "transparent",
-    alignSelf: "flex-start",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    color: '#B5BBEF',
-    opacity: 1,
-    fontSize: 18,
-    //fontFamily: 'gotham_rounded_book',
-  },
-  forgotContainer: {
-    marginRight:20,
-  },
-  modal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 200,
-    width: 200,
-    borderTopLeftRadius:5,
-    borderTopRightRadius:5,
-    borderBottomLeftRadius:5,
-    borderBottomRightRadius:5
-  },
-  modalCard:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  modalFont:{
-    fontSize:15,
-    color:'gray'
-  }
+  height: 80,
+  width: 80,
 
+
+},
+selected:{
+  width: PixelRatio.getPixelSizeForLayoutSize(85),
+  height: PixelRatio.getPixelSizeForLayoutSize(85),
+  borderRadius:80
+},
+genderdefault:{
+  paddingLeft: 5,
+ paddingBottom: 2,
+  width: 200,
+  height:20,
+  fontSize:17,
+  width: 200,
+  color:'black',
+
+},
+genderactive:{
+  paddingLeft: 5,
+ paddingBottom: 2,
+  width: 200,
+  height:20,
+  fontSize:17,
+  width: 200,
+  color:'#FF57A5',
+
+},
+
+  modal: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: 200,
+  width: 200,
+  borderTopLeftRadius:5,
+  borderTopRightRadius:5,
+  borderBottomLeftRadius:5,
+  borderBottomRightRadius:5
+},
+modalCard:{
+  flex:1,
+  alignItems:'center',
+  justifyContent:'center'
+},
+modalFont:{
+  fontSize:15,
+  color:'gray'
+}
 });
 
 export default styles;

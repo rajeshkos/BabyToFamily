@@ -24,7 +24,7 @@ import Gallery from 'app/containers/Gallery';
 import Dashboard from 'app/containers/Dashboard';
 import Nesting from 'app/containers/Nesting';
 import Profile from 'app/containers/Profile';
-
+import AddBaby from 'app/containers/AddBaby'
 import ForgotPassword from 'app/containers/ForgotPassword'
 import Otp from 'app/containers/Signup/OTP'
 
