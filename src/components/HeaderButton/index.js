@@ -16,7 +16,7 @@ export default class HeaderButton extends Component {
   static defaultProps = {
     icon: 'md-menu',
   };
-
+     
   render() {
     return (
       <View style={styles.container}>
