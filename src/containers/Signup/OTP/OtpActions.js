@@ -34,6 +34,7 @@ export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
     .then((responseJson) =>{
       dispatch({type:OTP_SUCCESSFULL})
         alert('OTP Successfull')
+
         navigate('Login')
     })
 
@@ -45,6 +46,7 @@ export const OtpResend=({mobile})=>(dispatch)=>{
     .then((response)=>response.json())
     .then((responseJson) =>{
       console.log("response",responseJson)
+          dispatch({type:OTP_SESSION_START})
       //alert('OTP Successfull')
       //navigate('Login')
       //await AsyncStorage.setItem('OTP_SESSION_START', 'yes');

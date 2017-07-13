@@ -51,6 +51,7 @@ componentWillMount(){
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
   if(this.props.session===true){
+    alert('Otp')
     navigate('OtpScreen')
   }
 
