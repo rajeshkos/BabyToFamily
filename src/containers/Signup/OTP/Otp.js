@@ -54,7 +54,7 @@ componentDidMount(){
         this.props.navigation.navigate('Login');
         this.props.Signupfail();
 
-   },30000);
+   },80000);
 }
 
 

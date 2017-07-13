@@ -125,12 +125,22 @@ openURL = (url) => {
     Linking.openURL(url);
   }
 }
+setPhoneNumber=(text)=>{
+  const {callingCode}=this.state;
+  if(!callingCode){
+   alert('Select Country Code')
+ }
+ this.setState({Mobilenumber:text});
+
+}
 
 signUp=(props)=>{
-
+    const {callingCode,Mobilenumber}=this.state;
+//this.props.
 //  console.log(name,email,mobile,password,cpassword);
 const {name,email,mobile,password,cpassword,navigation}=props;
-   this.props.SignupUpdate({prop:'mobile',value:this.state.Mobilenumber})
+
+  // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
          if(!name){
          alert('Please enter your Name');}
           else if (!email) {
@@ -163,9 +173,9 @@ const {name,email,mobile,password,cpassword,navigation}=props;
 }
   render() {
     //console.log(DeviceInfo);
-
+  const {callingCode,Mobilenumber}=this.state;
     const {email,password,name,mobile,SignupUpdate,SignupChecking,cpassword,data,loading,navigation}=this.props;
- console.log(this.state.callingCode);
+ //console.log(this.state.callingCode);
     return (
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
         <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
@@ -245,8 +255,9 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     keyboardType="numeric"
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
-                    onChangeText={(text)=>this.setState({Mobilenumber:text})}
-                    onSubmitEditing={(event) =>console.log(event,"jiii") }
+                  //  onChangeText={(text)=>this.setState({Mobilenumber:text})}
+                     onChangeText={(text)=>this.setPhoneNumber(text)}
+                     onSubmitEditing={(event)=>alert(event)}
                   />
               </View>
 
@@ -258,6 +269,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
+                    onFocus={()=>SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})}
                    onChangeText={(text)=>SignupUpdate({prop:'password',value:text})}
                   />
               </View>
