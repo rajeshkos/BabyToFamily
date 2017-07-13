@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 const InputWithIcon =(props)=>{
-const {onPress,buttonText,editable=true,iconName, placeholder, placeholderTextColor, keyboardType, secureTextEntry}=props;
+const {onPress,buttonText,editable=true,iconName, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode}=props;
 const  underlayColor='black';
 const containerStyle=[styles.container];
 if(editable===false){
@@ -21,7 +21,17 @@ return(
       </TouchableHighlight>
     </View>
     <View>
+      {!callingCode?
       <TextInput placeholder={placeholder} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
+      :
+
+      <View style={{width:60,height:18,marginLeft:25,flexDirection:'row'}}>
+      <Text style={{marginBottom:0,fontSize:17,color:'black'}}>{callingCode}</Text>
+      <TextInput placeholder={callingCode?placeholder:''} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={{fontSize:17,width:150,color:'black',paddingLeft:8}} underlineColorAndroid='transparent' {...props}/>
+      </View>
+
+    }
+
     </View>
       </View>
   </View>

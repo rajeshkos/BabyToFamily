@@ -71,6 +71,16 @@ componentWillMount(){
              Linking.removeEventListener('url', this.handleOpenURL);
            }
 
+
+
+      componentWillReceiveProps(nextProps){
+            const {navigate}=this.props.navigation;
+           if(nextProps.auth){
+              navigate('Home');
+           }
+
+      }
+
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
 
