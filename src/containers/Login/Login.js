@@ -47,7 +47,14 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
            header: null
        }
 
+componentWillMount(){
+//  console.log(this.props.session,"session");
+  const {navigate}=this.props.navigation;
+  if(this.props.session===true){
+    navigate('OtpScreen')
+  }
 
+}
 
        componentDidMount() {
 
@@ -63,6 +70,9 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
              // Remove event listener
              Linking.removeEventListener('url', this.handleOpenURL);
            }
+
+
+
       componentWillReceiveProps(nextProps){
             const {navigate}=this.props.navigation;
            if(nextProps.auth){
@@ -70,6 +80,7 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
            }
 
       }
+
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
 
@@ -138,7 +149,7 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
   render() {
 
     const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session}=this.props;
-    console.log("session",session);
+  //  console.log("session",session);
 
     return (
 

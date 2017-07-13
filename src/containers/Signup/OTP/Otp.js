@@ -44,27 +44,19 @@ const {width,height}=Dimensions.get('window');
    }
 
 componentWillMount(){
-//  console.log("kllllllllloopp");
   this.props.session_start();
-
 }
 componentDidMount(){
-const {session_destroy}=this.props;
 
-setTimeout(function() {
-  session_destroy();
-}, 80000);
+  //this.props.dispatch({type:OTP_FAIL})
+   setTimeout(()=> {
+         this.props.session_destroy();
+        this.props.navigation.navigate('Login');
+        this.props.Signupfail();
 
+   },30000);
 }
-componentWillReceiveProps(nextProps){
-  const {navigate}=this.props.navigation;
-//  console.log(nextProps.session,"onERR");
-  if(nextProps.session===false){
-     this.props.Signupfail();
-     navigate('Login');
 
-  }
-}
 
 handleSend=(otp)=>{
    const {mobile} = this.props;
@@ -77,15 +69,16 @@ handleSend=(otp)=>{
                   }else if(otp.length!=6){
                     alert('OTP sould be six digit');
                   }else{
-
+                  this.props.session_destroy();
                   this.props.OtpChecking({mobile,otp,navigate})
                   this.props.Signupfail();
+
                   }
          }
   render() {
-    const {navigation,otp,loading,sucecsss,OtpUpdate,mobile,OtpResend,session}=this.props;
+    const {navigation,otp,loading,sucecsss,OtpUpdate,mobile,OtpResend,session,timeout}=this.props;
 
-       console.log("mobile",session);
+
     return (
 
 
@@ -145,7 +138,7 @@ handleSend=(otp)=>{
                 buttonStyle={styles.btnStyle}
                 textStyle={styles.btnTextStyle}
                 title={`Resend`}
-                onPress={()=>OtpResend({mobile:'447453474589'})}
+                onPress={()=>OtpResend({mobile})}
               />
               </View>
 
@@ -161,14 +154,15 @@ handleSend=(otp)=>{
   }
 }
 const mapStateToProps=({Otp,Signup})=>{
-const {otp,loading,sucecsss,session}=Otp;
+const {otp,loading,sucecsss,session,timeout}=Otp;
 const {mobile}=Signup;
 return{
       otp,
       loading,
       sucecsss,
       mobile,
-      session
+      session,
+      timeout
 
   }
 }
