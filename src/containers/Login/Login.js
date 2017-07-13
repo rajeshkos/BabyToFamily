@@ -172,7 +172,7 @@ componentWillMount(){
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
-                  placeholder="Username"
+                  placeholder="Email or Mobile No."
                   secureTextEntry={false}
                   keyboardType="default"
                   onFocus={(event) => {
