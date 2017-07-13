@@ -32,10 +32,15 @@ export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
   Api.makeRequest('POST',URL.OTP_CHECKURL,{},{mobile,otp})
     .then((response)=>response.json())
     .then((responseJson) =>{
-      dispatch({type:OTP_SUCCESSFULL})
-        alert('OTP Successfull')
 
+      if(responseJson.status===200){
+      dispatch({type:OTP_SUCCESSFULL})
+        alert('OTP Successfull');
         navigate('Login')
+      }else{
+       alert('OTP Doesnot match');
+
+      }
     })
 
 }
@@ -45,11 +50,15 @@ export const OtpResend=({mobile})=>(dispatch)=>{
   Api.makeRequest('POST',URL.OTP_RESEND,{},{mobile})
     .then((response)=>response.json())
     .then((responseJson) =>{
-      console.log("response",responseJson)
+
+          if(responseJson.status==200){
           dispatch({type:OTP_SESSION_START})
-      //alert('OTP Successfull')
-      //navigate('Login')
-      //await AsyncStorage.setItem('OTP_SESSION_START', 'yes');
+              }else{
+
+           dispatch({type:OTP_EXPIRE})
+
+         }
+
     })
 
 }

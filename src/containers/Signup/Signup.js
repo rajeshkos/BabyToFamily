@@ -254,8 +254,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     placeholder="Mobile No."
                     keyboardType="numeric"
                     placeholderTextColor="#333333"
-                    callingCode={this.state.callingCode}
-                  //  onChangeText={(text)=>this.setState({Mobilenumber:text})}
+                    callingCode={this.state.callingCode}                  
                      onChangeText={(text)=>this.setPhoneNumber(text)}
                      onSubmitEditing={(event)=>alert(event)}
                   />
