@@ -5,7 +5,7 @@ let Api={
         makeRequest(method, url, params, data) {
             console.log(method, url, params, data);
           let settings = {
-            method: method,
+            method: method,  
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
