@@ -4,7 +4,7 @@ export const SIGNUP_SUCCESSFULL='SIGNUP_SUCCESSFULL';
 export const SIGNUP_FAIL='SIGNUP_FAIL';
 export const EMAIL_ALREDAY='EMAIL_ALREDAY';
 export const MOBILE_ALREDAY='MOBILE_ALREDAY';
-export const OTP_SESSION_DESTROY='OTP_SESSION_DESTROY';
+export const OTP_BACK='OTP_BACK';
 export const PASSWORD_DONOTMATCH='PASSWORD_DONOTMATCH';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
@@ -17,7 +17,7 @@ export const SignupUpdate=({prop,value})=>{
 }
 export const Signupfail=()=>{
   return{
-    type: OTP_SESSION_DESTROY
+    type: OTP_BACK
   }
 }
 export const passwordDontmatch=()=>{

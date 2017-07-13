@@ -10,7 +10,7 @@ export default class HeaderButton extends Component {
 
   static propTypes = {
     onPress: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,  
   };
 
   static defaultProps = {

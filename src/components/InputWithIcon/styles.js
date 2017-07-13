@@ -1,4 +1,3 @@
-
 import {StyleSheet,Dimensions, Platform} from 'react-native';
 let INPUT_HEIGHT;
 if(Platform.OS === 'ios'){
@@ -51,7 +50,7 @@ loginContainer: {
     flex: 0.4,
   },
 container:{
-      backgroundColor:'white',
+      backgroundColor:'#fff',
       width:'90%',
       borderRadius:BORDER_RADIUS,
       flexDirection:'row',
@@ -78,7 +77,7 @@ container:{
        color:'blue'
     },
     image:{
-       marginTop: (Platform.OS === 'ios') ? 11 : 15,
+       marginTop: (Platform.OS === 'ios') ? 17 : 15,
        alignSelf: 'flex-start',
        height: 18,
        width: 18,
@@ -86,20 +85,22 @@ container:{
     },
     input:{
       ...Platform.select({
-        ios: {
-          paddingLeft: 30,
-          paddingBottom: 2,
 
+        ios: {
+          paddingLeft: 25,
+          paddingBottom: 6,
+          fontFamily: 'GothamRounded-Book',
+          width: 300,
         },
         android: {
           paddingBottom: 0,
-          paddingLeft: 15,
+          paddingLeft: 13,
           width: 200,
-
+          fontFamily: 'gotham_rounded_book',
         },
       }),
-      height:INPUT_HEIGHT+10,
-      fontSize:17,
+      height:INPUT_HEIGHT+18,
+      fontSize:15,
       width: 200,
       color:'black',
     },

@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationActions } from 'react-navigation'
+
 
 type State = {
     keyboardUp: boolean,
@@ -46,72 +46,6 @@ const { width } = Dimensions.get('window');
        this.setState({ keyboardUp: false });
    };
 
-   tabbarone=()=>{
-     const {dispatch}=this.props;
-     dispatch({ type: 'TAB_ONE' });
-    // this.props.navigation.navigate('Community');
-
-     this.props.navigation
-                .dispatch(NavigationActions.reset(
-                  {
-                     index: 0,
-                     actions: [NavigationActions.navigate({ routeName: 'Community'})]
-                   }));
-
-
-
-
-   }
-
- tabbartwo=()=>{
-    const {dispatch}=this.props;
-   dispatch({ type: 'TAB_TWO' });
-  //   this.props.navigation.navigate('Gallery');
-  this.props.navigation
-             .dispatch(NavigationActions.reset(
-               {
-                  index: 0,
-                  actions: [NavigationActions.navigate({ routeName: 'Gallery'})]
-                }));
-
- }
- tabbarfour=()=>{
-     const {dispatch}=this.props;
-     dispatch({ type: 'TAB_FOUR' });
-     //this.props.navigation.navigate('Nesting');
-
-     this.props.navigation
-                .dispatch(NavigationActions.reset(
-                  {
-                     index: 0,
-                     actions: [NavigationActions.navigate({ routeName: 'Nesting'})]
-                   }));
-
- }
- tabfive=()=>{
-     const {dispatch}=this.props;
-     dispatch({ type: 'TAB_FIVE' });
-    // this.props.navigation.navigate('Profile');
-
-    this.props.navigation
-               .dispatch(NavigationActions.reset(
-                 {
-                    index: 0,
-                    actions: [NavigationActions.navigate({ routeName: 'Profile'})]
-                  }));
- }
- tabthree=()=>{
-   const {dispatch}=this.props;
-     dispatch({ type: 'TAB_THREE' });
-    // this.props.navigation.navigate('Dashboard');
-    this.props.navigation
-               .dispatch(NavigationActions.reset(
-                 {
-                    index: 0,
-                    actions: [NavigationActions.navigate({ routeName: 'Dashboard'})]
-                  }));
- }
-
   render() {
     const { tabone, tabtwo, tabthree, tabfour, tabfive, dispatch } = this.props;
     return (
@@ -123,8 +57,10 @@ const { width } = Dimensions.get('window');
       <View style={[style.tabbarView, this.state.keyboardUp && style.hidden]}>
       <TouchableOpacity
        style={{ flex: 1 }}
-       onPress={() =>this.tabbarone()}
-
+       onPress={() => {
+         dispatch({ type: 'TAB_ONE' });
+         this.props.navigation.navigate('Community');
+                   }}
       >
       <View style={style.iconContainer}>
             <FAIcon
@@ -140,9 +76,11 @@ const { width } = Dimensions.get('window');
       </TouchableOpacity>
        <TouchableOpacity
        style={{ flex: 1 }}
-       onPress={() => this.tabbartwo() }>
-
-
+       onPress={() => {
+          dispatch({ type: 'TAB_TWO' });
+          this.props.navigation.navigate('Gallery');
+                 }}
+       >
        <View style={style.iconContainer}>
        <MIcon
        name="class"
@@ -160,7 +98,10 @@ const { width } = Dimensions.get('window');
        />
         <TouchableOpacity
          style={{ flex: 1 }}
-         onPress={() => this.tabbarfour()}
+         onPress={() => {
+           dispatch({ type: 'TAB_FOUR' });
+           this.props.navigation.navigate('Nesting');
+         }}
         >
        <View style={style.iconContainer}>
       <MCIcon
@@ -173,7 +114,10 @@ const { width } = Dimensions.get('window');
        </TouchableOpacity>
          <TouchableOpacity
          style={{ flex: 1 }}
-         onPress={() => this.tabfive()}
+         onPress={() => {
+           dispatch({ type: 'TAB_FIVE' });
+           this.props.navigation.navigate('Profile');
+            }}
          >
        <View style={style.iconContainer}>
                 <MIcon
@@ -190,11 +134,14 @@ const { width } = Dimensions.get('window');
       <View style={style.imageWapper}>
           <TouchableOpacity
           style={style.imageView}
-          onPress={() => this.tabthree()}
+          onPress={() => {
+            dispatch({ type: 'TAB_THREE' });
+            this.props.navigation.navigate('Dashboard');
+             }}
           >
          <Image
           style={[style.image, this.state.keyboardUp && style.hideimage]}
-
+        
          />
          </TouchableOpacity>
          </View>

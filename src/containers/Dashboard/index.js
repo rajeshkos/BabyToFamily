@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
      menuPress={() => navigate('DrawerOpen')}
      bellPress={() => console.log('Bell')}
      settingPress={() => console.log('setting')}
-     name="Annie Smith"
+     name="Annie Smit"
      />
      <View
       style={styles.container}

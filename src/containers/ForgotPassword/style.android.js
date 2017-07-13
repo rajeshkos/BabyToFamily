@@ -13,6 +13,7 @@ import {
 
 var styles = StyleSheet.create({
   container: {
+    backgroundColor: '#FFFFFF',
     flex:0.4,
     flexDirection: 'column',
   },
@@ -34,6 +35,7 @@ var styles = StyleSheet.create({
     justifyContent:'center',
   },
   headingMain: {
+    backgroundColor: '#FFFFFF',
     flexDirection: 'column',
     flex: 0.5,
     width:width,
@@ -44,7 +46,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   headingText: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'gotham_rounded_bold',
   },
   subHeadingMainTwo: {
@@ -57,11 +59,11 @@ var styles = StyleSheet.create({
     alignSelf:'center',
   },
   headingTextTwo: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'gotham_rounded_book',
   },
   headingTextThree: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'gotham_rounded_bold',
   },
   inputTextMain: {

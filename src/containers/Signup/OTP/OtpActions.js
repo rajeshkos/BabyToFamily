@@ -13,12 +13,11 @@ export const session_start=()=>{
     type:OTP_SESSION_START
   }
 }
-  export const session_destroy=()=>{
-   return{
-      type:OTP_EXPIRE
-    }
+export const session_destroy=()=>{
+  return{
+    type:OTP_EXPIRE
   }
-
+}
 export const OtpUpdate=({prop,value})=>{
   return {
     type:OTP_UPDATE,
@@ -26,15 +25,15 @@ export const OtpUpdate=({prop,value})=>{
   }
 }
 
-export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
+export const OtpChecking=({mobile,otp})=>(dispatch)=>{
 
-    dispatch({type:OTP_CHECK})
+
   Api.makeRequest('POST',URL.OTP_CHECKURL,{},{mobile,otp})
     .then((response)=>response.json())
     .then((responseJson) =>{
       dispatch({type:OTP_SUCCESSFULL})
         alert('OTP Successfull')
-        navigate('Login')
+
     })
 
 }
@@ -45,8 +44,8 @@ export const OtpResend=({mobile})=>(dispatch)=>{
     .then((response)=>response.json())
     .then((responseJson) =>{
       console.log("response",responseJson)
-      //alert('OTP Successfull')
-      //navigate('Login')
+      alert('OTP Successfull')
+      navigate('Login')
       //await AsyncStorage.setItem('OTP_SESSION_START', 'yes');
     })
 
