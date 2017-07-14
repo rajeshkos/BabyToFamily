@@ -8,6 +8,7 @@ import {
   Platform,
   Image,
   StyleSheet,
+   PixelRatio
 } from 'react-native';
 import { connect } from 'react-redux';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
@@ -15,14 +16,19 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationActions } from 'react-navigation'
 
+
 type State = {
     keyboardUp: boolean,
 }
 
-const { width } = Dimensions.get('window');
+const { width,height } = Dimensions.get('window');
+
+const scale = width / 320;
+
  class Tabs extends Component {
   constructor(props) {
     super(props);
+     Text.defaultProps.allowFontScaling=false;
     this.state = {
         selected: ''
     };
@@ -113,25 +119,27 @@ const { width } = Dimensions.get('window');
  }
 
   render() {
+    console.log(normalize(24,"gggg"))
     const { tabone, tabtwo, tabthree, tabfour, tabfive, dispatch } = this.props;
     return (
 
     <View style={style.container}>
-
-            {this.props.children}
-
+      {this.props.children}
       <View style={[style.tabbarView, this.state.keyboardUp && style.hidden]}>
+
       <TouchableOpacity
        style={{ flex: 1 }}
        onPress={() =>this.tabbarone()}
 
       >
       <View style={style.iconContainer}>
+
             <FAIcon
-            name="dot-circle-o"
-             color={tabone ? '#ff57a6' : '#343434'}
-             size={30}
+              name="dot-circle-o"
+              color={tabone ? '#ff57a6' : '#343434'}
+              size={30}
             />
+
             <Text
             style={tabone ? style.activeLabel : style.tabLabel}
             >Community
@@ -177,14 +185,16 @@ const { width } = Dimensions.get('window');
          >
        <View style={style.iconContainer}>
                 <MIcon
+
                 name="child-care"
                 color={tabfive ? '#ff57a6' : '#343434'}
                 size={30}
-                />
-        <Text style={tabfive ? style.activeLabel : style.tabLabel}>Baby Profile</Text>
-       </View>
-       </TouchableOpacity>
-       </View>
+              />
+              <Text style={tabfive ? style.activeLabel : style.tabLabel}>Baby Profile</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
 
          <View style={[style.imageContainer, this.state.keyboardUp && style.hidden]}>
       <View style={style.imageWapper}>
@@ -194,24 +204,34 @@ const { width } = Dimensions.get('window');
           >
          <Image
           style={[style.image, this.state.keyboardUp && style.hideimage]}
-
+            source={require('./images/05.png')}
          />
          </TouchableOpacity>
          </View>
-          </View>
 
-       </View>
+          </View>
+        </View>
+      
 
     )
   }
 }
+
+const normalize=(size)=> {
+  if (Platform.OS === 'ios') {
+    return Math.round(PixelRatio.roundToNearestPixel(size/2))
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(size)) - 2
+  }
+}
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent'
   },
 tabbarView: {
-  height: 80,
+  height: 60,
   width,
   backgroundColor: 'white',
   position: 'absolute',
@@ -240,7 +260,7 @@ imageContainer: {
   width: 95,
   borderRadius: 50,
   position: 'absolute',
-  bottom: 25,
+  bottom: 5,
   left: width/2-50,
   shadowOffset: {
     width: -1,
@@ -258,9 +278,9 @@ imageContainer: {
 
 },
 image: {
-   height: 88,
-   width: 88,
-   borderRadius: 50,
+   height: 68,
+   width: 68,
+   borderRadius: 34,
    padding: 20
 },
 hidden: {
@@ -282,22 +302,36 @@ hideimage: {
  },
  tabLabel: {
    color: '#343434',
-   fontSize: 12,
+   fontSize: 9,
    marginTop: 5
  },
  activeLabel: {
    color: '#ff57a6',
-   fontSize: 12,
-   marginTop: 5
+   fontSize: 9,
+   marginTop: 5,
+   fontWeight: '700'
  },
  imageWapper: {
-   borderRadius: 47,
-   height: 95,
-   width: 95,
+   borderRadius: 37,
+   height: 75,
+   width: 75,
    backgroundColor: '#fff',
    alignItems: 'center',
    justifyContent: 'center',
-   borderColor: 'red',
+   borderColor: '#fff',
+   borderWidth: 2,
+   position: 'absolute',
+   zIndex: 3,
+
+ },
+ imageActiveWapper: {
+   borderRadius: 37,
+   height: 75,
+   width: 75,
+   backgroundColor: '#fff',
+   alignItems: 'center',
+   justifyContent: 'center',
+   borderColor: '#ff57a6',
    borderWidth: 2,
    position: 'absolute',
    zIndex: 3,
