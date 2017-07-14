@@ -17,9 +17,31 @@ let Api={
           if (data) {
               settings.body = JSON.stringify(data);
           }
-console.log(fetch(`${url}`, settings));
+               //console.log(fetch(`${url}`, settings));
           return fetch(`${url}`, settings);
+        },
+
+    makeImageUpload(method, url, params, data){
+
+          const settings = {
+               method:method,
+               headers: {
+                 'Accept': 'application/json',
+                 'Content-Type': 'multipart/form-data',
+                     },
+                 body: data,
+             }
+             if (params) {
+                 settings.params = params;
+             }
+             if (data) {
+                 settings.body = data;
+             }
+             console.log("from make upload",method, url, params, data);
+      //   return fetch(`${url}`, settings);
+
         }
+
 
 
 

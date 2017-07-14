@@ -71,7 +71,7 @@ const Routes = StackNavigator({
   Auth: {
     screen: Auth,
     navigationOptions: {
-      header: null,              
+      header: null,
       headerBackTitle: 'Back',
     },
   },
