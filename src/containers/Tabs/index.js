@@ -204,7 +204,7 @@ const scale = width / 320;
           >
          <Image
           style={[style.image, this.state.keyboardUp && style.hideimage]}
-
+            source={require('./images/05.png')}
          />
          </TouchableOpacity>
          </View>
