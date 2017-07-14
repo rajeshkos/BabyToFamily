@@ -211,7 +211,7 @@ const scale = width / 320;
 
           </View>
         </View>
-      
+
 
     )
   }
