@@ -30,7 +30,7 @@ Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
   }
 })
 .catch((error) => {
-    
+
     dispatch({type:FORGOT_FAIL});
   });
 
