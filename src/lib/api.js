@@ -19,8 +19,7 @@ let Api={
           }
            //console.log(fetch(`${url}`, settings));
           return fetch(`${url}`, settings);
-        },
-      //  makeImageUpload(method,url,params)
+        }
 
 
 

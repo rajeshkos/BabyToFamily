@@ -28,10 +28,10 @@ export const passwordDontmatch=()=>{
 
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
 
-Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password})
+Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
-     console.log(responseJson,"signup");
+     //console.log(responseJson,"signup");
 /*
        if(responseJson.status===200){
 
@@ -58,8 +58,7 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password})
           */
           dispatch({type:SIGNUP_CHECK});
           switch(responseJson.status){
-       //case 200:
-        case 200:
+       case 200:
                 dispatch({type: SIGNUP_SUCCESSFULL,payload:responseJson});
                 alert('Success! OTP send you mobile number');
                 navigation.navigate('OtpScreen');
