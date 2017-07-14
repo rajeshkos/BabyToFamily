@@ -25,7 +25,7 @@ export default class DrawerItem extends Component{
     const {onPress}=this.props;
 
   return(
-   <TouchableHighlight style={{flex:1}} onPress={onPress}>
+   <TouchableHighlight style={{flex:1}} onPress={onPress} underlayColor='red'>
       <View style={{flex:1,flexDirection:'row'}}>
       <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
           {this.renderIcon()}

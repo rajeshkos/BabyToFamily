@@ -180,7 +180,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
     //console.log(DeviceInfo);
   const {callingCode,Mobilenumber}=this.state;
     const {email,password,name,mobile,SignupUpdate,SignupChecking,cpassword,data,loading,navigation}=this.props;
- //console.log(this.state.callingCode);
+ console.log(loading,'loading');
     return (
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
         <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
@@ -248,8 +248,8 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                   />
               </View>
               {loading?
-             <Loading/>
-             :null
+                  <Loading/>
+                  :null
               }
               <View style={styles.halfFlex}>
 

@@ -49,12 +49,13 @@ componentWillMount(){
 componentDidMount(){
 
   //this.props.dispatch({type:OTP_FAIL})
-   setTimeout(()=> {
+/*   setTimeout(()=> {
          this.props.session_destroy();
         this.props.navigation.navigate('Login');
         this.props.Signupfail();
 
    },80000);
+   */
 }
 
 

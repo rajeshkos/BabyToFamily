@@ -37,9 +37,8 @@ export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
       dispatch({type:OTP_SUCCESSFULL})
         alert('OTP Successfull');
         navigate('Login')
-      }else{
+      }else if(responseJson.status===502){
        alert('OTP Doesnot match');
-
       }
     })
 
