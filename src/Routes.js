@@ -53,25 +53,39 @@ const TabScreen=StackNavigator({
    Community:{screen:Community},
    Gallery:{screen:Gallery},
    Nesting:{screen:Nesting},
-   Profile:{screen:Profile}
+   Profile:{screen:Profile},
+
 },{
     headerMode: 'none',
 
 })
+
+const DrawerItems=StackNavigator({
+      AddBaby:{screen:AddBaby},
+
+    },{
+        headerMode: 'none',
+})
+
+
+
+
+
 const DrawerPage = DrawerNavigator({
-  Tabs: {
-    screen: TabScreen,
-  },
-}, {
-  // Register custom drawer component
-  contentComponent: props => <Drawer {...props} />
+    Tabs: {
+      screen: TabScreen,
+    },
+    DrawerItems:{screen:DrawerItems}
+  }, {
+    // Register custom drawer component
+    contentComponent: props => <Drawer {...props} />
 });
 
 const Routes = StackNavigator({
   Auth: {
     screen: Auth,
     navigationOptions: {
-      header: null,              
+      header: null,
       headerBackTitle: 'Back',
     },
   },
