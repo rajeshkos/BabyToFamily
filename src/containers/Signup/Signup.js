@@ -262,6 +262,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
                     onChangeText={(text)=>this.setPhoneNumber(text)}
+                    onBlur={()=>this.onFocus()}
                   />
               </View>
 
