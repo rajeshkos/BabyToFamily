@@ -126,14 +126,17 @@ openURL = (url) => {
   }
 }
 setPhoneNumber=(text)=>{
-  const {callingCode}=this.state;
-      if(!callingCode){
-       alert('Select Country Code')
-     }
+
      this.setState({Mobilenumber:text});
 
 }
+onFocus=()=>{
+  const {callingCode,Mobilenumber}=this.state;
+  const {SignupUpdate}=this.props;
 
+     SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})
+
+}
 signUp=(props)=>{
     const {callingCode,Mobilenumber}=this.state;
 //this.props.
@@ -259,6 +262,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
                     onChangeText={(text)=>this.setPhoneNumber(text)}
+                    onBlur={()=>this.onFocus()}
                   />
               </View>
 
@@ -270,7 +274,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onFocus={()=>SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})}
+                    onFocus={()=>this.onFocus()}
                    onChangeText={(text)=>SignupUpdate({prop:'password',value:text})}
                   />
               </View>
