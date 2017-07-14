@@ -38,41 +38,35 @@ import {logout} from 'app/containers/Login/LoginAction';
         </View>
         <DrawerItem
             label="Add Baby"
-            icon="plus-circle"
-            iconfamily="FontAwesome"
+            iconName= { require('./images/ios/add_baby.png')}
             {...this.props}
             
 
         />
         <DrawerItem
           label="Family Member"
-          icon="people"
-          iconfamily="MaterialIcons"
+          iconName= { require('./images/ios/add_family.png')}
           {...this.props}
         />
 
         <DrawerItem
         label="Invite & Earn"
-        icon="share-alt"
-        iconfamily="FontAwesome"
+        iconName= { require('./images/ios/share_invite.png')}
         {...this.props}
         />
          <DrawerItem
          label="Terms & Policy"
-          icon="file-text"
-          iconfamily="FontAwesome"
+          iconName= { require('./images/ios/tems.png')}
           {...this.props}
          />
         <DrawerItem
         label="Feedback"
-        iconfamily="MaterialIcons"
-        icon="feedback"
+        iconName= { require('./images/ios/feedback.png')}
         {...this.props}
         />
         <DrawerItem
          label="Logout"
-         icon="power-off"
-         iconfamily="FontAwesome"
+         iconName= { require('./images/ios/logot@2x.png')}
          {...this.props}
          onPress={()=>this.props.logout()}
         />

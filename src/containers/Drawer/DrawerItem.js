@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {TouchableHighlight,View,Text, Image} from 'react-native';
+import {TouchableHighlight,View,Text, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -7,7 +7,7 @@ export default class DrawerItem extends Component{
   constructor(props) {
     super(props);
   }
-  renderIcon=( ) =>{
+  /*renderIcon=( ) =>{
     let icon;
     switch (this.props.iconfamily) {
       case 'FontAwesome':
@@ -19,10 +19,10 @@ export default class DrawerItem extends Component{
       default:
         return null;
     }
-  }
+  }*/
   renderImg= () =>{
-    let src;
-    return <Image src={this.props.src}/>
+    let iconName;
+    return <Image resizeMode="contain"  source={this.props.iconName} style={styles.leftIcon} />
   }
   render(){
     const { navigate } = this.props.navigation;
@@ -31,13 +31,13 @@ export default class DrawerItem extends Component{
   return(
    <TouchableHighlight style={{flex:1}} onPress={onPress}>
       <View style={{flex:1,flexDirection:'row'}}>
-      <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-          {/*{this.renderIcon()}*/}
-          {this.renderImg()}
-      </View>
-      <View style={{flex:3,alignItems:'flex-start',justifyContent:'center',paddingLeft:2}}>
-        <Text style={{color:'black',fontWeight:'bold'}}>{this.props.label}</Text>
-       </View>
+        <View style={{flex:1,alignItems:'flex-start',justifyContent:'center',flexDirection:'row'}}>
+            {/*{this.renderIcon()}*/}
+            {this.renderImg()}
+        </View>
+        <View style={{flex:3,alignItems:'flex-start',justifyContent:'center',paddingLeft:2}}>
+          <Text style={{color:'black',fontWeight:'bold'}}>{this.props.label}</Text>
+        </View>
       </View>
     </TouchableHighlight>
    )
@@ -45,3 +45,12 @@ export default class DrawerItem extends Component{
 
 
 }
+const styles = StyleSheet.create ({
+leftIcon: {
+    flex:1,
+    alignItems:'flex-start',
+    justifyContent:'center',
+    flexDirection: 'row',
+    alignSelf: 'center'
+}
+})
