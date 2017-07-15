@@ -14,24 +14,29 @@ return {
 
 }
 
-export const forgotPassword=({email})=>(dispatch)=>{
+const forgotCheck=()=>({type:FORGOT_CHECK});
+const forgotSuccessfull=()=>({type:FORGOT_SUCCESSFULL});
+export const forgotfail=()=>({type:FORGOT_FAIL});
 
- dispatch({type:FORGOT_CHECK});
+export const forgotPassword=({email,navigate})=>(dispatch)=>{
+
+ dispatch(forgotCheck());
 Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
  .then((response) => response.json())
  .then((responseJson) =>{
 
   if(responseJson.status===200){
-    dispatch({type:FORGOT_SUCCESSFULL});
+    dispatch(forgotSuccessfull());
     alert('Check your email and reset the password')
+    navigate('Login')
   }else{
      alert('Email doesnot exist');
-    dispatch({type:FORGOT_FAIL});
+    dispatch(forgotfail());
   }
 })
 .catch((error) => {
-    
-    dispatch({type:FORGOT_FAIL});
+
+    dispatch(forgotfail());
   });
 
 

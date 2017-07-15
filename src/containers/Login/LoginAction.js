@@ -28,25 +28,25 @@ export const socialLoginSuccess=()=>{
   }
 }
 
-export const socialLoginFail=()=>{
-return{
-  type:LOGIN_FAIL
- }
+export const socialLoginFail=()=>({type:LOGIN_FAIL});
 
-}
+const loginCheck=()=>({type:LOGIN_CHECK});
+
+const loginSuccess=()=>({type: LOGIN_SUCCESSFULL});
+
 export  const loginChecking=({email,password,navigate})=>(dispatch)=>{
 
-dispatch({type:LOGIN_CHECK});
+dispatch(loginCheck());
 
 Api.makeRequest('POST',URL.LOGIN_URL,{},{email:'testdemo@demo.com',password:'testdemo'})
    .then((response) => response.json())
    .then((responseJson) =>{
 
-    dispatch({type: LOGIN_SUCCESSFULL});
+    dispatch(loginSuccess());
      navigate('Home');
   })
   .catch((error) => {
-        dispatch({type: LOGIN_FAIL});
+        dispatch(socialLoginFail());
         alert('Login Failed');
     });
 

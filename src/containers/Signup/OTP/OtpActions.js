@@ -8,16 +8,16 @@ import URL from 'app/lib/url'
 import Api from 'app/lib/api'
 
 
-export const session_start=()=>{
-  return{
-    type:OTP_SESSION_START
-  }
-}
-  export const session_destroy=()=>{
-   return{
-      type:OTP_EXPIRE
-    }
-  }
+export const session_start=()=>({type:OTP_SESSION_START})
+
+
+
+
+  export const session_destroy=()=>({type:OTP_EXPIRE})
+
+
+
+
 
 export const OtpUpdate=({prop,value})=>{
   return {
@@ -26,15 +26,18 @@ export const OtpUpdate=({prop,value})=>{
   }
 }
 
+const otpCheck=()=>({type:OTP_CHECK})
+const otpSuccess=()=>({type:OTP_SUCCESSFULL});
+
 export const OtpChecking=({mobile,otp,navigate})=>(dispatch)=>{
 
-    dispatch({type:OTP_CHECK})
+    dispatch(otpCheck());
   Api.makeRequest('POST',URL.OTP_CHECKURL,{},{mobile,otp})
     .then((response)=>response.json())
     .then((responseJson) =>{
 
       if(responseJson.status===200){
-      dispatch({type:OTP_SUCCESSFULL})
+      dispatch(otpSuccess());
         alert('OTP Successfull');
         navigate('Login')
       }else if(responseJson.status===502){
@@ -51,10 +54,10 @@ export const OtpResend=({mobile})=>(dispatch)=>{
     .then((responseJson) =>{
 
           if(responseJson.status==200){
-          dispatch({type:OTP_SESSION_START})
+          dispatch(session_start())
               }else{
 
-           dispatch({type:OTP_EXPIRE})
+           dispatch(session_destroy())
 
          }
 
