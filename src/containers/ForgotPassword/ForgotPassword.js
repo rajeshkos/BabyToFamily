@@ -26,7 +26,7 @@ import InputWithIcon  from 'app/components/InputWithIcon';
 import Loading from 'app/components/Loading';
 import Icon from 'react-native-vector-icons/Ionicons';
 //import {Actions} from 'react-native-router-flux';
-import {forgotUpdate,forgotPassword} from './ForgotActions'
+import {forgotUpdate,forgotPassword,forgotfail} from './ForgotActions'
 import styles from './style';
 
 //import Hr from 'react-native-hr'
@@ -42,6 +42,7 @@ const {width,height}=Dimensions.get('window');
      this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
    }
 handleSend=(email)=>{
+  const {navigate}=this.props.navigation;
         let intRegex = /[0-9 -()+]+$/;
        let eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
        if(intRegex.test(email)) {
@@ -57,7 +58,7 @@ handleSend=(email)=>{
 
          }else{
 
-            this.props.forgotPassword({email});
+            this.props.forgotPassword({email,navigate});
 
 
          }
@@ -66,7 +67,7 @@ handleSend=(email)=>{
 
 }
   render() {
-const {email,password,loading,forgotUpdate,navigation}=this.props;
+const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
 console.log("loading",loading);
     return (
 
@@ -78,7 +79,7 @@ console.log("loading",loading);
           <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
         </View>
         <View style={styles.icon}>
-         <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
+         <TouchableHighlight style={{flex:1}} onPress={()=>{navigation.goBack(null),forgotfail()}} underlayColor={'transparent'}>
          <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
          </TouchableHighlight>
          </View>
@@ -157,4 +158,4 @@ return{
 }
 
 }
-export default connect(mapStateToProps,{forgotUpdate,forgotPassword})(ForgotPassword);
+export default connect(mapStateToProps,{forgotUpdate,forgotPassword,forgotfail})(ForgotPassword);

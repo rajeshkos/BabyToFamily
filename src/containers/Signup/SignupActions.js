@@ -15,62 +15,43 @@ export const SignupUpdate=({prop,value})=>{
     payload:{prop,value}
   }
 }
-export const Signupfail=()=>{
-  return{
-    type: OTP_SESSION_DESTROY
-  }
-}
-export const passwordDontmatch=()=>{
-  return{
-    type:PASSWORD_DONOTMATCH
-  }
-}
+export const Signupfail=()=>({type: OTP_SESSION_DESTROY});
+
+
+export const passwordDontmatch=()=>({type:PASSWORD_DONOTMATCH});
+
+const signupCheck=()=>({type:SIGNUP_CHECK});
+
+const signupSuccess=data=>({type: SIGNUP_SUCCESSFULL,payload:data});
+
+const emailAlready=()=>({type: EMAIL_ALREDAY});
+
+const mobileAlready=()=>({type: MOBILE_ALREDAY});
+
+const signupFail=()=>({type: SIGNUP_FAIL});
 
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
 
 Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
-     //console.log(responseJson,"signup");
-/*
-       if(responseJson.status===200){
-
-         dispatch({type: SIGNUP_SUCCESSFULL,payload:responseJson});
-         alert('Success! OTP send you mobile number');
-         navigation.navigate('OtpScreen');
-
-              // if(responseJson.status==='Mobile number already exists'){
-              //   alert('Mobile Number Already Exist');
-              //    dispatch({type: MOBILE_ALREDAY});
-              // }else{
-              //     alert('Email Already Exist');
-              //     dispatch({type: EMAIL_ALREDAY});
-              // }
-
-          }else{
-             console.log(responseJson.status);
-             if(responseJson.status===403){
-             alert(responseJson.msg);
-              dispatch({type: MOBILE_ALREDAY});
-           }
-
-          }
-          */
-          dispatch({type:SIGNUP_CHECK});
+          dispatch(signupCheck());
           switch(responseJson.status){
        case 200:
-                dispatch({type: SIGNUP_SUCCESSFULL,payload:responseJson});
+                dispatch(signupSuccess(responseJson));
                 alert('Success! OTP send you mobile number');
                 navigation.navigate('OtpScreen');
              break;
 
     case 403:
+
              alert('Email Already Exist');
-              dispatch({type: EMAIL_ALREDAY});
+               dispatch(emailAlready());
+
             break;
    case 400:
             alert('Invalid Mobile Number');
-            dispatch({type: MOBILE_ALREDAY});
+            dispatch(mobileAlready());
           break;
   //default:
       //  break;
@@ -78,7 +59,7 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'us
           }
    })
  .catch((error) => {
-        dispatch({type: SIGNUP_FAIL});
+        dispatch(signupFail());
         alert('Sign Up Failed');
    });
 
