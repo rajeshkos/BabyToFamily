@@ -5,7 +5,9 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
+  Image,
+  Platform
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
@@ -18,59 +20,73 @@ import {logout} from 'app/containers/Login/LoginAction';
     const { navigate } = this.props.navigation;
     return (
     <LinearGradient colors={['#B074C1', '#BA66B1', '#A87FCD']} style={styles.container}>
-    <View style={styles.avatarContainer}>
-      <View style={{ flex: 1 }}>
-        <View style={styles.imageContainer}>
-           <View style={styles.image} />
-
+      <View style={styles.avatarContainer}>
+        <View style={{ flex: 1 }}>
+          <View style={styles.imageContainer}>
+            <View style={styles.image}>
+              <Image resizeMode="stretch" style={styles.userImg} source={require('./images/user.png')} />
+            </View>
+          </View>
+          <View style={styles.nameContainer}>
+            <Text style={{ fontSize: 20, color: 'white' }}> John Smith</Text>
+          </View>
+          <View style={styles.subnameContainer}>
+            <Text style={{ fontSize: 15, color: '#DDA0CD', fontWeight: '500' }}> Father</Text>
+          </View>
         </View>
-        <View style={styles.nameContainer}>
-          <Text style={{ fontSize: 20, color: 'white' }}> John Smith</Text>
-         </View>
-        <View style={styles.subnameContainer}>
-         <Text style={{ fontSize: 15, color: 'white', fontWeight: '300' }}> Father</Text>
-        </View>
-        </View>
-        </View>
+      </View>
+      <View style={{flex:2,flexDirection:'column'}}>
         <DrawerItem
             label="Add Baby"
             icon="plus-circle"
             iconfamily="FontAwesome"
             {...this.props}
-            onPress={()=>navigate('DrawerItems')}
-
         />
         <DrawerItem
           label="Family Member"
-          icon="user-plus"
-          iconfamily="FontAwesome"
+          icon="people"
+          iconfamily="MaterialIcons"
           {...this.props}
         />
-
         <DrawerItem
-        label="Invite & Earn"
-        icon="share-alt"
-        iconfamily="FontAwesome"
-        {...this.props}
+          label="Invite & Earn"
+          icon="md-share"
+          iconfamily="Ionicons"
+          {...this.props}
         />
+        <DrawerItem
+          label="Moments/Prints"
+          icon="image-multiple"
+          iconfamily="MaterialCommunityIcons"
+          {...this.props}
+         />
          <DrawerItem
-         label="Terms & Policy"
+          label="Food/Music"
+          icon="food-apple"
+          iconfamily="MaterialCommunityIcons"
+          {...this.props}
+         />
+         <DrawerItem
+          label="Terms & Policy"
           icon="file-text"
           iconfamily="FontAwesome"
           {...this.props}
          />
         <DrawerItem
-        label="Feedback"
-        iconfamily="MaterialIcons"
-        icon="feedback"
-        {...this.props}
+          label="Feedback"
+          iconfamily="MaterialCommunityIcons"
+          icon="message-text"
+          {...this.props}
         />
         <DrawerItem
-         label="Logout"
-         {...this.props}
-         onPress={()=>this.props.logout()}
+          label="Logout"
+          iconfamily="FontAwesome"
+          icon="power-off"
+          {...this.props}
+          onPress={()=>this.props.logout()}
         />
-        <View style={{flex:2}}/>
+      </View>
+        
       </LinearGradient>
     );
   }
@@ -101,10 +117,14 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-    backgroundColor: 'blue'
+    width: 66,
+    height: 66,
+    borderRadius: 33,
+  },
+  userImg: {
+    width: 66,
+    height: 66,
+    borderRadius: 33  ,
   },
   nameContainer: {
     flex: 1,
