@@ -10,34 +10,35 @@ export default class DrawerItem extends Component{
     super(props);
   }
   renderIcon=( ) =>{
+    const {iconColor}=this.props; 
     let icon;
     switch (this.props.iconfamily) {
       case 'FontAwesome':
-        return <FIcon name={this.props.icon} size={24} color="#343434" />
+        return <FIcon name={this.props.icon} size={24} color={iconColor} />
         break;
       case 'MaterialIcons':
-        return <MIcons name={this.props.icon} size={24} color="#343434" />
+        return <MIcons name={this.props.icon} size={24} color={iconColor} />
         break;
       case 'Ionicons':
-        return <Icons name={this.props.icon} size={24} color="#343434" />
+        return <Icons name={this.props.icon} size={24} color={iconColor}/>
       case 'MaterialCommunityIcons':
-        return <MCIcons name={this.props.icon} size={24} color="#343434" />
+        return <MCIcons name={this.props.icon} size={24} color={iconColor} />
       default:
         return null;
     }
   }
   render(){
     const { navigate } = this.props.navigation;
-    const {onPress}=this.props;
+    const {onPress,labelStyle}=this.props;
 
   return(
-   <TouchableHighlight style={{flex:1}} onPress={onPress} underlayColor='red'>
+   <TouchableHighlight style={{flex:1}} onPress={onPress} underlayColor='transparent'>
       <View style={{flex:1,flexDirection:'row'}}>
       <View style={{flex:0.1,alignItems:'flex-start',justifyContent:'center', paddingLeft: 18}}>
           {this.renderIcon()}
       </View>
       <View style={{flex:0.5,alignItems:'flex-start',justifyContent:'center',paddingLeft:2}}>
-        <Text style={{color:'#343434',fontWeight:'bold'}}>{this.props.label}</Text>
+        <Text style={[{fontWeight:'bold'},labelStyle]}>{this.props.label}</Text>
        </View>
       </View>
     </TouchableHighlight>
