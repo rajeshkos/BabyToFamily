@@ -61,17 +61,7 @@ var locationName;
   //  onClosingState(state) {
   //    console.log('the open/close of the swipeToClose just changed');
   //  }
-componentDidMount(){
-    let myObj = new Object;
-   let b=new Object;
-    myObj['email'] = 'iamshimil@gmail.com';
-    myObj['data']=b;
-    b['name']='shimil';
-    b['gender']='female';
-    b['dob']='20/12/213';
 
-  console.log(myObj);
-}
 
    setFocus(event, heightUp){
      this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
@@ -107,8 +97,7 @@ submit=()=>{
         formData.append("location",Addbaby.location);
         formData.append("relation",Addbaby.relation);
         formData.append('image',{path:image.uri,name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],type:image.mime})
-
-      //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
+          //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
       //  send.append()
 
       //  data['profileimage']=this.state.image.uri;

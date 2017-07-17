@@ -28,9 +28,8 @@ let Api={
                headers: {
                  'Accept': 'application/json',
                  'Content-Type': 'multipart/form-data',
-                     },
-                 body: data,
-             }
+                     }
+             };
              if (params) {
                  settings.params = params;
              }
@@ -38,8 +37,8 @@ let Api={
                  settings.body = data;
              }
              console.log("from make upload",method, url, params, data);
-      //   return fetch(`${url}`, settings);
 
+              //    return fetch(`${url}`, settings);
         }
 
 
