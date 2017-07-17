@@ -90,7 +90,7 @@ const Routes = StackNavigator({
     },
   },
   Home:{
-    screen:DrawerPage,
+    screen:DrawerPage ,
     navigationOptions: {
       header: null,
 
