@@ -97,7 +97,8 @@ submit=()=>{
         formData.append("location",Addbaby.location);
         formData.append("relation",Addbaby.relation);
         formData.append('image',{path:image.uri,name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],type:image.mime})
-          //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
+ 
+      //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
       //  send.append()
 
       //  data['profileimage']=this.state.image.uri;
