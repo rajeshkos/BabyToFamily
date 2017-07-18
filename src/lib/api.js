@@ -3,7 +3,7 @@ let Api={
 
 
         makeRequest(method, url, params, data) {
-            console.log(method, url, params, data);
+
           let settings = {
             method: method,
             headers: {
@@ -22,7 +22,7 @@ let Api={
         },
 
     makeImageUpload(method, url, params, data){
-
+        console.log("data",data);
           const settings = {
                method:method,
                headers: {
@@ -36,9 +36,9 @@ let Api={
              if (data) {
                  settings.body = data;
              }
-             console.log("from make upload",method, url, params, data);
+            console.log("from make upload",method, url, params, data);
 
-              //    return fetch(`${url}`, settings);
+                  return fetch(`${url}`, settings);
         }
 
 

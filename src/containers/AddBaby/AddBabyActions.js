@@ -16,6 +16,8 @@ export const AddBabyUpdate=({prop,value})=>{
  export const AddBabyUpload=(formData)=>(dispatch)=>{
 
    Api.makeImageUpload('POST',URL.ADD_BABY_DETAIL,{},formData)
+   .then((response) => response.json())
+   .catch((err)=>alert(err))
 
 
  }
