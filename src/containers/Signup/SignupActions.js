@@ -37,22 +37,21 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'us
   .then((responseJson) =>{
           dispatch(signupCheck());
           switch(responseJson.status){
-       case 200:
+     case 200:
                 dispatch(signupSuccess(responseJson));
                 alert('Success! OTP send you mobile number');
                 navigation.navigate('OtpScreen');
-             break;
+                break;
 
-    case 403:
+      case 403:
 
-             alert('Email Already Exist');
+               alert('Email Already Exist');
                dispatch(emailAlready());
-
-            break;
-   case 400:
-            alert('Invalid Mobile Number');
-            dispatch(mobileAlready());
-          break;
+               break;
+      case 400:
+                alert('Invalid Mobile Number');
+                dispatch(mobileAlready());
+                break;
   //default:
       //  break;
 
