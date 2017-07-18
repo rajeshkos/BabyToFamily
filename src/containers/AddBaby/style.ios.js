@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
+  icon:{
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center'
+  },
   input:{
     paddingLeft: 30,
    paddingBottom: 2,
@@ -88,11 +93,11 @@ const styles = StyleSheet.create({
     }
   },
   topBar: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
+
+    justifyContent: 'center',
     backgroundColor: '#939ceb',
     height: 50,
-    paddingTop:13
+    flexDirection:'row'
   },
   centerImage: {
     flexDirection: 'column',

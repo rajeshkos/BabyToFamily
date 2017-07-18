@@ -15,44 +15,52 @@ export const SignupUpdate=({prop,value})=>{
     payload:{prop,value}
   }
 }
-export const Signupfail=()=>{
-  return{
-    type: OTP_SESSION_DESTROY
-  }
-}
-export const passwordDontmatch=()=>{
-  return{
-    type:PASSWORD_DONOTMATCH
-  }
-}
+export const Signupfail=()=>({type: OTP_SESSION_DESTROY});
+
+
+export const passwordDontmatch=()=>({type:PASSWORD_DONOTMATCH});
+
+const signupCheck=()=>({type:SIGNUP_CHECK});
+
+const signupSuccess=data=>({type: SIGNUP_SUCCESSFULL,payload:data});
+
+const emailAlready=()=>({type: EMAIL_ALREDAY});
+
+const mobileAlready=()=>({type: MOBILE_ALREDAY});
+
+const signupFail=()=>({type: SIGNUP_FAIL});
 
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
 
-Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password})
+Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
-     console.log(responseJson,"signup");
-       if(responseJson.error){
+          dispatch(signupCheck());
+          switch(responseJson.status){
+       case 200:
+                dispatch(signupSuccess(responseJson));
+                alert('Success! OTP send you mobile number');
+                navigation.navigate('OtpScreen');
+             break;
 
-              if(responseJson.msg==='Mobile number already exists'){
-                alert('Mobile Number Already Exist');
-                 dispatch({type: MOBILE_ALREDAY});
-              }else{
-                  alert('Email Already Exist');
-                  dispatch({type: EMAIL_ALREDAY});
-              }
+    case 403:
 
-          }else{
-             if(responseJson.status===200){
-                 dispatch({type: SIGNUP_SUCCESSFULL,payload:responseJson});
-                 alert('Success! OTP send you mobile number');
-                 navigation.navigate('OtpScreen');
-              }
+             alert('Email Already Exist');
+               dispatch(emailAlready());
+
+            break;
+   case 400:
+            alert('Invalid Mobile Number');
+            dispatch(mobileAlready());
+          break;
+  //default:
+      //  break;
+
           }
    })
  .catch((error) => {
-       dispatch({type: SIGNUP_FAIL});
-       alert('Sign Up Failed');
+        dispatch(signupFail());
+        alert('Sign Up Failed');
    });
 
 

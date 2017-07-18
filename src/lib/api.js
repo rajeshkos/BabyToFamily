@@ -17,7 +17,11 @@ let Api={
           if (data) {
               settings.body = JSON.stringify(data);
           }
+
                //console.log(fetch(`${url}`, settings));
+
+           //console.log(fetch(`${url}`, settings));
+
           return fetch(`${url}`, settings);
         },
 

@@ -78,6 +78,12 @@ submit=()=>{
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
       const error=validation(Addbaby);
 
+  //   if(error==='Successfully Registerd'){
+      // let o1 = { email:'iamshimil@gmail.com' };
+      // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
+      // let obj = Object.assign(o1, o2);
+
+
         alert(error)
   if(error==='Successfully Registerd'){
     //  let profile=new Object();
@@ -155,14 +161,21 @@ pickSingleFromGallery=(cropping)=> {
   render() {
     const {width,height}=Dimensions.get('window');
 
-    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate}=this.props;
+    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation}=this.props;
     const {genderState}=this.state;
  //console.log("imagesxxx",this.state.image);
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
         <StatusBar hidden={true} />
-          <Modal style={[styles.modal, styles.modal3]} animationInTiming={2000} position={"center"} ref={"modal3"} isOpen={this.state.isOpen} onClosed={() => this.setState({isOpen: false})} isDisabled={this.state.isDisabled}>
+          <Modal
+            style={[styles.modal, styles.modal3]}
+            animationInTiming={2000}
+            position={"center"}
+            ref={"modal3"}
+            isOpen={this.state.isOpen}
+            onClosed={() => this.setState({isOpen: false})}
+            isDisabled={this.state.isDisabled}>
         <View style={styles.mainContainerOne}>
 
         <View style={styles.topBar}>
@@ -230,7 +243,15 @@ pickSingleFromGallery=(cropping)=> {
              />
              </View>
         </Modal>
-        <View style={styles.topBar}><Text style={styles.navBar}>Add Baby</Text></View>
+        <View style={styles.topBar}>
+          <TouchableHighlight style={styles.icon} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
+              <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
+        </TouchableHighlight>
+        <View style={{flex:3,alignItems:'center',justifyContent:'center'}}>
+            <Text style={styles.modalHeading}>Add Baby</Text>
+        </View>
+        <View style={{flex:1}}/>
+  </View>
         <View style={styles.componentContainer}>
           <View style={styles.centerImage}>
             <View style={styles.box}>
