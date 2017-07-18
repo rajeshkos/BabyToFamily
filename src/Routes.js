@@ -93,11 +93,8 @@ const Routes = StackNavigator({
     screen:DrawerPage ,
     navigationOptions: {
       header: null,
-
     },
   }
-
-
 },
 {
   headerMode: 'screen',

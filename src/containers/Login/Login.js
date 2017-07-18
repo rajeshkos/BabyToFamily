@@ -28,6 +28,9 @@ import {connect} from 'react-redux';
 
 import styles from './style';
 import InputWithIcon  from 'app/components/InputWithIcon'
+import FingerprintScanner from 'react-native-fingerprint-scanner';
+import style from 'app/containers/FingerprintPopup';
+import FingerprintPopup from 'app/containers/FingerprintPopup';
 
 import Loading from 'app/components/Loading';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -40,6 +43,14 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
 
 
  class Login extends Component {
+   constructor(props) {
+     super(props);
+     this.state = {
+       errorMessage: undefined,
+       popupShowed: false,
+     };
+   }
+
    state = {
      user: undefined,
    };
@@ -55,7 +66,17 @@ componentWillMount(){
     navigate('OtpScreen')
   }
 
+
+
 }
+
+handleFingerprintShowed = () => {
+  this.setState({ popupShowed: true });
+};
+
+handleFingerprintDismissed = () => {
+  this.setState({ popupShowed: false });
+};
 
        componentDidMount() {
 
@@ -65,11 +86,16 @@ componentWillMount(){
                  this.handleOpenURL({ url });
                }
              });
+             FingerprintScanner
+               .isSensorAvailable()
+               .then(()=>this.setState({ popupShowed: true }))
+               .catch(error => this.setState({ errorMessage: error.message }));
            }
 
       componentWillUnmount() {
              // Remove event listener
              Linking.removeEventListener('url', this.handleOpenURL);
+             FingerprintScanner.release();
            }
 
 
@@ -148,7 +174,7 @@ componentWillMount(){
   }
 
   render() {
-
+const { errorMessage, popupShowed } = this.state;
     const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session}=this.props;
   //  console.log("session",session);
 
@@ -251,12 +277,24 @@ componentWillMount(){
                       <View style={{flex: 1, justifyContent: 'flex-start', marginLeft: 5}}>
                       <Text style={styles.registeruser} onPress={()=>{navigation.navigate('Signup');logout()}}>Register Now</Text>
                       </View>
-                    </View>
+                 </View>
           </View>
         </View>
       </View>
 
 </View>
+{errorMessage && (
+  <Text style={style.errorMessage}>
+    {errorMessage}
+  </Text>
+)}
+
+{popupShowed && (
+  <FingerprintPopup
+    style={style.popup}
+    handlePopupDismissed={this.handleFingerprintDismissed}
+  />
+)}
 </ScrollView>
 
     );
