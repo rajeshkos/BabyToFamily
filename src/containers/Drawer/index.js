@@ -46,6 +46,7 @@ import {logout} from 'app/containers/Login/LoginAction';
              iconColor={this.state.active==='one'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='one'? styles.activeLabel : styles.inactiveLabel}
              onPress={()=>this.setState({active:'one'})}
+
         />
         <DrawerItem
           label="Family Member"
