@@ -3495,6 +3495,13 @@ react-native-safari-view@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-safari-view/-/react-native-safari-view-2.0.0.tgz#3aeb40693b0765df16b9beaf8654b60c7ff1d7ed"
 
+react-native-scrollable-tab-view@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-0.5.0.tgz#c92a8e9835a3d79f28f930750059c20ce56f6ca2"
+  dependencies:
+    react-static-container "^1.0.1"
+    react-timer-mixin "^0.13.3"
+
 react-native-side-menu@^0.20.1:
   version "0.20.3"
   resolved "https://registry.yarnpkg.com/react-native-side-menu/-/react-native-side-menu-0.20.3.tgz#5dffe3e237018360ed081433d505ea454cba9ca4"
@@ -3508,6 +3515,12 @@ react-native-tab-navigator@^0.3.3:
 react-native-tab-view@^0.0.65:
   version "0.0.65"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.65.tgz#b685ea3081ff7c96486cd997361026c407302c59"
+  dependencies:
+    prop-types "^15.5.8"
+
+react-native-tab-view@^0.0.67:
+  version "0.0.67"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.67.tgz#cdd146fe5e5d4baff6c89f2d5d0b15fa23db39d0"
   dependencies:
     prop-types "^15.5.8"
 
@@ -3638,6 +3651,10 @@ react-redux@^5.0.5:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
+react-static-container@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-static-container/-/react-static-container-1.0.1.tgz#694c0dd68a896b879519afb548399cc1989c9ab0"
+
 react-test-renderer@16.0.0-alpha.6:
   version "16.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0-alpha.6.tgz#c032def0dc8319cee39caa4e4373a60019cb3786"
@@ -3645,7 +3662,7 @@ react-test-renderer@16.0.0-alpha.6:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
 
-react-timer-mixin@^0.13.2:
+react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 
@@ -4547,11 +4564,7 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.13"
 
-whatwg-fetch@>=0.10.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
-
-whatwg-fetch@^1.0.0:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.1.1.tgz#ac3c9d39f320c6dce5339969d054ef43dd333319"
 

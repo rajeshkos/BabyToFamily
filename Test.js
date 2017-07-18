@@ -1,16 +1,21 @@
+import React, { PureComponent } from 'react';
+import { View, StyleSheet,ScrollView,Text   } from 'react-native';
+import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
 
-import React, { Component } from 'react'
-import DatePicker from 'react-native-datepicker'
-import {View} from 'react-native';
-export default class Example extends Component {
-  constructor(props){
-    super(props)
-    this.state = {date:"2016-05-15"}
-  }
 
-  render(){
-    return (
-     <View style={{flex:1,backgroundColor:'red'}}/>
+const Data=['map','video','pol','klio','mam']
+
+export default React.createClass({
+  render() {
+    return(
+      <ScrollableTabView
+      style={{marginTop: 20, }}
+      renderTabBar={() => <DefaultTabBar />}
+    >
+      {Data.map((index,key)=>(<Text key={index} tabLabel={index}>{key}</Text>))}
+    </ScrollableTabView>
     )
+
+
   }
-}
+});
