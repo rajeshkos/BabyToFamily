@@ -284,14 +284,14 @@ const { errorMessage, popupShowed } = this.state;
 
 </View>
 {errorMessage && (
-  <Text style={style.errorMessage}>
+  <Text style={styles.errorMessage}>
     {errorMessage}
   </Text>
 )}
 
 {popupShowed && (
   <FingerprintPopup
-    style={style.popup}
+    style={styles.popup}
     handlePopupDismissed={this.handleFingerprintDismissed}
   />
 )}
