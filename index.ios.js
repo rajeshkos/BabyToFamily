@@ -14,4 +14,4 @@ export default class Baby extends Component{
       )
   }
 }
-AppRegistry.registerComponent('Baby', () => Example);
+AppRegistry.registerComponent('Baby', () => App);
