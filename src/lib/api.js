@@ -27,7 +27,7 @@ let Api={
                method:method,
                headers: {
                  'Accept': 'application/json',
-                 'Content-Type': 'multipart/form-data',
+                
                      }
              };
              if (params) {

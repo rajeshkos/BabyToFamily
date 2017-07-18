@@ -72,7 +72,7 @@ var locationName;
    }
 
 submit=()=>{
-    const {AddBabyUpdate,Addbaby,AddBabyUpload}=this.props;
+    const {AddBabyUpdate,Addbaby,AddBabyUpload,data}=this.props;
     const {image}=this.state;
     console.log("image",image);
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
@@ -90,20 +90,22 @@ submit=()=>{
       //  data['location']=Addbaby.location;
       //  data['relation']=Addbaby.relation;
         var formData = new FormData();
-        formData.append("email",'iamshimil@gmail.com');
+        formData.append("email",data);
         formData.append("name",Addbaby.name);
         formData.append("gender",Addbaby.gender);
         formData.append("dob",Addbaby.date);
         formData.append("location",Addbaby.location);
         formData.append("relation",Addbaby.relation);
         formData.append('image',{path:image.uri,name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],type:image.mime})
- 
+
       //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
       //  send.append()
 
       //  data['profileimage']=this.state.image.uri;
         //console.log("profile",profile);
         AddBabyUpload(formData);
+      //  console.log(this.props);
+
      }
 
 
@@ -393,8 +395,9 @@ pickSingleFromGallery=(cropping)=> {
     );
   }
 }
-const mapStateToProps=({Addbaby})=>{
+const mapStateToProps=({Addbaby,Signup})=>{
   const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
+  const {data}=Signup;
   return{
        name,
        gender,
@@ -403,7 +406,8 @@ const mapStateToProps=({Addbaby})=>{
        relation,
        loading,
        sucecsss,
-       Addbaby
+       Addbaby,
+
 
   }
 

@@ -69,7 +69,7 @@ const DrawerPage = DrawerNavigator({
 
 const Routes = StackNavigator({
   Auth: {
-    screen: AddBaby,
+    screen: Auth,
     navigationOptions: {
       header: null,
       headerBackTitle: 'Back',
