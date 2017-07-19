@@ -83,14 +83,14 @@ const DrawerPage = DrawerNavigator({
 
 const Routes = StackNavigator({
   Auth: {
-    screen: Auth,
+    screen:DrawerPage,
     navigationOptions: {
       header: null,
       headerBackTitle: 'Back',
     },
   },
   Home:{
-    screen:DrawerPage ,
+    screen:Auth ,
     navigationOptions: {
       header: null,
     },
