@@ -93,11 +93,8 @@ const Routes = StackNavigator({
     screen:Auth ,
     navigationOptions: {
       header: null,
-
     },
   }
-
-
 },
 {
   headerMode: 'screen',

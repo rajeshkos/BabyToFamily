@@ -38,12 +38,28 @@ export  const loginChecking=({email,password,navigate})=>(dispatch)=>{
 
 dispatch(loginCheck());
 
-Api.makeRequest('POST',URL.LOGIN_URL,{},{email:'testdemo@demo.com',password:'testdemo'})
+Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
    .then((response) => response.json())
    .then((responseJson) =>{
 
-    dispatch(loginSuccess());
-     navigate('Home');
+ switch (responseJson.status) {
+   case 200:
+           dispatch(loginSuccess());
+           navigate('Home');
+      break;
+  case 400:
+         alert('Doesnot have A baby')
+         break;
+  case 401:
+        dispatch(socialLoginFail());
+        alert('User not Autherized')
+        break;
+  case 404 :
+         dispatch(socialLoginFail());
+         alert('Invalid User')
+
+ }
+
   })
   .catch((error) => {
         dispatch(socialLoginFail());

@@ -29,10 +29,11 @@ const {width,height}=Dimensions.get('window');
 import Modal from 'react-native-modalbox';
 const ImagePicker = NativeModules.ImageCropPicker;
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
-import {AddBabyUpdate} from  './AddBabyActions'
+import {AddBabyUpdate,AddBabyUpload} from  './AddBabyActions'
 import moment from 'moment'
 import {validation} from './validation';
 import Api from 'app/lib/api'
+
 import MCIcon from 'react-native-vector-icons/Ionicons';
 //md-close-circle
 var locationName;
@@ -44,9 +45,8 @@ var locationName;
        isDisabled: false,
        isOpen: false,
        isDisabled: false,
-       swipeToClose: true,
-       sliderValue: 0.3,
-
+      // swipeToClose: true,
+    //   sliderValue: 0.3,
        genderState:'boy'
      };
    }
@@ -61,15 +61,7 @@ var locationName;
   //  onClosingState(state) {
   //    console.log('the open/close of the swipeToClose just changed');
   //  }
-componentDidMount(){
-  let body = new FormData();
-      console.log("bodydata",body);
-      body.append('photo', {uri: 'imagePath',name: 'photo.png',filename :'imageName.png',type: 'image/png'});
-      body.append('Content-Type', 'image/png');
-    //  console.log("body",Api.makeUpload);
 
-
-}
 
    setFocus(event, heightUp){
      this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
@@ -80,19 +72,47 @@ componentDidMount(){
    }
 
 submit=()=>{
-    const {AddBabyUpdate,Addbaby}=this.props;
+    const {AddBabyUpdate,Addbaby,AddBabyUpload,data}=this.props;
+    const {image}=this.state;
+    console.log("image",image);
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
       const error=validation(Addbaby);
-      alert(error)
+
   //   if(error==='Successfully Registerd'){
       // let o1 = { email:'iamshimil@gmail.com' };
       // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
       // let obj = Object.assign(o1, o2);
 
-      // console.log("obj",obj);
-      //alert('Successfully Registerd')
 
-     //}
+        alert(error)
+  if(error==='Successfully Registerd'){
+    //  let profile=new Object();
+  //  let data=new Object();
+      //  profile['email']='iamshimil@gmail.com'
+      //  profile['data']=data;
+      //  data['name']=Addbaby.name;
+      //  data['gender']=Addbaby.gender;
+      //  data['dob']=Addbaby.date;
+      //  data['location']=Addbaby.location;
+      //  data['relation']=Addbaby.relation;
+        var formData = new FormData();
+        formData.append("email",data);
+        formData.append("name",Addbaby.name);
+        formData.append("gender",Addbaby.gender);
+        formData.append("dob",Addbaby.date);
+        formData.append("location",Addbaby.location);
+        formData.append("relation",Addbaby.relation);
+        formData.append('image',{path:image.uri,name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],type:image.mime})
+
+      //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
+      //  send.append()
+
+      //  data['profileimage']=this.state.image.uri;
+        //console.log("profile",profile);
+  //    AddBabyUpload(formData);
+      //  console.log(this.props);
+         this.props.AddBabyUpload({formData})
+     }
 
 
 
@@ -118,7 +138,7 @@ pickSingleFromGallery=(cropping)=> {
     }).then(image => {
       console.log('received base64 image',image);
       this.setState({
-        image: {uri: image.path, width:image.width, height: image.height},
+        image: {uri: image.path, width:image.width, height: image.height,mime:image.mime},
 
       });
       AddBabyUpdate({prop:'image',value:true})
@@ -396,8 +416,9 @@ pickSingleFromGallery=(cropping)=> {
     );
   }
 }
-const mapStateToProps=({Addbaby})=>{
+const mapStateToProps=({Addbaby,Signup})=>{
   const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
+  const {data}=Signup;
   return{
        name,
        gender,
@@ -406,10 +427,11 @@ const mapStateToProps=({Addbaby})=>{
        relation,
        loading,
        sucecsss,
-       Addbaby
+       Addbaby,
+
 
   }
 
 }
 
-export default connect(mapStateToProps,{AddBabyUpdate}) (AddBaby);
+export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload}) (AddBaby);

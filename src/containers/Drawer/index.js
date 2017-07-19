@@ -45,7 +45,8 @@ import {logout} from 'app/containers/Login/LoginAction';
             {...this.props}
              iconColor={this.state.active==='one'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='one'? styles.activeLabel : styles.inactiveLabel}
-             onPress={()=>this.setState({active:'one'})}
+             onPress={()=>{this.setState({active:'one'}),navigate('AddBaby')}}
+
         />
         <DrawerItem
           label="Family Member"
@@ -63,7 +64,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
            iconColor={this.state.active==='three'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='three'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'three'})}
+            onPress={()=>{this.setState({active:'three'})}}
         />
         <DrawerItem
           label="Moments/Prints"
@@ -113,7 +114,7 @@ import {logout} from 'app/containers/Login/LoginAction';
            onPress={()=>{this.setState({active:'eight'}),logout()}}
         />
       </View>
-        
+
       </LinearGradient>
     );
   }

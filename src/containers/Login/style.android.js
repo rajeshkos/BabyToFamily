@@ -134,6 +134,16 @@ var styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'gotham_rounded_book',
   },
+  errorMessage: {
+    color: '#ea3d13',
+    fontSize: 16,
+    textAlign: 'center',
+    marginHorizontal: 10,
+    marginTop: 30,
+  },
+  popup: {
+    width: width * 0.8,
+  }
 });
 
 export default styles;
