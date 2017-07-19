@@ -198,6 +198,7 @@ const { errorMessage, popupShowed } = this.state;
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
+                  maxLength={64}
                   placeholder="Email or Mobile No."
                   secureTextEntry={false}
                   keyboardType="default"
@@ -217,6 +218,7 @@ const { errorMessage, popupShowed } = this.state;
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
+                    maxLength={6}
                     secureTextEntry={true}
                     keyboardType="default"
                     onFocus={(event) => {

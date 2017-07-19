@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingTop: 15,
     fontSize:18,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    fontFamily: 'gotham_rounded_bold',
   },
   navBar: {
     flex: 1,
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   },
   componentSubContainer: {
     width: width/1.4,
-    flex: 0.6,
+    flex: 0.8,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
 
   btnStyle: {
     height: 30,
+    width: width/1.5,
     backgroundColor: '#FF57A5',
     borderRadius: 5,
     marginTop: 10,
@@ -99,8 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageWrap: {
-    width: PixelRatio.getPixelSizeForLayoutSize(85),
-    height: PixelRatio.getPixelSizeForLayoutSize(85),
+    width: PixelRatio.getPixelSizeForLayoutSize(50),
+    height: PixelRatio.getPixelSizeForLayoutSize(50),
     flexDirection: 'column',
     backgroundColor: '#d6d6d6',
     borderRadius: 100,
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     color: '#343434',
     fontSize: 16,
     marginTop: 2,
-    fontFamily: 'GothamRounded-Book',
+    fontFamily: 'gotham_rounded_bold',
   },
   box: {
     flex: 1,
@@ -196,17 +198,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 22
   },
-  btnStyle: {
-    height: 30,
-    backgroundColor: '#FF57A5',
-     borderRadius: 5,
-     marginTop: 10,
-     shadowOpacity: 1.0,
-     shadowOffset:{
-    width: 1,
-    height: 1,
-    },
-  },
+
   canvas: {
   height: 80,
   width: 80,
@@ -214,8 +206,8 @@ const styles = StyleSheet.create({
 
 },
 selected:{
-  width: PixelRatio.getPixelSizeForLayoutSize(85),
-  height: PixelRatio.getPixelSizeForLayoutSize(85),
+  width: PixelRatio.getPixelSizeForLayoutSize(50),
+  height: PixelRatio.getPixelSizeForLayoutSize(50),
   borderRadius:80
 },
 genderdefault:{
@@ -224,19 +216,22 @@ genderdefault:{
   width: 200,
   height:20,
   fontSize:17,
+  height:25,
   width: 200,
   color:'black',
-
+justifyContent: 'center',
+alignSelf: 'center',
 },
 genderactive:{
   paddingLeft: 5,
  paddingBottom: 2,
   width: 200,
-  height:20,
+  height:25,
   fontSize:17,
   width: 200,
   color:'#FF57A5',
-
+justifyContent: 'center',
+alignSelf: 'center',
 },
 
   modal: {
