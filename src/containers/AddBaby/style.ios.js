@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingTop: 15,
     fontSize:18,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    fontFamily: 'GothamRounded-Book',
   },
   navBar: {
     flex: 1,
@@ -83,9 +84,11 @@ const styles = StyleSheet.create({
 
   btnStyle: {
     height: 30,
+    width: width/1.5,
     backgroundColor: '#FF57A5',
     borderRadius: 5,
     marginTop: 10,
+    marginBottom: 20,
     shadowOpacity: 0.5,
     shadowOffset:{
       width: 1,
@@ -198,17 +201,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 22
   },
-  btnStyle: {
-    height: 30,
-    backgroundColor: '#FF57A5',
-     borderRadius: 5,
-     marginTop: 10,
-     shadowOpacity: 1.0,
-     shadowOffset:{
-    width: 1,
-    height: 1,
-    },
-  },
+
   canvas: {
   height: 80,
   width: 80,

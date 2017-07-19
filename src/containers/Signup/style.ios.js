@@ -55,6 +55,7 @@ flagContainer:{
   },
   btnStyle: {
     height: 30,
+    width: width/1.5,
     backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 1.0, shadowOffset:{
     width: 1,
     height: 1,
@@ -65,14 +66,14 @@ flagContainer:{
     alignSelf: 'center',
   },
   socialMediaContainer: {
-
     flex:1,
     marginTop:5,
-    alignSelf:'center',
+      alignSelf:'center',
     flexDirection: 'row',
   },
   fbContainer: {
-    flex:0.2,
+   flex:0.2,
+     width: width/1.5,
     alignItems: 'flex-end',
     marginRight: 1,
   },

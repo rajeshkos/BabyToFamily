@@ -78,11 +78,13 @@ var styles = StyleSheet.create({
     marginLeft: 20,
   },
   btnMain: {
+    marginLeft: 5,
     alignSelf: 'stretch',
     flex:0.3,
   },
   btnStyle: {
     height: 30,
+    width: width/1.5,
     backgroundColor: '#FF57A5',
     borderRadius: 5,
     shadowOpacity: 1.0,
