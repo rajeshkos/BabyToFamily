@@ -65,28 +65,34 @@ const TabScreen=StackNavigator({
 
 })
 
-const DrawerItems=StackNavigator({
-      AddBaby:{screen:AddBaby},
-      FamilyMember:{screen:FamilyMember},
-      FoodMusic:{screen:FoodMusic},
-      Feedback:{screen:Feedback},
-      InviteEarn:{screen:InviteEarn},
-      MomentsPrint:{screen:MomentsPrint},
-      Terms:{screen:Terms}
-
-    },{
-        headerMode: 'none',
-})
+  // const DrawerItems=StackNavigator({
+  //       AddBaby:{screen:AddBaby},
+  //       FamilyMember:{screen:FamilyMember},
+  //       FoodMusic:{screen:FoodMusic},
+  //       Feedback:{screen:Feedback},
+  //       InviteEarn:{screen:InviteEarn},
+  //       MomentsPrint:{screen:MomentsPrint},
+  //       Terms:{screen:Terms}
+  //
+  //     },{
+  //         headerMode: 'none',
+  // })
 
 
 
 
 
 const DrawerPage = DrawerNavigator({
-    Tabs: {
-      screen: TabScreen,
-    },
-    DrawerItems:{screen:DrawerItems}
+     Tabs: {
+       screen: TabScreen,
+     },
+     AddBaby:{screen:AddBaby},
+     FamilyMember:{screen:FamilyMember},
+     FoodMusic:{screen:FoodMusic},
+     Feedback:{screen:Feedback},
+     InviteEarn:{screen:InviteEarn},
+     MomentsPrint:{screen:MomentsPrint},
+     Terms:{screen:Terms}
   }, {
     // Register custom drawer component
     contentComponent: props => <Drawer {...props} />
@@ -94,14 +100,14 @@ const DrawerPage = DrawerNavigator({
 
 const Routes = StackNavigator({
   Auth: {
-    screen: Auth,
+    screen: DrawerPage,
     navigationOptions: {
       header: null,
       headerBackTitle: 'Back',
     },
   },
   Home:{
-    screen:DrawerPage ,
+    screen: Auth,
     navigationOptions: {
       header: null,
     },
