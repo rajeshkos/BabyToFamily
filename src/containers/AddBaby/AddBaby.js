@@ -109,9 +109,9 @@ submit=()=>{
 
       //  data['profileimage']=this.state.image.uri;
         //console.log("profile",profile);
-        AddBabyUpload(formData);
+  //    AddBabyUpload(formData);
       //  console.log(this.props);
-
+         this.props.AddBabyUpload({formData})
      }
 
 
