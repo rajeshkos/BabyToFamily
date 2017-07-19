@@ -114,6 +114,7 @@ console.log("loading",loading);
                     iconName={ require('./Images/mail/mail.png')}
                     value={email}
                     secureTextEntry={false}
+                    maxLength={64}
                     placeholder="Email or Mobile No."
                     onFocus={(event) => {
                       this.setFocus(event, (height-100));
