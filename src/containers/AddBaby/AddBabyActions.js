@@ -1,9 +1,8 @@
 export const ADDBABY_UPDATE='ADDBABY_UPDATE';
-import Api from 'app/lib/api'
-import URL from 'app/lib/url'
-// export const SIGNUP_CHECK=' SIGNUP_CHECK';
-// export const SIGNUP_SUCCESSFULL='SIGNUP_SUCCESSFULL';
-// export const SIGNUP_FAIL='SIGNUP_FAIL';
+export const  UPLOADBUTTON_CLICKED='UPLOADBUTTON_CLICKED';
+
+
+
 
 export const AddBabyUpdate=({prop,value})=>{
   return {
@@ -11,13 +10,4 @@ export const AddBabyUpdate=({prop,value})=>{
     payload:{prop,value}
   }
 }
-
-
- export const AddBabyUpload=(formData)=>(dispatch)=>{
-
-   Api.makeImageUpload('POST',URL.ADD_BABY_DETAIL,{},formData)
-   .then((response) => response.json())
-   .catch((err)=>alert(err))
-
-
- }
+export const AddBabyUpload=(formData)=>({type:UPLOADBUTTON_CLICKED,payload:formData})

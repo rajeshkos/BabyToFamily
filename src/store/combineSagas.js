@@ -1,11 +1,13 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import {AddBabySaga} from 'app/containers/AddBaby/AddBabySaga'
+import { call, put, takeEvery, takeLatest,fork } from 'redux-saga/effects'
+import { AddBabySaga }  from '../containers/AddBaby/AddBabySaga'
 
-export default function*  rootSaga() {
-  yield  [
+const rootSaga = function * root () {
 
-    fork(AddBabySaga)
+      yield [
+        fork(AddBabySaga)
+      ]
 
-]
+
 
 }
+export default rootSaga;
