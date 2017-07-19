@@ -29,8 +29,8 @@ import {connect} from 'react-redux';
 import styles from './style';
 import InputWithIcon  from 'app/components/InputWithIcon'
 import FingerprintScanner from 'react-native-fingerprint-scanner';
-import style from 'app/containers/FingerprintPopup';
-import FingerprintPopup from 'app/containers/FingerprintPopup';
+
+import FingerprintPopup from './FingerprintPopup';
 
 import Loading from 'app/components/Loading';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -283,11 +283,7 @@ const { errorMessage, popupShowed } = this.state;
       </View>
 
 </View>
-{errorMessage && (
-  <Text style={styles.errorMessage}>
-    {errorMessage}
-  </Text>
-)}
+
 
 {popupShowed && (
   <FingerprintPopup
