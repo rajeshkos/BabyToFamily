@@ -27,7 +27,12 @@ import Profile from 'app/containers/Profile';
 import AddBaby from 'app/containers/AddBaby'
 import ForgotPassword from 'app/containers/ForgotPassword'
 import Otp from 'app/containers/Signup/OTP'
-
+import FamilyMember from 'app/containers/Drawer/DrawerPages/FamilyMember'
+import Feedback from 'app/containers/Drawer/DrawerPages/Feedback'
+import FoodMusic from 'app/containers/Drawer/DrawerPages/FoodMusic'
+import InviteEarn from 'app/containers/Drawer/DrawerPages/InviteEarn'
+import MomentsPrint from 'app/containers/Drawer/DrawerPages/MomentsPrint'
+import Terms from 'app/containers/Drawer/DrawerPages/Terms'
 
 // Stack navigation for Settings and Profile screens
 
@@ -60,22 +65,34 @@ const TabScreen=StackNavigator({
 
 })
 
-const DrawerItems=StackNavigator({
-      AddBaby:{screen:AddBaby},
-
-    },{
-        headerMode: 'none',
-})
+  // const DrawerItems=StackNavigator({
+  //       AddBaby:{screen:AddBaby},
+  //       FamilyMember:{screen:FamilyMember},
+  //       FoodMusic:{screen:FoodMusic},
+  //       Feedback:{screen:Feedback},
+  //       InviteEarn:{screen:InviteEarn},
+  //       MomentsPrint:{screen:MomentsPrint},
+  //       Terms:{screen:Terms}
+  //
+  //     },{
+  //         headerMode: 'none',
+  // })
 
 
 
 
 
 const DrawerPage = DrawerNavigator({
-    Tabs: {
-      screen: TabScreen,
-    },
-    DrawerItems:{screen:DrawerItems}
+     Tabs: {
+       screen: TabScreen,
+     },
+     AddBaby:{screen:AddBaby},
+     FamilyMember:{screen:FamilyMember},
+     FoodMusic:{screen:FoodMusic},
+     Feedback:{screen:Feedback},
+     InviteEarn:{screen:InviteEarn},
+     MomentsPrint:{screen:MomentsPrint},
+     Terms:{screen:Terms}
   }, {
     // Register custom drawer component
     contentComponent: props => <Drawer {...props} />

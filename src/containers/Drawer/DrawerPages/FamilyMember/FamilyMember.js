@@ -19,7 +19,6 @@ export default class FamilyMember extends Component{
           <View style={{flex:1}}>
           </View>
       </View>
-
       </View>
     )
   }
