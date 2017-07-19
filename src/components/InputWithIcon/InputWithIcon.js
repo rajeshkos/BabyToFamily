@@ -25,8 +25,8 @@ return(
       <TextInput placeholder={placeholder} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={styles.input} underlineColorAndroid='transparent' {...props}/>
       :
 
-      <View style={{width:60,height:18,marginLeft:25,flexDirection:'row'}}>
-      <Text style={{bottom:4,fontSize:17,color:'#333333'}}>+{callingCode}</Text>
+      <View style={styles.flagViewContainer}>
+      <Text style={styles.flagText}>+{callingCode}</Text>
       <TextInput
       placeholder={callingCode?placeholder:''}
       secureTextEntry={secureTextEntry}
@@ -34,7 +34,6 @@ return(
       placeholderTextColor={placeholderTextColor}
       style={[styles.input,{paddingLeft:8}]}
       underlineColorAndroid='transparent'
-
       {...props}/>
       </View>
 

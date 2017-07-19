@@ -213,7 +213,10 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                         </CountryPicker>
                     </View>
                     </View>
-
+                    {loading?
+                        <Loading/>
+                        :null
+                    }
 
 
 
@@ -247,10 +250,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                     onChangeText={(text)=>SignupUpdate({prop:'email',value:text})}
                   />
               </View>
-              {loading?
-                  <Loading/>
-                  :null
-              }
+
               <View style={styles.halfFlex}>
 
                   <InputWithIcon

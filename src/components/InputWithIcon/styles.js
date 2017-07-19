@@ -104,6 +104,41 @@ container:{
       width: 200,
       color:'black',
     },
+    flagViewContainer:{
+      ...Platform.select({
+
+        ios: {
+          width:50,
+          height:18,
+          marginLeft:25,
+          flexDirection:'row',
+        },
+        android: {
+          paddingBottom: 0,
+          paddingLeft: 13,
+          width: 200,
+          flexDirection:'row'
+        },
+      }),
+
+    },
+    flagText:{
+      ...Platform.select({
+
+        ios: {
+          bottom:4,
+          fontSize:17,
+          color:'#333333',
+          fontFamily: 'GothamRounded-Book',
+        },
+        android: {
+          top: 12,
+          fontSize:17,
+          color:'#333333',
+          fontFamily: 'gotham_rounded_book',
+        },
+      }),
+    },
 
   mainContainer: {
     ...Platform.select({
