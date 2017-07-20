@@ -7,6 +7,7 @@ import StarRating from 'react-native-star-rating';
 import Tabs from '../Tabs'
 import styles from './style';
 const {width}=Dimensions.get('window')
+import Milestone from './Milestone'
 export default class Profile extends Component{
   constructor(props) {
     super(props);
@@ -76,7 +77,7 @@ export default class Profile extends Component{
 									<Image style={styles.iconImage} source={require('./Images/ios/photo.png')} />
 									<Text style={styles.iconDesc}>30</Text>
 								</View>
-							</View>	
+							</View>
 						</Image>
 					</View>
 				</View>
@@ -91,156 +92,31 @@ export default class Profile extends Component{
 						<Text style={styles.pinkText}>Milestone</Text>
 					</View>
 					<View style={styles.cardBox}>
-						<Card 
-							containerStyle={styles.card}
-							wrapperStyle={styles.wrapperStyle}
-						>
-							<View style={styles.topBar}>
-								<Text style={styles.cardTitle}>
-						    		Social
-						  		</Text>
-						  		<View style={styles.ratingWrap}>
-					    			<StarRating
-								        disabled={false}
-								        emptyStar={'ios-star-outline'}
-								        fullStar={'ios-star'}
-								        halfStar={'ios-star-half'}
-								        iconSet={'Ionicons'}
-								        emptyStarColor={'#FFDA43'}
-								        maxStars={5}
-								        rating={this.state.starCount}
-								        selectedStar={(rating) => this.onStarRatingPress(rating)}
-								        starColor={'#FFDA43'}
-								        starSize={25}
-								        starStyle={styles.starStyle} 
-								        rating={4.5}
-								      />
-					    		</View>
-					    	</View>
-					  		<Text style={styles.cardDesc}>
-					    		Baby gets good ranking in this category!
-					  		</Text>
-						</Card>
-						<Card 
-							containerStyle={styles.card}
-							wrapperStyle={styles.wrapperStyle}
-						>
-							<View style={styles.topBar}>
-								<Text style={styles.cardTitle}>
-						    		Communication
-						  		</Text>
-						  		<View style={styles.ratingWrap}>
-					    			<StarRating
-								        disabled={false}
-								        emptyStar={'ios-star-outline'}
-								        fullStar={'ios-star'}
-								        halfStar={'ios-star-half'}
-								        iconSet={'Ionicons'}
-								        emptyStarColor={'#FFDA43'}
-								        maxStars={5}
-								        rating={this.state.starCount}
-								        selectedStar={(rating) => this.onStarRatingPress(rating)}
-								        starColor={'#FFDA43'}
-								        starSize={25}
-								        starStyle={styles.starStyle} 
-								        rating={3.5}
-								      />
-					    		</View>
-					    	</View>
-					  		<Text style={styles.cardDesc}>
-					    		Need to improve in this category
-					  		</Text>
-						</Card>
-						<Card 
-							containerStyle={styles.card}
-							wrapperStyle={styles.wrapperStyle}
-						>
-							<View style={styles.topBar}>
-								<Text style={styles.cardTitle}>
-						    		Cognitive
-						  		</Text>
-						  		<View style={styles.ratingWrap}>
-					    			<StarRating
-								        disabled={false}
-								        emptyStar={'ios-star-outline'}
-								        fullStar={'ios-star'}
-								        halfStar={'ios-star-half'}
-								        iconSet={'Ionicons'}
-								        emptyStarColor={'#FFDA43'}
-								        maxStars={5}
-								        rating={this.state.starCount}
-								        selectedStar={(rating) => this.onStarRatingPress(rating)}
-								        starColor={'#FFDA43'}
-								        starSize={25}
-								        starStyle={styles.starStyle} 
-								        rating={4.5}
-								      />
-					    		</View>
-					    	</View>
-					  		<Text style={styles.cardDesc}>
-					    		Baby gets good ranking in this category!
-					  		</Text>
-						</Card>
-						<Card 
-							containerStyle={styles.card}
-							wrapperStyle={styles.wrapperStyle}
-						>
-							<View style={styles.topBar}>
-								<Text style={styles.cardTitle}>
-						    		Physical
-						  		</Text>
-						  		<View style={styles.ratingWrap}>
-					    			<StarRating
-								        disabled={false}
-								        emptyStar={'ios-star-outline'}
-								        fullStar={'ios-star'}
-								        halfStar={'ios-star-half'}
-								        iconSet={'Ionicons'}
-								        emptyStarColor={'#FFDA43'}
-								        maxStars={5}
-								        rating={this.state.starCount}
-								        selectedStar={(rating) => this.onStarRatingPress(rating)}
-								        starColor={'#FFDA43'}
-								        starSize={25}
-								        starStyle={styles.starStyle} 
-								        rating={3.5}
-								      />
-					    		</View>
-					    	</View>
-					  		<Text style={styles.cardDesc}>
-					    		Need to improve in this category
-					  		</Text>
-						</Card>
-						<Card 
-							containerStyle={styles.card}
-							wrapperStyle={styles.wrapperStyle}
-						>
-							<View style={styles.topBar}>
-								<Text style={styles.cardTitle}>
-						    		Special First
-						  		</Text>
-						  		<View style={styles.ratingWrap}>
-					    			<StarRating
-								        disabled={false}
-								        emptyStar={'ios-star-outline'}
-								        fullStar={'ios-star'}
-								        halfStar={'ios-star-half'}
-								        iconSet={'Ionicons'}
-								        emptyStarColor={'#FFDA43'}
-								        maxStars={5}
-								        rating={this.state.starCount}
-								        selectedStar={(rating) => this.onStarRatingPress(rating)}
-								        starColor={'#FFDA43'}
-								        starSize={25}
-								        starStyle={styles.starStyle} 
-								        rating= {3.5}
-								      />
-					    		</View>
-					    	</View>
-					  		<Text style={styles.cardDesc}>
-					    		Need to improve in this category
-					  		</Text>
-						</Card>
+					 <Milestone
+             cardTitle="Social"
+             cardDesc="Baby gets good ranking in this category!"
+             rating={this.state.starCount}
+             selectedStar={(rating)=>this.setState({starCount:rating})}
+           />
+           <Milestone
+             cardTitle="Communication"
+             cardDesc="Needs to improve in this Category"
+             rating={this.state.starCount}
+             selectedStar={(rating)=>this.setState({starCount:rating} )}
+           />
+           <Milestone
+             cardTitle="Congnitive"
+             cardDesc="Baby gets good ranking in this category!"
+             rating={this.state.starCount}
+             selectedStar={(rating)=>this.setState({starCount:rating} )}
+           />
+           <Milestone
+             cardTitle="Special First"
+             cardDesc="Needs to improve in this Category"
+             rating={this.state.starCount}
+             selectedStar={(rating)=>this.setState({starCount:rating} )}
+           />
+
 					</View>
 				</View>
 			</View>
