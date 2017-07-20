@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   },
   btnStyle: {
     height: 35,
+    width: width/1.5,
     elevation: 3,
     backgroundColor: '#FF57A5', borderRadius: 5, marginTop: 10,  shadowOpacity: 1.0, shadowOffset:{
     width: 1,

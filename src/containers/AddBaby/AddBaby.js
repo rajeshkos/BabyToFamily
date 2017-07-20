@@ -62,7 +62,6 @@ var locationName;
   //    console.log('the open/close of the swipeToClose just changed');
   //  }
 
-
    setFocus(event, heightUp){
      this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
    }
@@ -275,6 +274,7 @@ pickSingleFromGallery=(cropping)=> {
                 value={name}
                 placeholder="Baby's Name"
                 secureTextEntry={false}
+                maxLength={20}
                 keyboardType="default"
                 placeholderTextColor="#333333"
                 onChangeText={(text)=>AddBabyUpdate({prop:'name',value:text})}
@@ -283,13 +283,11 @@ pickSingleFromGallery=(cropping)=> {
             <View style={styles.boxWrap}>
               <TouchableHighlight style={styles.halfBox} onPress={()=>this.setState({genderState:'boy'})} underlayColor='transparent'>
                 <View style={{flex:1,flexDirection:'row'}}>
-
                     <Image source={genderState=='boy'?require('./Images/addbaby/boy1.png'):require('./Images/addbaby/boy.png')} style={styles.smallavatr}/>
                     <Text style={genderState=='boy'?styles.genderactive:styles.genderdefault}>Boy</Text>
-
-
-                  </View>
+                 </View>
               </TouchableHighlight>
+
               <TouchableHighlight style={styles.halfBox} onPress={()=>this.setState({genderState:'girl'})} underlayColor='transparent'>
               <View style={{flex:1,flexDirection:'row'}}>
                 <Image source={genderState=='girl'?require('./Images/addbaby/girl1.png'):require('./Images/addbaby/girl.png')} style={styles.smallavatr}/>
@@ -363,6 +361,7 @@ pickSingleFromGallery=(cropping)=> {
                     iconName= {require('./Images/addbaby/relation.png')}
                     value={relation}
                     placeholder="Relation"
+                    maxLength={20}
                     secureTextEntry={false}
                     keyboardType="default"
                     placeholderTextColor="#333333"

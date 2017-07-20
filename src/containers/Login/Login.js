@@ -89,7 +89,11 @@ handleFingerprintDismissed = () => {
              FingerprintScanner
                .isSensorAvailable()
                .then(()=>this.setState({ popupShowed: true }))
+<<<<<<< HEAD
                .catch(error => this.setState({ errorMessage: error.message }));
+=======
+               .catch(error => alert(error.message));
+>>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
            }
 
       componentWillUnmount() {
@@ -198,6 +202,7 @@ const { errorMessage, popupShowed } = this.state;
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
+                  maxLength={64}
                   placeholder="Email or Mobile No."
                   secureTextEntry={false}
                   keyboardType="default"
@@ -217,6 +222,7 @@ const { errorMessage, popupShowed } = this.state;
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
+                    maxLength={6}
                     secureTextEntry={true}
                     keyboardType="default"
                     onFocus={(event) => {
@@ -283,6 +289,14 @@ const { errorMessage, popupShowed } = this.state;
       </View>
 
 </View>
+<<<<<<< HEAD
+=======
+ {/*{errorMessage && (
+   <Text style={styles.errorMessage}>
+     {errorMessage}
+   </Text>
+ )}*/}
+>>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
 
 
 {popupShowed && (

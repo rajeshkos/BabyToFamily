@@ -51,7 +51,7 @@ loginContainer: {
   },
 container:{
       backgroundColor:'#fff',
-      width:'90%',
+      width: width/1.5,
       borderRadius:BORDER_RADIUS,
       flexDirection:'row',
       alignItems:'center',
@@ -90,19 +90,53 @@ container:{
           paddingLeft: 25,
           paddingBottom: 6,
           fontFamily: 'GothamRounded-Book',
-          width: 300,
+         },
+        android: {
+          paddingBottom: 0,
+          paddingLeft: 13,
+           fontFamily: 'gotham_rounded_book',
+        },
+      }),
+      height:INPUT_HEIGHT+18,
+      fontSize:15,
+      width: width/1.5,
+      color:'black',
+    },
+    flagViewContainer:{
+      ...Platform.select({
+
+        ios: {
+          width:50,
+          height:18,
+          marginLeft:25,
+          width: 150,
+          flexDirection:'row',
         },
         android: {
           paddingBottom: 0,
           paddingLeft: 13,
           width: 200,
+          flexDirection:'row'
+        },
+      }),
+
+    },
+    flagText:{
+      ...Platform.select({
+
+        ios: {
+          bottom:4,
+          fontSize:16,
+          color:'#333333',
+          fontFamily: 'GothamRounded-Book',
+        },
+        android: {
+          top: 12,
+          fontSize:16,
+          color:'#333333',
           fontFamily: 'gotham_rounded_book',
         },
       }),
-      height:INPUT_HEIGHT+18,
-      fontSize:15,
-      width: 200,
-      color:'black',
     },
 
   mainContainer: {

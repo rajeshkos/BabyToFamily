@@ -55,7 +55,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
              iconColor={this.state.active==='two'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='two'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'two'})}
+          onPress={()=>{this.setState({active:'two'}),navigate('FamilyMember')}}
         />
         <DrawerItem
           label="Invite & Earn"
@@ -64,7 +64,11 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
            iconColor={this.state.active==='three'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='three'? styles.activeLabel : styles.inactiveLabel}
+<<<<<<< HEAD
             onPress={()=>{this.setState({active:'three'})}}
+=======
+            onPress={()=>{this.setState({active:'three'}),navigate('InviteEarn')}}
+>>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
         />
         <DrawerItem
           label="Moments/Prints"
@@ -75,7 +79,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
             iconColor={this.state.active==='four'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='four'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'four'})}
+          onPress={()=>{this.setState({active:'four'}),navigate('MomentsPrint')}}
          />
          <DrawerItem
           label="Food/Music"
@@ -84,7 +88,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
             iconColor={this.state.active==='five'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='five'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'five'})}
+          onPress={()=>{this.setState({active:'five'}),navigate('FoodMusic')}}
          />
          <DrawerItem
           label="Terms & Policy"
@@ -93,7 +97,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
             iconColor={this.state.active==='six'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='six'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'six'})}
+          onPress={()=>{this.setState({active:'six'}),navigate('Terms')}}
          />
         <DrawerItem
           label="Feedback"
@@ -102,7 +106,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
          iconColor={this.state.active==='seven'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='seven'? styles.activeLabel : styles.inactiveLabel}
-          onPress={()=>this.setState({active:'seven'})}
+          onPress={()=>{this.setState({active:'seven'}),navigate('Feedback')}}
         />
         <DrawerItem
           label="Logout"
