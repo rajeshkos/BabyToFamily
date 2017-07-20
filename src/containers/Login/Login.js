@@ -89,11 +89,9 @@ handleFingerprintDismissed = () => {
              FingerprintScanner
                .isSensorAvailable()
                .then(()=>this.setState({ popupShowed: true }))
-<<<<<<< HEAD
-               .catch(error => this.setState({ errorMessage: error.message }));
-=======
+
                .catch(error => alert(error.message));
->>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
+
            }
 
       componentWillUnmount() {
@@ -289,14 +287,7 @@ const { errorMessage, popupShowed } = this.state;
       </View>
 
 </View>
-<<<<<<< HEAD
-=======
- {/*{errorMessage && (
-   <Text style={styles.errorMessage}>
-     {errorMessage}
-   </Text>
- )}*/}
->>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
+
 
 
 {popupShowed && (

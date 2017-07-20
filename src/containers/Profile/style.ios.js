@@ -199,9 +199,5 @@ headerTop: {
     color: '#343434'
   }
 });
+export default styles;
 
-<<<<<<< HEAD
-export default styles;
-=======
-export default styles;
->>>>>>> d9311fd885eb4a3f1fdd594ebcd67e7b40fdc25c
