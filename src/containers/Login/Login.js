@@ -287,7 +287,7 @@ const { errorMessage, popupShowed } = this.state;
       </View>
 
 </View>
-
+  
 
 
 {popupShowed && (
