@@ -1,5 +1,14 @@
 import React,{Component} from 'react'
-import {Text,View, StyleSheet, Image, Dimensions, ScrollView} from 'react-native'
+import {Text,
+  View,
+   StyleSheet,
+   Image,
+   Dimensions,
+   ScrollView,
+   Animated,
+   PanResponder,
+   LayoutAnimation
+ } from 'react-native'
 import { Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
@@ -13,7 +22,10 @@ export default class Profile extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      starCount: 3.5
+        social:2.5,
+        communication:1.5,
+        congnitive:2.5,
+        specialfirst:1.5
     };
   }
 
@@ -23,16 +35,18 @@ export default class Profile extends Component{
     });
   }
  render(){
+     const {navigation,dispatch}=this.props;
    return(
 	<Tabs {...this.props}>
 		<View style={styles.headerTop}>
 			<View style={styles.subElement}>
-				<Icon
+				{/*<Icon
 				 name="ios-arrow-back"
 				 size={26}
 				 color="black"
 				 style={styles.iconStyle}
-				/>
+         onPress={()=>{navigation.navigate('Auth')}}
+				/>*/}
 			</View>
 			<View style={styles.subHead}>
 				<Text style={styles.fontStyle}>Baby Profile</Text>
@@ -46,7 +60,7 @@ export default class Profile extends Component{
 				/>
 			</View>
 		</View>
-		<ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center', backgroundColor: '#fff'}}>
+		<View  ref="scrollView" style={{flex:1,  justifyContent: 'center', backgroundColor: '#fff'}}>
 
 			<View style={styles.mainContainer}>
 
@@ -66,8 +80,8 @@ export default class Profile extends Component{
                   <Image style={styles.iconImage} source={require('./Images/ios/photo.png')} />
                   <Text style={styles.iconDesc}>30</Text>
                 </View>
-            </View> 
-				</Banner>		
+            </View>
+				</Banner>
 
 				<View style={styles.cardWrap}>
 					<View style={styles.leftText}>
@@ -79,36 +93,36 @@ export default class Profile extends Component{
 							/>
 						<Text style={styles.pinkText}>Milestone</Text>
 					</View>
-					<View style={styles.cardBox}>
+					<ScrollView contentContainerStyle={styles.cardBox}>
 					 <Milestone
              cardTitle="Social"
              cardDesc="Baby gets good ranking in this category!"
-             rating={this.state.starCount}
-             selectedStar={(rating)=>this.setState({starCount:rating})}
+             rating={this.state.social}
+             selectedStar={(rating)=>this.setState({social:rating})}
            />
            <Milestone
              cardTitle="Communication"
              cardDesc="Needs to improve in this Category"
-             rating={this.state.starCount}
-             selectedStar={(rating)=>this.setState({starCount:rating} )}
+             rating={this.state.communication}
+             selectedStar={(rating)=>this.setState({communication:rating} )}
            />
            <Milestone
              cardTitle="Congnitive"
              cardDesc="Baby gets good ranking in this category!"
-             rating={this.state.starCount}
-             selectedStar={(rating)=>this.setState({starCount:rating} )}
+             rating={this.state.congnitive}
+             selectedStar={(rating)=>this.setState({congnitive:rating} )}
            />
            <Milestone
              cardTitle="Special First"
              cardDesc="Needs to improve in this Category"
-             rating={this.state.starCount}
-             selectedStar={(rating)=>this.setState({starCount:rating} )}
+             rating={this.state.specialfirst}
+             selectedStar={(rating)=>this.setState({specialfirst:rating} )}
            />
 
-					</View>
+					</ScrollView>
 				</View>
 			</View>
-		</ScrollView>
+		</View>
 	</Tabs>
    )
  }
