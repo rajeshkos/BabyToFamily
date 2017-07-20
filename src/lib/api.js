@@ -26,13 +26,14 @@ let Api={
         },
 
     makeImageUpload(method, url, params, data){
-        console.log("data",data);
+
           const settings = {
-               method:method,
+               method:'POST',
                headers: {
                  'Accept': 'application/json',
-                
-                     }
+                 'Content-Type': 'multipart/form-data;',
+              //   'Authorization': 'Bearer ' + 'SECRET_OAUTH2_TOKEN_IF_AUTH',
+               },
              };
              if (params) {
                  settings.params = params;
