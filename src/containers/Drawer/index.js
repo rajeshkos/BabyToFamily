@@ -65,6 +65,7 @@ import {logout} from 'app/containers/Login/LoginAction';
            iconColor={this.state.active==='three'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='three'? styles.activeLabel : styles.inactiveLabel}
             onPress={()=>{this.setState({active:'three'}),navigate('InviteEarn')}}
+
         />
         <DrawerItem
           label="Moments/Prints"

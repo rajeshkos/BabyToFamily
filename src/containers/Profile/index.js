@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import StarRating from 'react-native-star-rating';
+import Banner  from 'app/components/Banner'
 import Tabs from '../Tabs'
 import styles from './style';
 const {width}=Dimensions.get('window')
@@ -48,39 +49,26 @@ export default class Profile extends Component{
 		<ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center', backgroundColor: '#fff'}}>
 
 			<View style={styles.mainContainer}>
-				<View style={styles.topConatiner}>
-					<View style={styles.bgView}>
-						<Image style={styles.bgImage} resizeMode= 'stretch' source={require('./Images/ios/bg.png')}>
-						 <View style={styles.profileInfo}>
-								<View style={styles.babyImage}>
-									<View style={styles.imageWapper}>
-										<Image style={styles.image} source={require('./Images/05.png')} />
-								    </View>
-								</View>
-								<Text style={styles.name}>Annie Smith</Text>
-								<View style={styles.age}>
-									<Text style={styles.ageText}>8 months 2 days old</Text>
-								</View>
-							</View>
-							<View style={styles.bottomBar}>
-								<View style={styles.barIcon}>
-									<Image style={styles.iconImage} source={require('./Images/ios/milestone.png')} />
-									<Text style={styles.iconDesc}>2</Text>
-								</View>
-								<View style={styles.barIcon}>
-									<View style={styles.centerIcon}>
-										<Image style={styles.iconImage} source={require('./Images/ios/premium.png')} />
-										<Text style={styles.iconDesc}>Premium</Text>
-									</View>
-								</View>
-								<View style={styles.barIcon}>
-									<Image style={styles.iconImage} source={require('./Images/ios/photo.png')} />
-									<Text style={styles.iconDesc}>30</Text>
-								</View>
-							</View>
-						</Image>
-					</View>
-				</View>
+
+				<Banner >
+				 <View style={styles.bottomBar}>
+                <View style={styles.barIcon}>
+                  <Image style={styles.iconImage} source={require('./Images/ios/milestone.png')} />
+                  <Text style={styles.iconDesc}>2</Text>
+                </View>
+                <View style={styles.barIcon}>
+                  <View style={styles.centerIcon}>
+                    <Image style={styles.iconImage} source={require('./Images/ios/premium.png')} />
+                    <Text style={styles.iconDesc}>Premium</Text>
+                  </View>
+                </View>
+                <View style={styles.barIcon}>
+                  <Image style={styles.iconImage} source={require('./Images/ios/photo.png')} />
+                  <Text style={styles.iconDesc}>30</Text>
+                </View>
+            </View> 
+				</Banner>		
+
 				<View style={styles.cardWrap}>
 					<View style={styles.leftText}>
 						<MIcon

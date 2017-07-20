@@ -62,7 +62,6 @@ var locationName;
   //    console.log('the open/close of the swipeToClose just changed');
   //  }
 
-
    setFocus(event, heightUp){
      this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
    }
