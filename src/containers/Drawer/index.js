@@ -112,7 +112,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
             iconColor={this.state.active==='eight'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='eight'? styles.activeLabel : styles.inactiveLabel}
-           onPress={()=>{this.setState({active:'eight'}),logout()}}
+           onPress={()=>{this.setState({active:'eight'}),logout(),navigate('Auth')}}
         />
       </View>
 
