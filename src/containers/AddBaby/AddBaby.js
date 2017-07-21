@@ -95,13 +95,13 @@ submit=()=>{
       //  data['location']=Addbaby.location;
       //  data['relation']=Addbaby.relation;
         var formData = new FormData();
-        formData.append("email",data);
+        formData.append("email","iashimil@gmail.com");
         formData.append("name",Addbaby.name);
         formData.append("gender",Addbaby.gender);
         formData.append("dob",Addbaby.date);
         formData.append("location",Addbaby.location);
         formData.append("relation",Addbaby.relation);
-        formData.append('image',{path:image.uri,name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],type:image.mime})
+        formData.append('images',{name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],uri:image.uri,type: 'image/jpg'})
 
       //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
       //  send.append()
