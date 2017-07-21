@@ -84,7 +84,9 @@ const styles = StyleSheet.create({
   },
   // Active tab container
   tabContainerActive: {
-    borderBottomColor: '#FFFFFF',       // White bottom border for active tabs
+    borderBottomColor: '#FFFFFF',
+    borderBottomWidth:5 
+         // White bottom border for active tabs
   },
   // Tab text
   tabText: {
@@ -95,6 +97,6 @@ const styles = StyleSheet.create({
   },
   // Content container
   contentContainer: {
-    flex: 10                            // Take up all available space
+    flex: 15                           // Take up all available space
   }
 });
