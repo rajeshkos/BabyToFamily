@@ -213,10 +213,16 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                         </CountryPicker>
                     </View>
                     </View>
-                    {loading?
-                        <Loading/>
-                        :null
-                    }
+
+                                        {loading?
+
+                                          <Loading
+                                             loadstyle={{marginLeft:width/2-38}}
+                                           />
+                                            :
+                                              null
+                                        }
+
 
 
 
