@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   // Active tab container
   tabContainerActive: {
     borderBottomColor: '#FFFFFF',
-    borderBottomWidth:5 
+    borderBottomWidth:3
          // White bottom border for active tabs
   },
   // Tab text

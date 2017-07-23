@@ -36,7 +36,7 @@ flagContainer:{
   componentContainer: {
     flex: 1,
     width: width/1.35,
-    alignSelf: 'center',
+   alignSelf:'center'
   },
 
   keyboardStyle: {

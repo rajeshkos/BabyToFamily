@@ -17,7 +17,8 @@ import {
   TouchableHighlight,
   ScrollView,
   Platform,
-  ActivityIndicator
+  ActivityIndicator,
+  NetInfo
 } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button, SocialIcon } from 'react-native-elements';
@@ -33,9 +34,45 @@ import styles from './style';
 const {width,height}=Dimensions.get('window');
 
  class ForgotPassword extends Component {
-        static navigationOptions= {
-                header: null
-            }
+
+   static navigationOptions= {
+           header: null
+       }
+constructor(props){
+  super(props);
+  this.state={
+    connectionInfo: null
+  }
+}
+
+
+
+
+componentDidMount(){
+  NetInfo.addEventListener(
+        'change',
+        this._handleConnectionInfoChange
+    );
+    NetInfo.fetch().done(
+        (connectionInfo) => { this.setState({connectionInfo}); }
+    );
+}
+
+_handleConnectionInfoChange=(connectionInfo)=> {
+    this.setState({
+      connectionInfo,
+    });
+  }
+
+  componentWillUnmount() {
+     NetInfo.removeEventListener(
+         'change',
+         this._handleConnectionInfoChange
+     );
+   }
+
+
+
 
    setFocus(event, heightUp){
 
@@ -43,8 +80,11 @@ const {width,height}=Dimensions.get('window');
    }
 handleSend=(email)=>{
   const {navigate}=this.props.navigation;
+const {connectionInfo}=this.state;
         let intRegex = /[0-9 -()+]+$/;
        let eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+if(connectionInfo!=='none'){
+
        if(intRegex.test(email)) {
 
            if((email.length < 9) || (!intRegex.test(email)))
@@ -62,13 +102,16 @@ handleSend=(email)=>{
 
 
          }
+       }else{
+         alert('Please Check Your Network')
+       }
 
 
 
 }
   render() {
 const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
-console.log("loading",loading);
+
     return (
 
 
@@ -93,6 +136,12 @@ console.log("loading",loading);
                   <Text style={styles.headingTextTwo}>We just need your registered </Text>
                   <Text style={styles.headingTextThree}>Mobile No. </Text>
               </View>
+              {loading?
+               <View style={{position:'absolute',top:90}}>
+                 <ActivityIndicator  color={'#FF57A5'} />
+               </View>
+               :null
+               }
               <View style={styles.subHeadingMainThree}>
                   <Text style={styles.headingTextTwo}>or </Text>
                   <Text style={styles.headingTextThree}>Email Id </Text>
@@ -102,12 +151,7 @@ console.log("loading",loading);
                   <Text style={styles.headingTextTwo}>reset instruction. </Text>
               </View>
             </View>
-            {loading?
-             <View style={{position:'relative',bottom:180,left:0}}>
-               <ActivityIndicator  color={'#FF57A5'} />
-             </View>
-             :null
-             }
+
           <View style={styles.inputTextMain}>
             <View style={styles.inputTextSub}>
                   <InputWithIcon

@@ -22,7 +22,7 @@ import {connect} from 'react-redux';
 import InputWithIcon  from 'app/components/InputWithIcon'
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Signupfail} from '../SignupActions'
-
+import Loading from 'app/components/Loading';
 import {OtpUpdate,OtpChecking,OtpResend,session_start,session_destroy} from './OtpActions';
 
 //import styles from './style';
@@ -32,9 +32,17 @@ const {width,height}=Dimensions.get('window');
 
  class Otp extends Component {
 
-         static navigationOptions= {
-              header: null
-          }
+
+  static navigationOptions= {
+                 header: null
+             }
+
+   constructor(props){
+     super(props);
+     this.state={
+        connectionInfo: null,
+     }
+   }
 
 
    setFocus(event, heightUp){
@@ -48,21 +56,34 @@ componentWillMount(){
 }
 componentDidMount(){
 
-  //this.props.dispatch({type:OTP_FAIL})
-/*   setTimeout(()=> {
-         this.props.session_destroy();
-        this.props.navigation.navigate('Login');
-        this.props.Signupfail();
-
-   },80000);
-   */
+  NetInfo.addEventListener(
+          'change',
+          this._handleConnectionInfoChange
+      );
+      NetInfo.fetch().done(
+          (connectionInfo) => { this.setState({connectionInfo}); }
+      );
 }
 
+
+_handleConnectionInfoChange=(connectionInfo)=>{
+   this.setState({
+     connectionInfo,
+   });
+ }
+
+ componentWillUnmount() {
+     NetInfo.isConnected.removeEventListener(
+         'change',
+         this._handleConnectivityChange
+     );
+   }
 
 handleSend=(otp)=>{
    const {mobile} = this.props;
   const {navigate}=this.props.navigation;
-
+  const {connectionInfo}=this.state;
+if(connectionInfo!=='none'){
                 if(!otp){
                     alert('Please enter OTP');
                   }else if(isNaN(Number(otp))){
@@ -75,6 +96,9 @@ handleSend=(otp)=>{
                   this.props.Signupfail();
 
                   }
+                }else{
+                  alert('Please Check Your Network')
+                }
          }
   render() {
     const {navigation,otp,loading,sucecsss,OtpUpdate,mobile,OtpResend,session,timeout}=this.props;
@@ -99,16 +123,24 @@ handleSend=(otp)=>{
         <View style={styles.headingMain}>
           <View style={{flex: 1, alignSelf: 'center'}}>
              <View style={styles.subHeadingMain}>
+             {loading?
+               <View style={{ position:'absolute',top:50 }}>
+               <Loading />
+              </View>
+              :null
+             }
                 <View style={{alignSelf:'center', flex: 1,
                     justifyContent: 'center', paddingLeft: 10, paddingRight: 10}}>
                     <Text style={styles.headingText}>Enter the 6-digit code sent to you at</Text>
                       <Text style={[styles.headingText,{alignSelf:'center'}]}>{mobile}</Text>
                        <Text style={[styles.suheadingText,{alignSelf:'center'}]}>You OTP Will Expire in 5 Minitues</Text>
+
                 </View>
 
             </View>
 
           <View style={styles.inputTextMain}>
+
             <View style={styles.inputTextSub}>
                   <InputWithIcon
                     iconName={ require('./Images/mail/mail.png')}

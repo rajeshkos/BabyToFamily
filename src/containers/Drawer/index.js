@@ -14,9 +14,24 @@ const { width, height}= Dimensions.get('window');
 import DrawerItem from './DrawerItem'
 import {connect} from 'react-redux';
 import {logout} from 'app/containers/Login/LoginAction';
+import { NavigationActions } from 'react-navigation'
+
+
+
+
  class Drawer extends Component {
   state={active:'one'}
 
+handleLogout=()=>{
+        const {logout}=this.props;
+        const { navigate } = this.props.navigation;
+      this.setState({active:'eight'}),
+      logout(),
+      navigate('Login')
+
+        //this.props.navigation.dispatch(resetAction)
+
+}
   render() {
     const {logout}=this.props;
     const { navigate } = this.props.navigation;
@@ -112,7 +127,7 @@ import {logout} from 'app/containers/Login/LoginAction';
           {...this.props}
             iconColor={this.state.active==='eight'? '#FFDF58' : '#343434'}
              labelStyle={this.state.active==='eight'? styles.activeLabel : styles.inactiveLabel}
-           onPress={()=>{this.setState({active:'eight'}),logout(),navigate('Auth')}}
+           onPress={()=>this.handleLogout()}
         />
       </View>
 

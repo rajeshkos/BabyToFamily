@@ -31,11 +31,11 @@ const mobileAlready=()=>({type: MOBILE_ALREDAY});
 const signupFail=()=>({type: SIGNUP_FAIL});
 
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
-
+dispatch(signupCheck());
 Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
-          dispatch(signupCheck());
+
           switch(responseJson.status){
      case 200:
                 dispatch(signupSuccess(responseJson));

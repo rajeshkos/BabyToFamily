@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
      <Header
      menuPress={() => navigate('DrawerOpen')}
      bellPress={() => console.log('Bell')}
-     settingPress={() => console.log('setting')}
+     settingPress={() => navigate('Settings')}
      name="Annie Smith"
      />
      <View

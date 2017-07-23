@@ -29,7 +29,7 @@ const {width,height}=Dimensions.get('window');
 import Modal from 'react-native-modalbox';
 const ImagePicker = NativeModules.ImageCropPicker;
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
-import {AddBabyUpdate,AddBabyUpload} from  './AddBabyActions'
+import {AddBabyUpdate,AddBabyUpload,AddBabyAdded} from  './AddBabyActions'
 import moment from 'moment'
 import {validation} from './validation';
 import Api from 'app/lib/api'
@@ -82,7 +82,7 @@ submit=()=>{
       // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
       // let obj = Object.assign(o1, o2);
 
-
+if(image){
         alert(error)
   if(error==='Successfully Registerd'){
     //  let profile=new Object();
@@ -110,9 +110,13 @@ submit=()=>{
         //console.log("profile",profile);
   //    AddBabyUpload(formData);
       //  console.log(this.props);
+      //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
+         this.props.AddBabyAdded()
      }
-
+}else{
+  alert("Select Profile Picture")
+}
 
 
 
@@ -433,4 +437,4 @@ const mapStateToProps=({Addbaby,Signup})=>{
 
 }
 
-export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload}) (AddBaby);
+export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload,AddBabyAdded}) (AddBaby);

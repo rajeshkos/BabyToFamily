@@ -4,6 +4,8 @@ export const LOGIN_CHECK='LOGIN_CHECK';
 export const LOGIN_SUCCESSFULL='LOGIN_SUCCESSFULL';
 export const LOGIN_FAIL='LOGIN_FAIL';
 export const LOG_OUT='LOG_OUT';
+export const NO_BABY='NO_BABY';
+export const FINGER_PRINT_ACTIVATE='FINGER_PRINT_ACTIVATE';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
 
@@ -21,6 +23,9 @@ export const logout=()=>{
   }
 }
 
+export const fingerPrintActivate=()=>({type:FINGER_PRINT_ACTIVATE})
+
+const noBaby=()=>({type:NO_BABY})
 
 export const socialLoginSuccess=()=>{
   return{
@@ -41,26 +46,34 @@ dispatch(loginCheck());
 Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
    .then((response) => response.json())
    .then((responseJson) =>{
+      //  console.log("responseJson",responseJson);
+         switch (responseJson.status) {
+           case 200:
+                   dispatch(loginSuccess());
+                   navigate('Home');
+              break;
+          case 400:
 
- switch (responseJson.status) {
-   case 200:
-           dispatch(loginSuccess());
-           navigate('Home');
-      break;
-  case 400:
-         alert('Doesnot have A baby')
-         break;
-  case 401:
-        dispatch(socialLoginFail());
-        alert('User not Autherized')
-        break;
-  case 404 :
-         dispatch(socialLoginFail());
-         alert('Invalid User')
+                  dispatch(noBaby())
+                  alert('Doesnot have A baby')
+                    navigate('AddBaby')
+                    //dispatch(loginSuccess())
+                 break;
+          case 401:
+                dispatch(socialLoginFail());
+                alert('User not Autherized')
+                break;
+          case 404 :
+                 dispatch(socialLoginFail());
+                 alert('Invalid User')
+                  break;
+          case 502:
+                dispatch(socialLoginFail());
+                alert('Wrong Credentials');
+                break;
+         }
 
- }
-
-  })
+          })
   .catch((error) => {
         dispatch(socialLoginFail());
         alert('Login Failed');

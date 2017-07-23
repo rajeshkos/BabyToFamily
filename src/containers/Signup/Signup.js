@@ -16,7 +16,9 @@ import {
   TouchableHighlight,
   ScrollView,
   Platform,
-  AsyncStorage
+  AsyncStorage,
+  NetInfo
+
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
 import { Button, SocialIcon } from 'react-native-elements';
@@ -30,7 +32,7 @@ const {width,height}=Dimensions.get('window');
 import CountryPicker, {getAllCountries} from 'react-native-country-picker-modal';
 import PhoneInput from 'react-native-phone-input'
 import DeviceInfo from 'react-native-device-info';
-
+const SleekLoadingIndicator = require('react-native-sleek-loading-indicator');
 import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './SignupActions'
  class Signup extends Component {
 
@@ -40,7 +42,8 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
      user: undefined,
      cca2:'',
      callingCode:'',
-     Mobilenumber:''
+     Mobilenumber:'',
+     connectionInfo: null
 
 
    };
@@ -67,11 +70,31 @@ componentWillMount(){
          })
 
 
+         NetInfo.addEventListener(
+              'change',
+              this._handleConnectionInfoChange
+          );
+          NetInfo.fetch().done(
+              (connectionInfo) => { this.setState({connectionInfo}); }
+          );
+
+
        }
+
+ _handleConnectionInfoChange=(connectionInfo)=>{
+          this.setState({
+            connectionInfo
+          });
+        }
+
 
   componentWillUnmount() {
          // Remove event listener
          Linking.removeEventListener('url', this.handleOpenURL);
+         NetInfo.removeEventListener(
+             'change',
+             this._handleConnectionInfoChange
+         );
 
        }
 
@@ -107,9 +130,9 @@ componentWillMount(){
        }
 
 
-loginWithFacebook = () => this.openURL('http://172.24.3.104:3000/auth/facebook');
+loginWithFacebook = () => this.openURL('http://52.39.212.226:4089/auth/facebook');
 
-loginWithInstagram = () => this.openURL('http://172.24.3.104:3000/auth/instagram');
+loginWithInstagram = () => this.openURL('http://52.39.212.226:4089/auth/instagram');
 
 
 openURL = (url) => {
@@ -138,12 +161,13 @@ onFocus=()=>{
 
 }
 signUp=(props)=>{
-    const {callingCode,Mobilenumber}=this.state;
+    const {callingCode,Mobilenumber,connectionInfo}=this.state;
 //this.props.
 //  console.log(name,email,mobile,password,cpassword);
-const {name,email,mobile,password,cpassword,navigation}=props;
+const {name,email,mobile,password,cpassword,navigation,loading}=props;
 
   // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
+  if(connectionInfo!=='none'){
         if(!this.state.Mobilenumber){
           alert('Please enter your Mobile Number')
         }else if(!name){
@@ -173,7 +197,9 @@ const {name,email,mobile,password,cpassword,navigation}=props;
 
             this.props.SignupChecking({name,email,mobile,password,navigation});
            }
-
+}else{
+  alert("Please Check your Network")
+}
 
 }
   render() {
@@ -181,6 +207,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
   const {callingCode,Mobilenumber}=this.state;
     const {email,password,name,mobile,SignupUpdate,SignupChecking,cpassword,data,loading,navigation}=this.props;
 // console.log(loading,'loading');
+
     return (
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
         <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
@@ -213,14 +240,6 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                         </CountryPicker>
                     </View>
                     </View>
-                            { loading?
-
-                                          <Loading
-                                             loadstyle={{marginLeft:width/2-38}}
-                                           />
-                                            :
-                                              null
-                                        }
 
 
 
@@ -244,6 +263,7 @@ const {name,email,mobile,password,cpassword,navigation}=props;
 
                 />
             </View>
+
 
               <View style={styles.halfFlex}>
                   <InputWithIcon
@@ -287,6 +307,13 @@ const {name,email,mobile,password,cpassword,navigation}=props;
                    onChangeText={(text)=>SignupUpdate({prop:'password',value:text})}
                   />
               </View>
+              {loading?
+                        <View style={{position:'absolute',top:100}}>
+                            <Loading/>
+                          </View>
+                              :
+                                null
+                          }
 
               <View style={styles.halfFlex}>
                   <InputWithIcon

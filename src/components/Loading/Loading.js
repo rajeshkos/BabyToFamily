@@ -4,9 +4,9 @@ const { width, height }=Dimensions.get('window');
   const Loading =(props)=>{
 console.log(width,height);
     return (
-			<View style={style.loading}>
-	      <ActivityIndicator style={{flex:1}} color={'#FF57A5'} />
-				</View>
+      <View style={{flex:1}}>
+        <ActivityIndicator style={{flex:1}} color={'#FF57A5'} />
+        </View>
     );
 }
 const style={

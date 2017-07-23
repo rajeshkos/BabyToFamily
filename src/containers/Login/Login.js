@@ -18,10 +18,11 @@ import {
   ActivityIndicator,
   Modal,
   Linking,
-  Platform
+  Platform,
+NetInfo
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
-
+import { NavigationActions } from 'react-navigation'
 
 import { Button, SocialIcon } from 'react-native-elements';
 import {connect} from 'react-redux';
@@ -37,7 +38,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const {width,height}=Dimensions.get('window');
 import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} from './LoginAction';
 
-
+import {session_destroy} from 'app/containers/Signup/OTP/OtpActions'
+const SleekLoadingIndicator = require('react-native-sleek-loading-indicator');
 
 
 
@@ -48,6 +50,7 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
      this.state = {
        errorMessage: undefined,
        popupShowed: false,
+       connectionInfo: null,
      };
    }
 
@@ -58,11 +61,21 @@ import {loginUpdate,loginChecking,socialLoginSuccess,socialLoginFail,logout} fro
            header: null
        }
 
+
+
+
+_handleConnectionInfoChange=(connectionInfo)=>{
+    this.setState({
+      connectionInfo
+    });
+  }
+
 componentWillMount(){
+     this.props.logout()
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
   if(this.props.session===true){
-    alert('Otp')
+  //  alert('Otp')
     navigate('OtpScreen')
   }
 
@@ -90,7 +103,16 @@ handleFingerprintDismissed = () => {
                .isSensorAvailable()
                .then(()=>this.setState({ popupShowed: true }))
 
-               .catch(error => alert(error.message));
+               .catch(error => console.log(error));
+
+
+               NetInfo.addEventListener(
+                    'change',
+                    this._handleConnectionInfoChange
+                );
+                NetInfo.fetch().done(
+                    (connectionInfo) => { this.setState({connectionInfo}); }
+                );
 
            }
 
@@ -98,14 +120,21 @@ handleFingerprintDismissed = () => {
              // Remove event listener
              Linking.removeEventListener('url', this.handleOpenURL);
              FingerprintScanner.release();
+             NetInfo.removeEventListener(
+                 'change',
+                 this._handleConnectionInfoChange
+             );
            }
 
 
 
       componentWillReceiveProps(nextProps){
             const {navigate}=this.props.navigation;
-           if(nextProps.auth){
+          //  alert(nextProps.baby)
+           if(nextProps.auth&&!nextProps.baby){
               navigate('Home');
+
+
            }
 
       }
@@ -134,13 +163,13 @@ handleFingerprintDismissed = () => {
            }
 
 
-    loginWithFacebook = () =>this.openURL('http://172.24.3.104:3000/auth/facebook');
+    loginWithFacebook = () =>this.openURL('http://52.39.212.226:4089/auth/facebook');
 
 
 
 
 
-    loginWithInstagram = () =>this.openURL('http://172.24.3.104:3000/auth/instagram');
+    loginWithInstagram = () =>this.openURL('http://52.39.212.226:4089/auth/instagram');
 
 
 
@@ -163,6 +192,10 @@ handleFingerprintDismissed = () => {
 
    Login=(email, password)=>{
     const {navigate}=this.props.navigation;
+    const {connectionInfo}=this.state;
+    console.log(connectionInfo);
+if(connectionInfo!=='none'){
+
      if (!email) {
          alert('Please enter your Email ID')
        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -170,16 +203,20 @@ handleFingerprintDismissed = () => {
        }else if(!password){
         alert('Please enter your Password')
       }else{
-        console.log(email,password,"else");
+      //  console.log(email,password,"else");
+         this.props.session_destroy();
         this.props.loginChecking({email,password,navigate});
       }
+    }else{
+      alert('Please Check your Network')
+    }
   }
 
   render() {
 const { errorMessage, popupShowed } = this.state;
     const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session}=this.props;
   //  console.log("session",session);
-
+      console.log(this.state.connectionInfo)
     return (
 
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -201,7 +238,7 @@ const { errorMessage, popupShowed } = this.state;
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
                   maxLength={64}
-                  placeholder="Email or Mobile No."
+                  placeholder="Email "
                   secureTextEntry={false}
                   keyboardType="default"
                   onFocus={(event) => {
@@ -237,11 +274,13 @@ const { errorMessage, popupShowed } = this.state;
               <View style={styles.forgotContainer}>
                 <Text style={styles.forgot} onPress={()=>{navigation.navigate('ForgotPassword');logout()}}>Forgot Password?</Text>
               </View>
+              {loading?
+                <View style={{ position:'absolute',top:50 }}>
+                <Loading />
+               </View>
+               :null
+              }
 
-{loading?
- <Loading/>
- :null
-}
             <View style={styles.btnContainer}>
               <Button
                 buttonStyle={styles.btnStyle}
@@ -287,7 +326,7 @@ const { errorMessage, popupShowed } = this.state;
       </View>
 
 </View>
-  
+
 
 
 {popupShowed && (
@@ -303,7 +342,7 @@ const { errorMessage, popupShowed } = this.state;
 }
 
 const mapStateToProps=({Login,Otp})=> {
-  const {email,password,loading,auth,user}=Login;
+  const {email,password,loading,auth,user,baby}=Login;
   const {session}=Otp;
   return {
       email,
@@ -311,7 +350,8 @@ const mapStateToProps=({Login,Otp})=> {
       loading,
       auth,
       user,
-      session
+      session,
+      baby
     }
 }
-export default connect(mapStateToProps,{loginUpdate,loginChecking,socialLoginFail,socialLoginSuccess,logout})(Login)
+export default connect(mapStateToProps,{loginUpdate,loginChecking,socialLoginFail,socialLoginSuccess,logout,session_destroy})(Login)
