@@ -5,7 +5,7 @@ const { width, height }=Dimensions.get('window');
 console.log(width,height);
     return (
       <View style={{flex:1}}>
-        <ActivityIndicator style={{flex:1}} color={'#FF57A5'} />
+        <ActivityIndicator style={{flex:1}} color={'#FF57A5'} size={'large'}/>
         </View>
     );
 }

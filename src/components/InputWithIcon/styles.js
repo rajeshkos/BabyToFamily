@@ -125,15 +125,14 @@ container:{
       ...Platform.select({
 
         ios: {
-          bottom:4,
-          fontSize:16,
-          color:'#333333',
+          fontSize:15,
+          color:'black',
           fontFamily: 'GothamRounded-Book',
         },
         android: {
-          top: 12,
-          fontSize:16,
-          color:'#333333',
+          top: 15,
+          fontSize:15,
+          color:'black',
           fontFamily: 'gotham_rounded_book',
         },
       }),

@@ -144,7 +144,7 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
                }
               <View style={styles.subHeadingMainThree}>
                   <Text style={styles.headingTextTwo}>or </Text>
-                  <Text style={styles.headingTextThree}>Email Id </Text>
+                  <Text style={styles.headingTextThree}>Email ID </Text>
                   <Text style={styles.headingTextTwo}>to send your password </Text>
               </View>
               <View style={styles.subHeadingMainThree}>
@@ -157,6 +157,7 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
                   <InputWithIcon
                     iconName={ require('./Images/mail/mail.png')}
                     value={email}
+                    autoCapitalize="none"
                     secureTextEntry={false}
                     maxLength={64}
                     placeholder="Email or Mobile No."
@@ -175,6 +176,7 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
               <View style={styles.btnMain}>
               <Button
                 buttonStyle={styles.btnStyle}
+                disabled={loading}
                 textStyle={styles.btnTextStyle}
                 title={`Send`}
                 onPress={()=>this.handleSend(email)}

@@ -93,7 +93,7 @@ if(connectionInfo!=='none'){
                   }else{
                   this.props.session_destroy();
                   this.props.OtpChecking({mobile,otp,navigate})
-                  this.props.Signupfail();
+                //  this.props.Signupfail();
 
                   }
                 }else{

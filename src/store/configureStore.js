@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === `development`) {
 export default function configureStore() {
    const sagaMiddleware=createSagaMiddleware();
   let store = createStore(reducers,applyMiddleware(...middlewares,sagaMiddleware),autoRehydrate())
-  persistStore(store,{storage:AsyncStorage,whitelist:['Login','Otp']});
+  persistStore(store,{storage:AsyncStorage,whitelist:['Login','Otp','Settings']});
   sagaMiddleware.run(rootSaga);
   return store
 }

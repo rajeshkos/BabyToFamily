@@ -14,7 +14,7 @@ export default class FamilyMember extends Component{
       <Text style={{color:'red'}}>back</Text>
       </TouchableOpacity>
       </View>
-         <View style={{flex:3}}>
+         <View style={{flex:3,backgroundColor:'green'}}>
          </View>
           <View style={{flex:1}}>
           </View>

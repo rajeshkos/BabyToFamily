@@ -34,7 +34,9 @@ import InviteEarn from 'app/containers/Drawer/DrawerPages/InviteEarn'
 import MomentsPrint from 'app/containers/Drawer/DrawerPages/MomentsPrint'
 import Terms from 'app/containers/Drawer/DrawerPages/Terms'
 import Settings from 'app/containers/Dashboard/Settings'
-
+import AddMilestone from 'app/containers/Profile/AddMilestone'
+import MilestoneScreen from 'app/containers/Profile/AddMilestone/MilestoneScreen'
+import ChangePassword from 'app/containers/Dashboard/Settings/ChangePassword'
 // Stack navigation for Settings and Profile screens
 
 const Auth=StackNavigator({
@@ -54,12 +56,16 @@ const Auth=StackNavigator({
 },{
   headerMode: 'screen',
 })
+
+
 const TabScreen=StackNavigator({
    Dashboard:{screen:Dashboard},
    Community:{screen:Community},
    Gallery:{screen:Gallery},
    Nesting:{screen:Nesting},
    Profile:{screen:Profile},
+   AddMilestone:{screen:AddMilestone},
+  MilestoneScreen:{screen:MilestoneScreen}
 
 },{
     headerMode: 'none',
@@ -80,7 +86,13 @@ const TabScreen=StackNavigator({
   // })
 
 
-
+const SettingStack=StackNavigator({
+  Settings:{screen:Settings},
+  ChangePassword:{screen:ChangePassword}
+},{
+    headerMode: 'none',
+}
+)
 
 
 const DrawerPage = DrawerNavigator({
@@ -94,7 +106,7 @@ const DrawerPage = DrawerNavigator({
      InviteEarn:{screen:InviteEarn},
      MomentsPrint:{screen:MomentsPrint},
      Terms:{screen:Terms},
-     Settings:{screen:Settings}
+     Settings:{screen:SettingStack}
   }, {
     // Register custom drawer component
     contentComponent: props => <Drawer {...props} />

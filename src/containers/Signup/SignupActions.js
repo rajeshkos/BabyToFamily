@@ -8,7 +8,9 @@ export const OTP_SESSION_DESTROY='OTP_SESSION_DESTROY';
 export const PASSWORD_DONOTMATCH='PASSWORD_DONOTMATCH';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
-
+import {
+Alert
+} from 'react-native';
 export const SignupUpdate=({prop,value})=>{
   return {
     type:SIGNUP_UPDATE,
@@ -32,16 +34,26 @@ const signupFail=()=>({type: SIGNUP_FAIL});
 
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
 dispatch(signupCheck());
-Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'user'})
+emailID = email.toLowerCase();
+console.log("Manik", emailID);
+Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
-
+      console.log("console",responseJson.status);
           switch(responseJson.status){
+
      case 200:
                 dispatch(signupSuccess(responseJson));
-                alert('Success! OTP send you mobile number');
-                navigation.navigate('OtpScreen');
+                Alert.alert(
+                    'Alert',
+                    'Registered Successfully',
+                    [
+                      {text: 'OK', onPress: () => navigation.navigate('AddBaby')},
+                    ],
+                    { cancelable: false }
+                  )
                 break;
+
 
       case 403:
 
@@ -49,9 +61,11 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email,mobile,password,role:'us
                dispatch(emailAlready());
                break;
       case 400:
-                alert('Invalid Mobile Number');
-                dispatch(mobileAlready());
+                alert('Sign UP failed');
+                dispatch(emailAlready());
                 break;
+
+
   //default:
       //  break;
 

@@ -71,7 +71,7 @@ var locationName;
    }
 
 submit=()=>{
-    const {AddBabyUpdate,Addbaby,AddBabyUpload,data}=this.props;
+    const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user}=this.props;
     const {image}=this.state;
     console.log("image",image);
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
@@ -83,7 +83,7 @@ submit=()=>{
       // let obj = Object.assign(o1, o2);
 
 if(image){
-        alert(error)
+      //  alert(error)
   if(error==='Successfully Registerd'){
     //  let profile=new Object();
   //  let data=new Object();
@@ -95,11 +95,11 @@ if(image){
       //  data['location']=Addbaby.location;
       //  data['relation']=Addbaby.relation;
         var formData = new FormData();
-        formData.append("email","iashimil@gmail.com");
+        formData.append("email","HYU@gmail.com");
         formData.append("name",Addbaby.name);
         formData.append("gender",Addbaby.gender);
         formData.append("dob",Addbaby.date);
-        formData.append("location",Addbaby.location);
+        formData.append("place",Addbaby.location);
         formData.append("relation",Addbaby.relation);
         formData.append('images',{name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],uri:image.uri,type: 'image/jpg'})
 
@@ -112,7 +112,10 @@ if(image){
       //  console.log(this.props);
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
-         this.props.AddBabyAdded()
+          this.setState({image:null})
+           alert(sucecsss)
+
+         ///this.props.AddBabyAdded()
      }
 }else{
   alert("Select Profile Picture")
@@ -124,9 +127,10 @@ if(image){
 }
 
 renderAsset=(image)=> {
+  console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={styles.selected}  source={image} />
+    <Image  resizeMode="stretch" style={{width:50,height:50}}  source={image} />
     </View>
   )
 }
@@ -164,9 +168,9 @@ pickSingleFromGallery=(cropping)=> {
   render() {
     const {width,height}=Dimensions.get('window');
 
-    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation}=this.props;
+    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user}=this.props;
     const {genderState}=this.state;
- //console.log("imagesxxx",this.state.image);
+console.log("user",user);
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -266,13 +270,20 @@ pickSingleFromGallery=(cropping)=> {
 
                </View>
               </TouchableHighlight>
-
+              {loading?
+                <View style={{position:'absolute',top:height/2}}>
+                <Loading/>
+                </View>
+                :null
+              }
 
             </View>
 
           </View>
+
           <View style={styles.componentSubContainer}>
             <View style={styles.halfFlex}>
+
               <InputWithIcon
                 iconName= {require('./Images/addbaby/baby1.png')}
                 value={name}
@@ -376,13 +387,11 @@ pickSingleFromGallery=(cropping)=> {
                       onBlur={(event)=>this.setunFocus(event, (height-250))}
                />
             </View>
-            {loading?
-              <Loading/>
-              :null
-            }
+
             <View style={{flex:1, alignSelf: 'stretch'}}>
 
             <Button
+            disabled={loading}
               buttonStyle={styles.btnStyle}
               textStyle={{textAlign: 'center', ...Platform.select({
                 ios: {
@@ -419,9 +428,10 @@ pickSingleFromGallery=(cropping)=> {
     );
   }
 }
-const mapStateToProps=({Addbaby,Signup})=>{
+const mapStateToProps=({Addbaby,Signup,Login})=>{
   const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
-  const {data}=Signup;
+  //const {data}=Signup;
+  const {user}=Login;
   return{
        name,
        gender,
@@ -431,6 +441,7 @@ const mapStateToProps=({Addbaby,Signup})=>{
        loading,
        sucecsss,
        Addbaby,
+       user
 
 
   }

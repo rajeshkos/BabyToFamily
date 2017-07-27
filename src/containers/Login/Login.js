@@ -19,7 +19,7 @@ import {
   Modal,
   Linking,
   Platform,
-NetInfo
+  NetInfo,
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
 import { NavigationActions } from 'react-navigation'
@@ -76,7 +76,7 @@ componentWillMount(){
   const {navigate}=this.props.navigation;
   if(this.props.session===true){
   //  alert('Otp')
-    navigate('OtpScreen')
+  //  navigate('OtpScreen')
   }
 
 
@@ -125,13 +125,10 @@ handleFingerprintDismissed = () => {
                  this._handleConnectionInfoChange
              );
            }
-
-
-
       componentWillReceiveProps(nextProps){
             const {navigate}=this.props.navigation;
           //  alert(nextProps.baby)
-           if(nextProps.auth&&!nextProps.baby){
+           if(nextProps.auth&&nextProps.baby){
               navigate('Home');
 
 
@@ -237,6 +234,7 @@ const { errorMessage, popupShowed } = this.state;
                 <InputWithIcon
                   iconName={ require('./Images/Username/user_name.png')}
                   value={email}
+                  autoCapitalize="none"
                   maxLength={64}
                   placeholder="Email "
                   secureTextEntry={false}
@@ -257,7 +255,7 @@ const { errorMessage, popupShowed } = this.state;
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
-                    maxLength={6}
+                    maxLength={16}
                     secureTextEntry={true}
                     keyboardType="default"
                     onFocus={(event) => {
@@ -284,6 +282,7 @@ const { errorMessage, popupShowed } = this.state;
             <View style={styles.btnContainer}>
               <Button
                 buttonStyle={styles.btnStyle}
+                disabled={loading}
                 onPress={()=>this.Login(email, password)}
                 textStyle={styles.btnTextStyle}
                 title={`Login`}

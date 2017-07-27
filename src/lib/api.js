@@ -41,8 +41,8 @@ let Api={
              if (data) {
                  settings.body = data;
              }
-            console.log("from make upload",method, url, params, data);
-
+          //  console.log("from make upload",method, url, params, data);
+              //  console.log( fetch(`${url}`, settings));
                   return fetch(`${url}`, settings);
         }
 

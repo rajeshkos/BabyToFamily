@@ -8,7 +8,9 @@ export const NO_BABY='NO_BABY';
 export const FINGER_PRINT_ACTIVATE='FINGER_PRINT_ACTIVATE';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
-
+import {
+Alert
+} from 'react-native';
 
 export const loginUpdate=({prop,value})=>{
 return {
@@ -37,7 +39,7 @@ export const socialLoginFail=()=>({type:LOGIN_FAIL});
 
 const loginCheck=()=>({type:LOGIN_CHECK});
 
-const loginSuccess=({token})=>({type: LOGIN_SUCCESSFULL,payload:token});
+const loginSuccess=()=>({type: LOGIN_SUCCESSFULL});
 
 export  const loginChecking=({email,password,navigate})=>(dispatch)=>{
 
@@ -46,17 +48,30 @@ dispatch(loginCheck());
 Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
    .then((response) => response.json())
    .then((responseJson) =>{
-        console.log("responseJson",responseJson);
+      //  console.log("responseJson",responseJson);
          switch (responseJson.status) {
            case 200:
-                   dispatch(loginSuccess(responseJson.token));
-                   navigate('Home');
+                   dispatch(loginSuccess());
+                   Alert.alert(
+                       'Alert',
+                       'Login Successfully',
+                       [
+                         {text: 'OK', onPress: () => navigate('Home')},
+                       ],
+                       { cancelable: false }
+                     )
               break;
           case 400:
 
                   dispatch(noBaby())
-                  alert('Doesnot have A baby')
-                    navigate('AddBaby')
+                  Alert.alert(
+                      'Alert',
+                      'Doesnot have A baby',
+                      [
+                        {text: 'OK', onPress: () => navigate('AddBaby')},
+                      ],
+                      { cancelable: false }
+                    )
                     //dispatch(loginSuccess())
                  break;
           case 401:

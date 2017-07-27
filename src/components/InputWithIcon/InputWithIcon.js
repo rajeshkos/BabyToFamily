@@ -16,9 +16,13 @@ return(
   <View style={containerStyle}>
     <View style={styles.mainContainer}>
     <View>
+    {iconName?
       <TouchableHighlight underlayColor={ underlayColor} style={styles.buttonContainer} onPress={onPress}>
        <Image resizeMode="contain" style={styles.image} source={iconName} />
-      </TouchableHighlight>
+        </TouchableHighlight>
+        :
+        null
+      }
     </View>
     <View>
       {!callingCode?

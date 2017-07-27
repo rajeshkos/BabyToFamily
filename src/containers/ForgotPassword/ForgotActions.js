@@ -4,7 +4,9 @@ export const FORGOT_SUCCESSFULL='FORGOT_SUCCESSFULL';
 export const FORGOT_FAIL='FORGOT_FAIL';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
-
+import {
+Alert
+} from 'react-native';
 export const forgotUpdate=({prop,value})=>{
 //  console.log("loo");
 return {
@@ -27,8 +29,15 @@ Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
 
   if(responseJson.status===200){
     dispatch(forgotSuccessfull());
-    alert('Check your email and reset the password')
-    navigate('Login')
+    Alert.alert(
+        'Alert',
+        'Check your email and reset the password',
+        [
+          {text: 'OK', onPress: () => navigate('Login')},
+        ],
+        { cancelable: false }
+      )
+
   }else{
      alert('Email doesnot exist');
     dispatch(forgotfail());

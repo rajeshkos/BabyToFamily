@@ -13,7 +13,7 @@ import {
 
 var styles = StyleSheet.create({
   container: {
-    flex:0.3,
+    flex:0.5,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
   },

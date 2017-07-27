@@ -36,17 +36,18 @@ export default class Profile extends Component{
   }
  render(){
      const {navigation,dispatch}=this.props;
+         const {navigate} = this.props.navigation;
    return(
 	<Tabs {...this.props}>
 		<View style={styles.headerTop}>
 			<View style={styles.subElement}>
-				{/*<Icon
-				 name="ios-arrow-back"
-				 size={26}
-				 color="black"
-				 style={styles.iconStyle}
-         onPress={()=>{navigation.navigate('Auth')}}
-				/>*/}
+      <Icon
+       name="ios-arrow-back"
+       size={26}
+       color="black"
+       style={styles.iconStyle}
+       onPress={()=>navigate('Home')}
+      />
 			</View>
 			<View style={styles.subHead}>
 				<Text style={styles.fontStyle}>Baby Profile</Text>
@@ -91,7 +92,7 @@ export default class Profile extends Component{
 							 color="#FE57A5"
 							 style={styles.sideIcon}
 							/>
-						<Text style={styles.pinkText}>Milestone</Text>
+						<Text style={styles.pinkText} onPress={()=>navigation.navigate('AddMilestone')}>Milestone</Text>
 					</View>
 					<ScrollView contentContainerStyle={styles.cardBox}>
 					 <Milestone

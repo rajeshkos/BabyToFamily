@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View,TouchableHighlight,TextInput,Text, Image, Dimensions} from 'react-native';
+import {View,TouchableHighlight,TextInput,Text, ImageBackground, Dimensions,Image} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';

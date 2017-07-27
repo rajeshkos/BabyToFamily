@@ -17,7 +17,8 @@ import {
   ScrollView,
   Platform,
   AsyncStorage,
-  NetInfo
+  NetInfo,
+  KeyboardAvoidingView,
 
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
@@ -52,7 +53,7 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
            header: null
        }
 componentWillMount(){
-  this.setState({cca2: 'US'});
+  this.setState({cca2:DeviceInfo.getDeviceCountry()});
   //console.log(DeviceInfo.getDeviceCountry(),"hh");
 }
    componentDidMount() {
@@ -130,7 +131,7 @@ componentWillMount(){
        }
 
 
-loginWithFacebook = () => this.openURL('http://52.39.212.226:4089/auth/facebook');
+loginWithFacebook = () => this.openURL('http://172.24.3.104:3000/auth/facebook');
 
 loginWithInstagram = () => this.openURL('http://52.39.212.226:4089/auth/instagram');
 
@@ -153,6 +154,7 @@ setPhoneNumber=(text)=>{
      this.setState({Mobilenumber:text});
 
 }
+
 onFocus=()=>{
   const {callingCode,Mobilenumber}=this.state;
   const {SignupUpdate}=this.props;
@@ -168,32 +170,28 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
 
   // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
   if(connectionInfo!=='none'){
-        if(!this.state.Mobilenumber){
-          alert('Please enter your Mobile Number')
-        }else if(!name){
+       if(!name){
          alert('Please enter your Name');}
           else if (!email) {
               alert('Please enter your Email ID')
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
               alert( 'Invalid Email ID');
-           }else if(!this.state.callingCode){
+           }
+           /*else if(!this.state.callingCode){
               alert('Select Country Code')
-
            } else if (!mobile) {
               alert('Please enter your Mobile Number')
            }else if(isNaN(Number(mobile))){
              alert('Mobile must be number')
-           }else if(!password){
+           }*/else if(!password){
              alert('Please enter your Password')
-
            }else if(!cpassword){
-
              alert('Please enter your Confirm Password')
-
            }else if(password!==cpassword){
              alert('Both Password must be same');
              this.props.passwordDontmatch();
            }else{
+             //AsyncStorage.setItem("mobile", JSON.stringify(mobile));
 
             this.props.SignupChecking({name,email,mobile,password,navigation});
            }
@@ -202,6 +200,58 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
 }
 
 }
+setFocus(event, heightUp){
+  this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
+}
+getCountry(){
+if(Platform.OS==='ios'){
+  return(
+          <View style={styles.containerPhone }>
+          <View style={styles.flagContainer}>
+          <View style={{padding: 10}}></View>
+              <PhoneInput
+                  ref='phone'
+                  onPressFlag={this.onPressFlag}
+                  onChangePhoneNumber={(value)=> this.setState({callingCode:value})}
+              />
+              <CountryPicker
+                  ref='countryPicker'
+                  onChange={(value)=> this.selectCountry(value)}
+                  translation='eng'
+                  cca2={this.state.cca2}
+              >
+                <View ></View>
+              </CountryPicker>
+          </View>
+          </View>)
+}else{
+return(
+          <View style={{alignSelf:'center',justifyContent:'center',width:180}}>
+               <PhoneInput
+                   ref='phone'
+                   onPressFlag={this.onPressFlag}
+                     style={{position:'absolute',top:14,left:75}}
+                    onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
+                  
+               />
+
+               <CountryPicker
+                   ref='countryPicker'
+                   onChange={(value)=> this.selectCountry(value)}
+                   translation='eng'
+                   cca2={this.state.cca2}
+
+               >
+
+               </CountryPicker>
+
+               </View>
+           )
+}
+
+ }
+
+
   render() {
     //console.log(DeviceInfo);
   const {callingCode,Mobilenumber}=this.state;
@@ -209,7 +259,9 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
 // console.log(loading,'loading');
 
     return (
+
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
+
         <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
         <StatusBar hidden={true} />
          <View style={styles.container}>
@@ -223,23 +275,8 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
          </View>
 
 
-                  <View style={styles.containerPhone }>
-                    <View style={styles.flagContainer}>
-                    <View style={{padding: 10}}></View>
-                        <PhoneInput
-                            ref='phone'
-                            onPressFlag={this.onPressFlag}
-                        />
-                        <CountryPicker
-                            ref='countryPicker'
-                            onChange={(value)=> this.selectCountry(value)}
-                            translation='eng'
-                            cca2={this.state.cca2}
-                        >
-                          <View ></View>
-                        </CountryPicker>
-                    </View>
-                    </View>
+
+                  {this.getCountry()}
 
 
 
@@ -259,6 +296,12 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
                   secureTextEntry={false}
                   keyboardType="default"
                   placeholderTextColor="#333333"
+                  onFocus={(event) => {
+                    this.setFocus(event, (height-60));
+                    }}
+                    onBlur={(event) => {
+                      this.setFocus(event, height);
+                      }}
                   onChangeText={(text)=>SignupUpdate({prop:'name',value:text})}
 
                 />
@@ -270,16 +313,22 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
                     iconName={ require('./Images/mail/mail.png')}
                     value={email}
                     secureTextEntry={false}
+                    autoCapitalize="none"
                     maxLength={64}
                     placeholder="Email"
                     keyboardType="default"
                     placeholderTextColor="#333333"
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-60));
+                      }}
+                      onBlur={(event) => {
+                        this.setFocus(event, height);
+                        }}
                     onChangeText={(text)=>SignupUpdate({prop:'email',value:text})}
                   />
               </View>
 
               <View style={styles.halfFlex}>
-
                   <InputWithIcon
                     iconName={require('./Images/mobile/mob.png')}
                     value={this.state.Mobilenumber}
@@ -290,7 +339,12 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
                     onChangeText={(text)=>this.setPhoneNumber(text)}
-                    onBlur={()=>this.onFocus()}
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-60));
+                      }}
+                      onBlur={(event) => {
+                        this.setFocus(event, height);
+                        }}
                   />
               </View>
 
@@ -298,12 +352,17 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
+                    maxLength={16}
                     placeholder="Password"
-                    maxLength={6}
-                    secureTextEntry
+                     secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onFocus={()=>this.onFocus()}
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-60));
+                      }}
+                      onBlur={(event) => {
+                        this.setFocus(event, height);
+                        }}
                    onChangeText={(text)=>SignupUpdate({prop:'password',value:text})}
                   />
               </View>
@@ -320,10 +379,16 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
                     iconName={ require('./Images/Password/password.png')}
                     value={ cpassword }
                     placeholder="Confirm Password"
+                    maxLength={16}
                     secureTextEntry
-                    maxLength={6}
                     keyboardType="default"
                     placeholderTextColor="#333333"
+                    onFocus={(event) => {
+                      this.setFocus(event, (height-60));
+                      }}
+                      onBlur={(event) => {
+                        this.setFocus(event, height);
+                        }}
                     onChangeText={(text)=>SignupUpdate({prop:'cpassword',value:text})}
                   />
               </View>
@@ -331,6 +396,7 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
             <View style={{flex:1, alignSelf: 'stretch'}}>
               <Button
                 buttonStyle={styles.btnStyle}
+                disabled={loading}
                 textStyle={{textAlign: 'center', ...Platform.select({
                   ios: {
                     fontFamily: 'GothamRounded-Bold',
@@ -379,8 +445,8 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
             </View>
             </View>
        </View>
-</ScrollView>
 
+</ScrollView>
 
     );
   }

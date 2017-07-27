@@ -10,11 +10,11 @@ export default (state=INITIAL_STATE,action)=>{
    case SIGNUP_SUCCESSFULL:
     return {...INITIAL_STATE,loading:false,sucecsss:true,data:action.payload,mobile:state.mobile}
     case EMAIL_ALREDAY:
-     return { ...state,email:'',password:'',cpassword:'',mobile:''}
+     return { ...state,email:'',password:'',cpassword:'',mobile:'',loading:false}
     case MOBILE_ALREDAY:
-       return { ...state,mobile:'',password:'',cpassword:'',}
+       return { ...state,mobile:'',password:'',cpassword:'',loading:false}
     case PASSWORD_DONOTMATCH:
-       return {...state,password:'',cpassword:''}
+       return {...state,password:'',cpassword:'', loading:false}
   case SIGNUP_FAIL:
    return INITIAL_STATE;
 case OTP_SESSION_DESTROY:

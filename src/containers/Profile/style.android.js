@@ -9,10 +9,11 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
-} from 'react-native';const {width,height}=Dimensions.get('window');
+} from 'react-native';
+const {width,height}=Dimensions.get('window');
 
 var styles = StyleSheet.create({
-  
+
 headerTop: {
     backgroundColor: "#ffffff",
     flexDirection: 'row',
@@ -48,7 +49,7 @@ headerTop: {
     backgroundColor: '#fff'
   },
   topConatiner: {
-    flex: 0.4,    
+    flex: 0.4,
     alignItems: 'flex-start',
     justifyContent: 'center'
   },
@@ -93,7 +94,7 @@ headerTop: {
     alignItems: 'flex-end',
     flexDirection: 'row'
   },
-  
+
   pinkText: {
     justifyContent: 'center',
     alignItems: 'flex-end',
