@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 const {width,height}=Dimensions.get('window');
 const InputWithIcon =(props)=>{
-const {onPress,buttonText,editable=true,iconName,maxLength, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode}=props;
+const {onPress,buttonText,editable=true,iconName,maxLength, autoCapitalize, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode}=props;
 const  underlayColor='black';
 const containerStyle=[styles.container];
 if(editable===false){
@@ -16,17 +16,13 @@ return(
   <View style={containerStyle}>
     <View style={styles.mainContainer}>
     <View>
-    {iconName?
       <TouchableHighlight underlayColor={ underlayColor} style={styles.buttonContainer} onPress={onPress}>
        <Image resizeMode="contain" style={styles.image} source={iconName} />
-        </TouchableHighlight>
-        :
-        null
-      }
+      </TouchableHighlight>
     </View>
     <View>
       {!callingCode?
-      <TextInput placeholder={placeholder} maxLength={maxLength} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={[styles.input]} underlineColorAndroid='transparent' {...props}/>
+      <TextInput autoCapitalize = {autoCapitalize} placeholder={placeholder} maxLength={maxLength} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={[styles.input]} underlineColorAndroid='transparent' {...props}/>
       :
 
       <View style={styles.flagViewContainer}>
@@ -34,6 +30,7 @@ return(
       <TextInput
       placeholder={callingCode?placeholder:''}
       secureTextEntry={secureTextEntry}
+      autoCapitalize = {autoCapitalize}
       keyboardType={keyboardType}
       placeholderTextColor={placeholderTextColor}
       maxLength={maxLength}
@@ -52,6 +49,7 @@ InputWithIcon.propTypes={
   onPress:PropTypes.func,
   buttonText:PropTypes.string,
   placeholder: PropTypes.string,
+  autoCapitalize: PropTypes.string,
   keyboardType: PropTypes.string,
   secureTextEntry: PropTypes.bool,
   maxLength: PropTypes.number,

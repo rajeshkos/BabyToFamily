@@ -129,7 +129,7 @@ handleFingerprintDismissed = () => {
             const {navigate}=this.props.navigation;
           //  alert(nextProps.baby)
            if(nextProps.auth&&nextProps.baby){
-              navigate('Home');
+             //navigate('Home');
 
 
            }
@@ -145,13 +145,15 @@ handleFingerprintDismissed = () => {
                // Decode the user string and parse it into JSON
                user: JSON.parse(decodeURI(user_string))
              });
-             if(this.state.user){
-               this.props.socialLoginSuccess();
-               navigate('Home');
-             }
+
              console.log("yul",this.state.user);
              if (Platform.OS === 'ios') {
                SafariView.dismiss();
+               if(this.state.user){
+                 this.props.socialLoginSuccess();
+                 navigate('Home');
+               }
+             }else{
                if(this.state.user){
                  this.props.socialLoginSuccess();
                  navigate('Home');

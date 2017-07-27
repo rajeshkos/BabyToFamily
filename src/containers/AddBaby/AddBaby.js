@@ -130,7 +130,7 @@ renderAsset=(image)=> {
   console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={{width:50,height:50}}  source={image} />
+    <Image  resizeMode="stretch" style={{flex:1}}  source={image} />
     </View>
   )
 }

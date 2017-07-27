@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
 import DrawerItem from './DrawerItem'
 import {connect} from 'react-redux';
-import {logout} from 'app/containers/Login/LoginAction';
+import {logout,socialLoginFail} from 'app/containers/Login/LoginAction';
 import { NavigationActions } from 'react-navigation'
 
 
@@ -23,10 +23,11 @@ import { NavigationActions } from 'react-navigation'
   state={active:'one'}
 
 handleLogout=()=>{
-        const {logout}=this.props;
+        const {logout,socialLoginFail}=this.props;
         const { navigate } = this.props.navigation;
       this.setState({active:'eight'}),
       logout(),
+      socialLoginFail()
       navigate('Login')
 
         //this.props.navigation.dispatch(resetAction)
@@ -191,4 +192,4 @@ const styles = StyleSheet.create({
   }
 
 });
-export default connect(null,{logout})(Drawer)
+export default connect(null,{logout,socialLoginFail})(Drawer)

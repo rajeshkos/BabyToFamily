@@ -35,7 +35,7 @@ const signupFail=()=>({type: SIGNUP_FAIL});
 export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
 dispatch(signupCheck());
 emailID = email.toLowerCase();
-console.log("Manik", emailID);
+
 Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'user'})
   .then((response)=>response.json())
   .then((responseJson) =>{
@@ -61,7 +61,7 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'
                dispatch(emailAlready());
                break;
       case 400:
-                alert('Sign UP failed');
+                alert('Sign UP xailed');
                 dispatch(emailAlready());
                 break;
 

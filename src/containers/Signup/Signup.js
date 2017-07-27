@@ -232,7 +232,7 @@ return(
                    onPressFlag={this.onPressFlag}
                      style={{position:'absolute',top:14,left:75}}
                     onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
-                  
+
                />
 
                <CountryPicker
