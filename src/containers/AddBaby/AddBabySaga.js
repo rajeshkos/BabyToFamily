@@ -13,7 +13,7 @@ function* uploadImage(action) {
     // console.log("user",user);
       yield put({type:ADDBABY_ADDED})
   } catch (e) {
-     console.log("error",e);
+    // console.log("error",e);
      yield put({type:ADDBABY_FAILED,payload:e})
   }
 }

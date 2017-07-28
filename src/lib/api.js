@@ -1,9 +1,9 @@
 let Api={
 
 
-
         makeRequest(method, url, params, data) {
 
+console.log(method, url, params, data);
           let settings = {
             method: method,
             headers: {
@@ -20,7 +20,7 @@ let Api={
 
                //console.log(fetch(`${url}`, settings));
 
-           //console.log(fetch(`${url}`, settings));
+          //fetch(`${url}`, settings);
 
           return fetch(`${url}`, settings);
         },

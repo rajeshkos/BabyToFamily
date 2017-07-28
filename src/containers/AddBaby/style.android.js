@@ -206,9 +206,8 @@ const styles = StyleSheet.create({
 
 },
 selected:{
-  width: PixelRatio.getPixelSizeForLayoutSize(50),
-  height: PixelRatio.getPixelSizeForLayoutSize(50),
-  borderRadius:80
+  flex:1,
+  borderRadius:50
 },
 genderdefault:{
   paddingLeft: 5,

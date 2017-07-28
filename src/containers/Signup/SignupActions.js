@@ -32,14 +32,14 @@ const mobileAlready=()=>({type: MOBILE_ALREDAY});
 
 const signupFail=()=>({type: SIGNUP_FAIL});
 
-export const SignupChecking=({name,email,mobile,password,navigation})=>(dispatch)=>{
+export const SignupChecking=({name,email,mobile,password,role,navigation})=>(dispatch)=>{
 dispatch(signupCheck());
-emailID = email.toLowerCase();
 
-Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'user'})
+
+Api.makeRequest('POST',URL.USER_REGISTER,{},{name,email:email.toLowerCase(),mobile,password,role})
   .then((response)=>response.json())
   .then((responseJson) =>{
-      console.log("console",responseJson.status);
+    console.log("responseJson",responseJson);
           switch(responseJson.status){
 
      case 200:
@@ -60,11 +60,11 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'
                alert('Email Already Exist');
                dispatch(emailAlready());
                break;
-      case 400:
+  /*    case 400:
                 alert('Sign UP xailed');
                 dispatch(emailAlready());
                 break;
-
+*/
 
   //default:
       //  break;
@@ -73,7 +73,7 @@ Api.makeRequest('POST',URL.USER_REGISTER,{},{name,emailID,mobile,password,role:'
    })
  .catch((error) => {
         dispatch(signupFail());
-        alert('Sign Up Failed');
+        alert('Check you Internet Connection');
    });
 
 

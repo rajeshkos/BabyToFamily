@@ -16,7 +16,8 @@ import {
   ScrollView,
   Platform,
   NativeModules,
-  PixelRatio
+  PixelRatio,
+  Alert
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import InputWithIcon  from 'app/components/InputWithIcon'
@@ -71,6 +72,7 @@ var locationName;
    }
 
 submit=()=>{
+  const {navigation}=this.props;
     const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user}=this.props;
     const {image}=this.state;
     console.log("image",image);
@@ -113,7 +115,14 @@ if(image){
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
           this.setState({image:null})
-           alert(sucecsss)
+          Alert.alert(
+              'Alert',
+              'Added Successfully',
+              [
+                {text: 'OK', onPress: () =>  navigation.goBack()},
+              ],
+              { cancelable: false }
+            )
 
          ///this.props.AddBabyAdded()
      }
@@ -130,7 +139,7 @@ renderAsset=(image)=> {
   console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={{flex:1}}  source={image} />
+    <Image  resizeMode="stretch" style={styles.selected}  source={image} />
     </View>
   )
 }

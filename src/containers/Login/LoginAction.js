@@ -9,7 +9,8 @@ export const FINGER_PRINT_ACTIVATE='FINGER_PRINT_ACTIVATE';
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
 import {
-Alert
+Alert,
+AsyncStorage
 } from 'react-native';
 
 export const loginUpdate=({prop,value})=>{
@@ -35,20 +36,22 @@ export const socialLoginSuccess=()=>{
   }
 }
 
+
 export const socialLoginFail=()=>({type:LOGIN_FAIL});
 
 const loginCheck=()=>({type:LOGIN_CHECK});
 
 const loginSuccess=()=>({type: LOGIN_SUCCESSFULL});
 
-export  const loginChecking=({email,password,navigate})=>(dispatch)=>{
+
+export  const  loginChecking=({email,password,navigate})=>(dispatch)=>{
 
 dispatch(loginCheck());
 
-Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
+   Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
    .then((response) => response.json())
    .then((responseJson) =>{
-      //  console.log("responseJson",responseJson);
+       console.log("responseJson",responseJson);
          switch (responseJson.status) {
            case 200:
                    dispatch(loginSuccess());
@@ -56,10 +59,12 @@ Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
                        'Alert',
                        'Login Successfully',
                        [
-                         {text: 'OK', onPress: () => navigate('Home')},
+                         {text: 'OK', onPress: () => navigate('Dashboard')},
                        ],
                        { cancelable: false }
                      )
+
+
               break;
           case 400:
 
@@ -72,6 +77,8 @@ Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
                       ],
                       { cancelable: false }
                     )
+                  //  await AsyncStorage.setItem('logonce', true)
+                  //  dispatch(logonce())
                     //dispatch(loginSuccess())
                  break;
           case 401:
@@ -91,7 +98,7 @@ Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email,password:password})
           })
   .catch((error) => {
         dispatch(socialLoginFail());
-        alert('Login Failed');
+        alert('Check you Internet Connection');
     });
 
 

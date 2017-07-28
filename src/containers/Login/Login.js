@@ -74,14 +74,19 @@ componentWillMount(){
      this.props.logout()
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
-  if(this.props.session===true){
-  //  alert('Otp')
-  //  navigate('OtpScreen')
+  if(this.props.auth&&this.props.baby){
+     navigate('Dashboard')
   }
+  NetInfo.addEventListener(
+       'change',
+       this._handleConnectionInfoChange
+   );
 
-
-
+   NetInfo.fetch().done(
+       (connectionInfo) => { this.setState({connectionInfo}); }
+   );
 }
+
 
 handleFingerprintShowed = () => {
   this.setState({ popupShowed: true });
@@ -92,27 +97,23 @@ handleFingerprintDismissed = () => {
 };
 
        componentDidMount() {
-
+       const {fingerprint,auth}=this.props;
              Linking.addEventListener('url', this.handleOpenURL);
              Linking.getInitialURL().then((url) => {
                if (url) {
                  this.handleOpenURL({ url });
                }
              });
-             FingerprintScanner
-               .isSensorAvailable()
-               .then(()=>this.setState({ popupShowed: true }))
 
-               .catch(error => console.log(error));
+       if(fingerprint&!auth){
+                 FingerprintScanner
+                   .isSensorAvailable()
+                   .then(()=>this.setState({ popupShowed: true }))
 
+                   .catch(error => this.setState({ popupShowed: true }));
 
-               NetInfo.addEventListener(
-                    'change',
-                    this._handleConnectionInfoChange
-                );
-                NetInfo.fetch().done(
-                    (connectionInfo) => { this.setState({connectionInfo}); }
-                );
+                  }
+
 
            }
 
@@ -125,16 +126,7 @@ handleFingerprintDismissed = () => {
                  this._handleConnectionInfoChange
              );
            }
-      componentWillReceiveProps(nextProps){
-            const {navigate}=this.props.navigation;
-          //  alert(nextProps.baby)
-           if(nextProps.auth&&nextProps.baby){
-             //navigate('Home');
 
-
-           }
-
-      }
 
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
@@ -146,7 +138,7 @@ handleFingerprintDismissed = () => {
                user: JSON.parse(decodeURI(user_string))
              });
 
-             console.log("yul",this.state.user);
+             //console.log("yul",this.state.user);
              if (Platform.OS === 'ios') {
                SafariView.dismiss();
                if(this.state.user){
@@ -192,8 +184,9 @@ handleFingerprintDismissed = () => {
    Login=(email, password)=>{
     const {navigate}=this.props.navigation;
     const {connectionInfo}=this.state;
-    console.log(connectionInfo);
-if(connectionInfo!=='none'){
+  //  console.log(connectionInfo);
+
+if(connectionInfo!=='NONE'&&connectionInfo!=='none'){
 
      if (!email) {
          alert('Please enter your Email ID')
@@ -213,9 +206,9 @@ if(connectionInfo!=='none'){
 
   render() {
 const { errorMessage, popupShowed } = this.state;
-    const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session}=this.props;
+    const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session,fingerprint}=this.props;
   //  console.log("session",session);
-      console.log(this.state.connectionInfo)
+    //  console.log(this.state.connectionInfo)
     return (
 
       <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -342,9 +335,10 @@ const { errorMessage, popupShowed } = this.state;
   }
 }
 
-const mapStateToProps=({Login,Otp})=> {
+const mapStateToProps=({Login,Otp,Settings})=> {
   const {email,password,loading,auth,user,baby}=Login;
   const {session}=Otp;
+  const {fingerprint}=Settings;
   return {
       email,
       password,
@@ -352,7 +346,8 @@ const mapStateToProps=({Login,Otp})=> {
       auth,
       user,
       session,
-      baby
+      baby,
+      fingerprint
     }
 }
 export default connect(mapStateToProps,{loginUpdate,loginChecking,socialLoginFail,socialLoginSuccess,logout,session_destroy})(Login)
