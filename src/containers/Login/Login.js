@@ -71,9 +71,10 @@ _handleConnectionInfoChange=(connectionInfo)=>{
   }
 
 componentWillMount(){
-     this.props.logout()
+     //this.props.logout()
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
+  //alert(this.props.auth)
   if(this.props.auth&&this.props.baby){
      navigate('Dashboard')
   }
@@ -110,7 +111,7 @@ handleFingerprintDismissed = () => {
                    .isSensorAvailable()
                    .then(()=>this.setState({ popupShowed: true }))
 
-                   .catch(error => this.setState({ popupShowed: true }));
+                   .catch(error => this.setState({ popupShowed: false }));
 
                   }
 
@@ -130,7 +131,7 @@ handleFingerprintDismissed = () => {
 
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
-
+             console.log(url);
              // Extract stringified user string out of the URL
              const [, user_string] = url.match(/user=([^#]+)/);
              this.setState({
@@ -138,17 +139,17 @@ handleFingerprintDismissed = () => {
                user: JSON.parse(decodeURI(user_string))
              });
 
-             //console.log("yul",this.state.user);
+             //console.log("yul",this.state.user.facebook);
              if (Platform.OS === 'ios') {
                SafariView.dismiss();
                if(this.state.user){
-                 this.props.socialLoginSuccess();
-                 navigate('Home');
+                 this.props.socialLoginSuccess(this.state.user.facebook);
+                 navigate('Dashboard');
                }
              }else{
                if(this.state.user){
-                 this.props.socialLoginSuccess();
-                 navigate('Home');
+                 this.props.socialLoginSuccess(this.state.user.facebook);
+                 navigate('Dashboard');
                }
              }
            }
@@ -211,7 +212,7 @@ const { errorMessage, popupShowed } = this.state;
     //  console.log(this.state.connectionInfo)
     return (
 
-      <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
+      <ScrollView   contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
 
       <View style={styles.fullContainer}>
 
@@ -235,10 +236,10 @@ const { errorMessage, popupShowed } = this.state;
                   secureTextEntry={false}
                   keyboardType="default"
                   onFocus={(event) => {
-                    this.setFocus(event, (height-50));
+                  //  this.setFocus(event, (height-50));
                     }}
                     onBlur={(event) => {
-                      this.setFocus(event, height);
+                    //  this.setFocus(event, height);
                       }}
                   placeholderTextColor="#333333"
                   onChangeText={(text)=>loginUpdate({prop:'email',value:text})}
@@ -250,14 +251,13 @@ const { errorMessage, popupShowed } = this.state;
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
-                    maxLength={16}
                     secureTextEntry={true}
                     keyboardType="default"
                     onFocus={(event) => {
-                      this.setFocus(event, (height-50));
+                    //  this.setFocus(event, (height-50));
                       }}
                       onBlur={(event) => {
-                        this.setFocus(event, height);
+                       //this.setFocus(event, height);
                         }}
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>loginUpdate({prop:'password',value:text})}

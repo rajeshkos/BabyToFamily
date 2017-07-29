@@ -73,7 +73,7 @@ var locationName;
 
 submit=()=>{
   const {navigation}=this.props;
-    const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user}=this.props;
+    const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user,email}=this.props;
     const {image}=this.state;
     console.log("image",image);
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
@@ -96,8 +96,9 @@ if(image){
       //  data['dob']=Addbaby.date;
       //  data['location']=Addbaby.location;
       //  data['relation']=Addbaby.relation;
+// console.log("email",email);
         var formData = new FormData();
-        formData.append("email","HYU@gmail.com");
+        formData.append("email",email);
         formData.append("name",Addbaby.name);
         formData.append("gender",Addbaby.gender);
         formData.append("dob",Addbaby.date);
@@ -115,6 +116,8 @@ if(image){
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
           this.setState({image:null})
+          alert(sucecsss)
+          if(sucecsss){
           Alert.alert(
               'Alert',
               'Added Successfully',
@@ -123,7 +126,7 @@ if(image){
               ],
               { cancelable: false }
             )
-
+        }
          ///this.props.AddBabyAdded()
      }
 }else{
@@ -177,9 +180,9 @@ pickSingleFromGallery=(cropping)=> {
   render() {
     const {width,height}=Dimensions.get('window');
 
-    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user}=this.props;
+    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
-console.log("user",user);
+alert(email)
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -211,6 +214,8 @@ console.log("user",user);
            autoFocus={true}
            returnKeyType={'search'}
            listViewDisplayed='auto'
+           currentLocation={true}
+           currentLocationLabel="Current location"
            fetchDetails={true}
            renderDescription={(row) => row.description}
            onPress={(data, details = null) => {
@@ -244,7 +249,6 @@ console.log("user",user);
                     fontFamily: 'GothamRounded-Book',
                   }
                 }}
-               currentLocation={false}
                currentLocationLabel="Current location"
                nearbyPlacesAPI='GooglePlacesSearch'
                GoogleReverseGeocodingQuery={{
@@ -440,7 +444,7 @@ console.log("user",user);
 const mapStateToProps=({Addbaby,Signup,Login})=>{
   const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
   //const {data}=Signup;
-  const {user}=Login;
+  const {user,email}=Login;
   return{
        name,
        gender,
@@ -450,7 +454,8 @@ const mapStateToProps=({Addbaby,Signup,Login})=>{
        loading,
        sucecsss,
        Addbaby,
-       user
+       user,
+       email
 
 
   }

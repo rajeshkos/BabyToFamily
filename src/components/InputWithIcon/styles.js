@@ -108,13 +108,13 @@ container:{
         ios: {
           width:50,
           height:18,
-          marginLeft:25,
+          marginLeft:22,
           width: 150,
           flexDirection:'row',
         },
         android: {
           paddingBottom: 0,
-          paddingLeft: 13,
+          paddingLeft: 10,
           width: 200,
           flexDirection:'row'
         },

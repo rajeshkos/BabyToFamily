@@ -21,12 +21,12 @@ const forgotSuccessfull=()=>({type:FORGOT_SUCCESSFULL});
 export const forgotfail=()=>({type:FORGOT_FAIL});
 
 export const forgotPassword=({email,navigate})=>(dispatch)=>{
-
+console.log(email);
  dispatch(forgotCheck());
-Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
+Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email:email.toLowerCase()})
  .then((response) => response.json())
  .then((responseJson) =>{
-
+console.log("responseJson",responseJson);
   if(responseJson.status===200){
     dispatch(forgotSuccessfull());
     Alert.alert(
@@ -44,7 +44,7 @@ Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email})
   }
 })
 .catch((error) => {
-
+console.log("error",error);
     dispatch(forgotfail());
   });
 

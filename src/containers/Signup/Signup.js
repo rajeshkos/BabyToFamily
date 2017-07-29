@@ -55,6 +55,7 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
        }
 componentWillMount(){
   this.setState({cca2:'US'});
+
 //   NetworkInfo.getIPAddress(ip => {
 //   fetch('https://ipinfo.io/',method:'POST',{})
 // });
@@ -205,13 +206,13 @@ if(Platform.OS==='ios'){
           </View>)
 }else{
 return(
-          <View style={{alignSelf:'center',justifyContent:'center',width:180}}>
+          <View style={{alignSelf:'center',justifyContent:'center', width:180}}>
                <PhoneInput
                    ref='phone'
                    onPressFlag={this.onPressFlag}
-                     style={{position:'absolute',top:9,left:75}}
-                    onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
-
+                   style={{position:'absolute',top:9,left:75}}
+                   textStyle={{color: 'black'}}
+                   onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
                />
 
                <CountryPicker
@@ -220,9 +221,7 @@ return(
                    translation='eng'
                    cca2={this.state.cca2}
                    styles={{backgroundColor:'transparent'}}
-
                >
-
                </CountryPicker>
 
                </View>
@@ -245,9 +244,7 @@ const {name,email,mobile,password,cpassword,navigation,loading}=props;
 let role='user';
   // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
   if(connectionInfo!=='NONE'&&connectionInfo!=='none'){
-        if(!this.state.Mobilenumber){
-          alert('Please enter your Mobile Number')
-        }else if(!name){
+        if(!name){
          alert('Please enter your Name');}
           else if (!email) {
               alert('Please enter your Email ID')
@@ -256,11 +253,7 @@ let role='user';
            }else if(!this.state.callingCode){
               alert('Select Country Code')
 
-           } else if (!mobile) {
-              alert('Please enter your Mobile Number')
-           }else if(isNaN(Number(mobile))){
-             alert('Mobile must be number')
-           }else if(!password){
+           } else if(!password){
              alert('Please enter your Password')
 
            }else if(!cpassword){
@@ -356,8 +349,7 @@ let role='user';
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
-                    maxLength={6}
-                    secureTextEntry
+                     secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
                     onFocus={(event)=>this.onFocus(event)}
@@ -378,8 +370,7 @@ let role='user';
                     value={ cpassword }
                     placeholder="Confirm Password"
                     secureTextEntry
-                    maxLength={6}
-                    keyboardType="default"
+                     keyboardType="default"
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>SignupUpdate({prop:'cpassword',value:text})}
                     onBlur={(event) => {

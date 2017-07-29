@@ -7,7 +7,8 @@ import {
   Dimensions,
   TouchableHighlight,
   Image,
-  Platform
+  Platform,
+  AsyncStorage
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
@@ -22,14 +23,14 @@ import { NavigationActions } from 'react-navigation'
  class Drawer extends Component {
   state={active:'one'}
 
-handleLogout=()=>{
+ handleLogout=async()=>{
         const {logout,socialLoginFail}=this.props;
         const { navigate } = this.props.navigation;
       this.setState({active:'eight'}),
       logout(),
       socialLoginFail()
       navigate('Login')
-
+        await AsyncStorage.clear()
         //this.props.navigation.dispatch(resetAction)
 
 }

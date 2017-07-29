@@ -76,7 +76,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   componentContainer: {
-    flex:0.6,
+    flex:0.5,
     width:width/1.4,
     alignSelf:'center',
   },

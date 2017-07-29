@@ -10,10 +10,11 @@ export default (state=INITIAL_STATE,action)=>{
    case LOGIN_CHECK:
      return {...state,loading:true}
    case LOGIN_SUCCESSFULL:
-//console.log("action.payload",action.payload);
-    return {...INITIAL_STATE,loading:false,auth:true,user:action.payload}
+//console.log("action.payload",action.payload.email);
+    return {...INITIAL_STATE,loading:false,auth:true,user:'',email:action.payload.email}
     case NO_BABY:
-     return {...INITIAL_STATE,loading:false,auth:true,baby:false,user:action.payload}
+//console.log("action.payload",action.payload.email);
+     return {...INITIAL_STATE,loading:false,auth:true,baby:false,user:'',email:action.payload.email}
   case FINGER_PRINT_ACTIVATE:
      return {...state,fingerprint:true}
   case LOGIN_FAIL:

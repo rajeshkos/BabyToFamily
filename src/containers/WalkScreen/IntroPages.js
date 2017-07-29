@@ -48,12 +48,12 @@ var styles = StyleSheet.create({
  class IntroPages extends Component {
 async componentWillMount(){
 
-  
-  const {navigate}=this.props.navigation;
-  const {auth}=this.props;
-  const value = await AsyncStorage.getItem('logedonce');
 
-  if(auth&&value){
+  const {navigate}=this.props.navigation;
+  const {auth,baby}=this.props;
+  const value = await AsyncStorage.getItem('logedonce');
+//alert(auth)
+  if(auth&&value&&baby){
 
         navigate('Dashboard')
 
@@ -61,11 +61,11 @@ async componentWillMount(){
     //navigate('Login')
 
 
-
+//alert(value)
     const {dispatch}=this.props;
 
     this.props.navigation
-               .dispatch(NavigationActions.reset(
+      .dispatch(NavigationActions.reset(
                  {
                     index: 0,
                     actions: [NavigationActions.navigate({ routeName: 'Auth'})]
@@ -86,7 +86,7 @@ async SignupPress(){
 
   await AsyncStorage.setItem('logedonce', 'true')
   const {navigate}=this.props.navigation;
-  navigate('Login')
+  navigate('Signup')
 
 }
   render() {
@@ -147,10 +147,11 @@ async SignupPress(){
   }
 }
 const mapStateToProps=({Login})=>{
-const {auth}=Login;
+const {auth,baby}=Login;
 
 return{
-  auth
+  auth,
+  baby
 
   }
 }
