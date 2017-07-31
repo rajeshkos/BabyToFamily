@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -63,7 +59,7 @@ componentWillMount(){
 
     //const infoUrl = 'http://ipinfo.io/192.64.0.138';
     //console.log(this.state.ip);
-/*
+    /*
     fetch('https://ipinfo.io', {
           method: 'POST',
           headers: {
@@ -187,7 +183,7 @@ if(Platform.OS==='ios'){
   return(
           <View style={styles.containerPhone }>
           <View style={styles.flagContainer}>
-          <View style={{padding: 10}}></View>
+          <View style={{padding: 15}}></View>
               <PhoneInput
                   ref='phone'
                   onPressFlag={this.onPressFlag}
@@ -210,7 +206,7 @@ return(
                <PhoneInput
                    ref='phone'
                    onPressFlag={this.onPressFlag}
-                   style={{position:'absolute',top:9,left:75}}
+                   style={{position:'absolute',top:10,left:75}}
                    textStyle={{color: 'black'}}
                    onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
                />

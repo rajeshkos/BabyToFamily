@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -71,7 +66,7 @@ _handleConnectionInfoChange=(connectionInfo)=>{
   }
 
 componentWillMount(){
-     //this.props.logout()
+     this.props.logout()
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
   //alert(this.props.auth)
@@ -111,7 +106,7 @@ handleFingerprintDismissed = () => {
                    .isSensorAvailable()
                    .then(()=>this.setState({ popupShowed: true }))
 
-                   .catch(error => this.setState({ popupShowed: false }));
+                   .catch(error => this.setState({ popupShowed: true }));
 
                   }
 
@@ -257,7 +252,7 @@ const { errorMessage, popupShowed } = this.state;
                     //  this.setFocus(event, (height-50));
                       }}
                       onBlur={(event) => {
-                       //this.setFocus(event, height);
+                    //   this.setFocus(event, height);
                         }}
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>loginUpdate({prop:'password',value:text})}

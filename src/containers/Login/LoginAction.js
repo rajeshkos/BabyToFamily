@@ -6,6 +6,7 @@ export const LOGIN_FAIL='LOGIN_FAIL';
 export const LOG_OUT='LOG_OUT';
 export const NO_BABY='NO_BABY';
 export const FINGER_PRINT_ACTIVATE='FINGER_PRINT_ACTIVATE';
+
 import Api from 'app/lib/api'
 import URL from 'app/lib/url'
 import {

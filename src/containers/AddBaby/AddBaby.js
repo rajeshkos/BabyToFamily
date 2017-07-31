@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -17,7 +13,8 @@ import {
   Platform,
   NativeModules,
   PixelRatio,
-  Alert
+  Alert,
+  NetInfo
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import InputWithIcon  from 'app/components/InputWithIcon'
@@ -30,7 +27,7 @@ const {width,height}=Dimensions.get('window');
 import Modal from 'react-native-modalbox';
 const ImagePicker = NativeModules.ImageCropPicker;
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
-import {AddBabyUpdate,AddBabyUpload,AddBabyAdded} from  './AddBabyActions'
+import {AddBabyUpdate,AddBabyUpload,AddBabyAdded,AddBabyFailed} from  './AddBabyActions'
 import moment from 'moment'
 import {validation} from './validation';
 import Api from 'app/lib/api'
@@ -46,11 +43,41 @@ var locationName;
        isDisabled: false,
        isOpen: false,
        isDisabled: false,
-      // swipeToClose: true,
-    //   sliderValue: 0.3,
-       genderState:'boy'
+        // swipeToClose: true,
+       //   sliderValue: 0.3,
+        genderState:'boy',
+        connectionInfo: null,
      };
    }
+
+   componentWillMount(){
+  this.props.AddBabyFailed()
+     NetInfo.addEventListener(
+          'change',
+          this._handleConnectionInfoChange
+      );
+
+      NetInfo.fetch().done(
+          (connectionInfo) => { this.setState({connectionInfo}); }
+      );
+   }
+
+   _handleConnectionInfoChange=(connectionInfo)=>{
+  //   alert(connectionInfo)
+       this.setState({
+         connectionInfo
+       });
+     }
+
+
+     componentWillUnmount() {
+
+            NetInfo.removeEventListener(
+                'change',
+                this._handleConnectionInfoChange
+            );
+          }
+
   //  onClose() {
   //    console.log('Modal just closed');
   //  }
@@ -74,11 +101,11 @@ var locationName;
 submit=()=>{
   const {navigation}=this.props;
     const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user,email}=this.props;
-    const {image}=this.state;
-    console.log("image",image);
-    AddBabyUpdate({prop:'gender',value:this.state.genderState})
-      const error=validation(Addbaby);
+    const {image,connectionInfo}=this.state;
+  //  console.log("image",image);
 
+    AddBabyUpdate({prop:'gender',value:this.state.genderState})
+      const error=validation(Addbaby,connectionInfo);
   //   if(error==='Successfully Registerd'){
       // let o1 = { email:'iamshimil@gmail.com' };
       // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
@@ -100,7 +127,7 @@ if(image){
         var formData = new FormData();
         formData.append("email",email);
         formData.append("name",Addbaby.name);
-        formData.append("gender",Addbaby.gender);
+        formData.append("gender",this.state.genderState);
         formData.append("dob",Addbaby.date);
         formData.append("place",Addbaby.location);
         formData.append("relation",Addbaby.relation);
@@ -116,18 +143,11 @@ if(image){
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
           this.setState({image:null})
-          alert(sucecsss)
-          if(sucecsss){
-          Alert.alert(
-              'Alert',
-              'Added Successfully',
-              [
-                {text: 'OK', onPress: () =>  navigation.goBack()},
-              ],
-              { cancelable: false }
-            )
-        }
+          //alert(sucecsss)
+
          ///this.props.AddBabyAdded()
+     }else {
+       alert(error)
      }
 }else{
   alert("Select Profile Picture")
@@ -139,10 +159,10 @@ if(image){
 }
 
 renderAsset=(image)=> {
-  console.log("image",image);
+  //console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={styles.selected}  source={image} />
+    <Image  resizeMode="cover" style={styles.selected} borderRadius={100}  source={image} />
     </View>
   )
 }
@@ -182,7 +202,20 @@ pickSingleFromGallery=(cropping)=> {
 
     const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
-alert(email)
+    //alert(genderState)
+  //  alert(sucecsss)
+  //console.log("sucecsss",sucecsss);
+  //alert(email)
+        if(sucecsss){
+        Alert.alert(
+            'Alert',
+            'Added Successfully',
+            [
+              {text: 'OK', onPress: () =>  {navigation.goBack(),this.props.AddBabyFailed()}},
+            ],
+            { cancelable: false }
+          )
+      }
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -462,4 +495,4 @@ const mapStateToProps=({Addbaby,Signup,Login})=>{
 
 }
 
-export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload,AddBabyAdded}) (AddBaby);
+export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload,AddBabyAdded,AddBabyFailed}) (AddBaby);

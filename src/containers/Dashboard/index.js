@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet,BackHandler  } from 'react-native';
 import Header from './Header';
 import {connect} from 'react-redux';
 import Tabs from '../Tabs'
@@ -7,9 +7,30 @@ import ActionMenu from 'app/components/ActionMenu'
 import Banner from 'app/components/Banner'
 
 
-export default class Dashboard extends Component {
+ class Dashboard extends Component {
+
+ //  componentDidMount() {
+ //      const { state } = this.props.navigation;
+ //    BackHandler.addEventListener('hardwareBackPress', function() {
+ //        if(state.routeName!=='Dashboard'){
+ //        //  BackHandler.exitApp()
+ //          //  alert("Dashboard")
+ //          return true;
+ //        }else{
+ //         return false
+ //        }
+ //    //  BackHandler.exitApp()
+ //   })
+ //  }
+ //  componentWillUnmount() {
+ //   BackHandler.removeEventListener('hardwareBackPress');
+ // }
   render() {
+    //console.log(navigator.getCurrentRoutes().length);
+    //alert(this.props.navigation.navigationState);
     const { navigate } = this.props.navigation;
+  //  const { state } = this.props.navigation;
+  //console.log(state);
     return (
     <Tabs {...this.props}>
      <Header
@@ -43,3 +64,10 @@ const styles = StyleSheet.create({
  }
 
 })
+const mapStateToProps=(state)=>{
+  return{
+ nav: state.nav
+
+}
+}
+export default connect(mapStateToProps,null)(Dashboard);

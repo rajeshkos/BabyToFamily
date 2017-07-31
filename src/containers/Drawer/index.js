@@ -7,8 +7,8 @@ import {
   Dimensions,
   TouchableHighlight,
   Image,
-  Platform,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
@@ -42,9 +42,15 @@ import { NavigationActions } from 'react-navigation'
       <View style={styles.avatarContainer}>
         <View style={{ flex: 1 }}>
           <View style={styles.imageContainer}>
+          {Platform.OS==='ios'?
             <View style={styles.image}>
               <Image resizeMode="stretch" style={styles.userImg} source={require('./images/user.png')} />
             </View>
+            :
+            <View style={{width:66,height:66,borderRadius:50}}>
+            <Image resizeMode="contain" style={{width:66,height:66}} resizeMode="cover"  borderRadius={66} source={require('./images/user.png')} />
+            </View>
+          }
           </View>
           <View style={styles.nameContainer}>
             <Text style={{ fontSize: 20, color: 'white' }}> John Smith</Text>
