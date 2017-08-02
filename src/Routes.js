@@ -44,9 +44,9 @@ import Settings from 'app/containers/Dashboard/Settings'
 import AddMilestone from 'app/containers/Profile/AddMilestone'
 import MilestoneScreen from 'app/containers/Profile/AddMilestone/MilestoneScreen'
 import ChangePassword from 'app/containers/Dashboard/Settings/ChangePassword'
-import IntroScreenOne from 'app/containers/WalkScreen/IntroScreenOne'
-import BottomScreen from 'app/containers/WalkScreen/BottomScreen'
-import IntroPages from 'app/containers/WalkScreen/IntroPages'
+//import IntroScreenOne from 'app/containers/WalkScreen/IntroScreenOne'
+//import BottomScreen from 'app/containers/WalkScreen/BottomScreen'
+import WalkScreen from 'app/containers/WalkScreen/WalkScreen'
 import AudioPlayer from 'app/containers/Dashboard/AudioPlayer'
 
 // Stack navigation for Settings and Profile screens
@@ -128,7 +128,7 @@ const DrawerPage = DrawerNavigator({
 });
 
 const Routes = StackNavigator({
-  IntroPages:{screen:IntroPages,
+  WalkScreen:{screen:WalkScreen,
     navigationOptions: {
       header: null,
     }
