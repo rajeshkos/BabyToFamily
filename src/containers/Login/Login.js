@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -20,7 +15,9 @@ import {
   Linking,
   Platform,
   NetInfo,
+   Keyboard
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import SafariView from 'react-native-safari-view';
 import { NavigationActions } from 'react-navigation'
 
@@ -51,6 +48,7 @@ import {session_destroy} from 'app/containers/Signup/OTP/OtpActions'
        errorMessage: undefined,
        popupShowed: false,
        connectionInfo: null,
+       sensor:true
      };
    }
 
@@ -74,14 +72,20 @@ componentWillMount(){
      this.props.logout()
 //  console.log(this.props.session,"session");
   const {navigate}=this.props.navigation;
-  if(this.props.session===true){
-  //  alert('Otp')
-  //  navigate('OtpScreen')
+  //alert(this.props.auth)
+  if(this.props.auth&&this.props.baby){
+     navigate('Dashboard')
   }
+  NetInfo.addEventListener(
+       'change',
+       this._handleConnectionInfoChange
+   );
 
-
-
+   NetInfo.fetch().done(
+       (connectionInfo) => { this.setState({connectionInfo}); }
+   );
 }
+
 
 handleFingerprintShowed = () => {
   this.setState({ popupShowed: true });
@@ -92,27 +96,23 @@ handleFingerprintDismissed = () => {
 };
 
        componentDidMount() {
-
+       const {fingerprint,auth}=this.props;
              Linking.addEventListener('url', this.handleOpenURL);
              Linking.getInitialURL().then((url) => {
                if (url) {
                  this.handleOpenURL({ url });
                }
              });
-             FingerprintScanner
-               .isSensorAvailable()
-               .then(()=>this.setState({ popupShowed: true }))
 
-               .catch(error => console.log(error));
+       if(fingerprint&!auth){
+                 FingerprintScanner
+                   .isSensorAvailable()
+                   .then(()=>this.setState({ sensor:true }))
 
+                   .catch(error => this.setState({sensor:false }));
 
-               NetInfo.addEventListener(
-                    'change',
-                    this._handleConnectionInfoChange
-                );
-                NetInfo.fetch().done(
-                    (connectionInfo) => { this.setState({connectionInfo}); }
-                );
+                  }
+
 
            }
 
@@ -125,36 +125,29 @@ handleFingerprintDismissed = () => {
                  this._handleConnectionInfoChange
              );
            }
-      componentWillReceiveProps(nextProps){
-            const {navigate}=this.props.navigation;
-          //  alert(nextProps.baby)
-           if(nextProps.auth&&nextProps.baby){
-              navigate('Home');
 
-
-           }
-
-      }
 
      handleOpenURL = ({ url }) => {
           const {navigate}=this.props.navigation;
-
+             console.log(url);
              // Extract stringified user string out of the URL
              const [, user_string] = url.match(/user=([^#]+)/);
              this.setState({
                // Decode the user string and parse it into JSON
                user: JSON.parse(decodeURI(user_string))
              });
-             if(this.state.user){
-               this.props.socialLoginSuccess();
-               navigate('Home');
-             }
-             console.log("yul",this.state.user);
+
+             //console.log("yul",this.state.user.facebook);
              if (Platform.OS === 'ios') {
                SafariView.dismiss();
                if(this.state.user){
-                 this.props.socialLoginSuccess();
-                 navigate('Home');
+                 this.props.socialLoginSuccess(this.state.user.facebook);
+                 navigate('Dashboard');
+               }
+             }else{
+               if(this.state.user){
+                 this.props.socialLoginSuccess(this.state.user.facebook);
+                 navigate('Dashboard');
                }
              }
            }
@@ -190,8 +183,9 @@ handleFingerprintDismissed = () => {
    Login=(email, password)=>{
     const {navigate}=this.props.navigation;
     const {connectionInfo}=this.state;
-    console.log(connectionInfo);
-if(connectionInfo!=='none'){
+  //  console.log(connectionInfo);
+
+if(connectionInfo!=='NONE'&&connectionInfo!=='none'){
 
      if (!email) {
          alert('Please enter your Email ID')
@@ -211,22 +205,15 @@ if(connectionInfo!=='none'){
 
   render() {
 const { errorMessage, popupShowed } = this.state;
-    const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session}=this.props;
+    const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session,fingerprint}=this.props;
   //  console.log("session",session);
-      console.log(this.state.connectionInfo)
+    //  console.log(this.state.connectionInfo)
     return (
 
-      <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
-
-      <View style={styles.fullContainer}>
-
-        <View style={styles.mainContainer}>
+      <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}} enableOnAndroid={true}>
          <StatusBar hidden={true} />
-
-           <View style={styles.container}>
-
-          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
-         </View>
+          <Image  style={{width:width,height:height, }} resizeMode="cover" source={require('./Images/Logo/header.png')}>
+            <View style={{paddingTop:height/2-50, flex:1}}>
             <View style={styles.componentContainer}>
           <View style={styles.componentInnerContainer}>
 
@@ -240,10 +227,10 @@ const { errorMessage, popupShowed } = this.state;
                   secureTextEntry={false}
                   keyboardType="default"
                   onFocus={(event) => {
-                    this.setFocus(event, (height-50));
+                  //  this.setFocus(event, (height-50));
                     }}
                     onBlur={(event) => {
-                      this.setFocus(event, height);
+                    //  this.setFocus(event, height);
                       }}
                   placeholderTextColor="#333333"
                   onChangeText={(text)=>loginUpdate({prop:'email',value:text})}
@@ -251,21 +238,23 @@ const { errorMessage, popupShowed } = this.state;
             </View>
 
               <View style={styles.spaceTextInput}>
+
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
-                    maxLength={16}
                     secureTextEntry={true}
                     keyboardType="default"
+                    sensor={this.state.sensor}
                     onFocus={(event) => {
-                      this.setFocus(event, (height-50));
+                    //  this.setFocus(event, (height-50));
                       }}
                       onBlur={(event) => {
-                        this.setFocus(event, height);
+                    //   this.setFocus(event, height);
                         }}
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>loginUpdate({prop:'password',value:text})}
+                    onSubmitEditing={Keyboard.dismiss}
                   />
               </View>
 
@@ -322,10 +311,10 @@ const { errorMessage, popupShowed } = this.state;
                  </View>
           </View>
         </View>
-      </View>
+
 
 </View>
-
+</Image>
 
 
 {popupShowed && (
@@ -334,15 +323,16 @@ const { errorMessage, popupShowed } = this.state;
     handlePopupDismissed={this.handleFingerprintDismissed}
   />
 )}
-</ScrollView>
+  </KeyboardAwareScrollView>
 
     );
   }
 }
 
-const mapStateToProps=({Login,Otp})=> {
+const mapStateToProps=({Login,Otp,Settings})=> {
   const {email,password,loading,auth,user,baby}=Login;
   const {session}=Otp;
+  const {fingerprint}=Settings;
   return {
       email,
       password,
@@ -350,7 +340,8 @@ const mapStateToProps=({Login,Otp})=> {
       auth,
       user,
       session,
-      baby
+      baby,
+      fingerprint
     }
 }
 export default connect(mapStateToProps,{loginUpdate,loginChecking,socialLoginFail,socialLoginSuccess,logout,session_destroy})(Login)

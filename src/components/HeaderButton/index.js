@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 import {
   StyleSheet,
   View
@@ -8,10 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class HeaderButton extends Component {
 
-  static propTypes = {
-    onPress: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
-  };
 
   static defaultProps = {
     icon: 'md-menu',

@@ -10,10 +10,10 @@ function* uploadImage(action) {
  try {
       yield put({type:ADD_BABY_CHECKING})
      const user = yield call(Api.makeImageUpload, 'POST',URL.ADD_BABY_DETAIL,{},action.payload.formData);
-    // console.log("user",user);
+     
       yield put({type:ADDBABY_ADDED})
   } catch (e) {
-     console.log("error",e);
+    // console.log("error",e);
      yield put({type:ADDBABY_FAILED,payload:e})
   }
 }

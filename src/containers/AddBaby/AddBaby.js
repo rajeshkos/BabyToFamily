@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -14,9 +10,11 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
-  Platform,
   NativeModules,
-  PixelRatio
+  PixelRatio,
+  Alert,
+  NetInfo,
+  Platform
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import InputWithIcon  from 'app/components/InputWithIcon'
@@ -29,14 +27,16 @@ const {width,height}=Dimensions.get('window');
 import Modal from 'react-native-modalbox';
 const ImagePicker = NativeModules.ImageCropPicker;
 var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
-import {AddBabyUpdate,AddBabyUpload,AddBabyAdded} from  './AddBabyActions'
+import {AddBabyUpdate,AddBabyUpload,AddBabyAdded,AddBabyFailed} from  './AddBabyActions'
 import moment from 'moment'
 import {validation} from './validation';
 import Api from 'app/lib/api'
 
 import MCIcon from 'react-native-vector-icons/Ionicons';
+const googleApiUrl ='https://maps.google.com/maps/api/geocode/json';
 //md-close-circle
 var locationName;
+var apiKey ;
  class AddBaby extends Component {
    constructor() {
      super();
@@ -45,11 +45,119 @@ var locationName;
        isDisabled: false,
        isOpen: false,
        isDisabled: false,
-      // swipeToClose: true,
-    //   sliderValue: 0.3,
-       genderState:'boy'
+       address: '',
+        // swipeToClose: true,
+       //   sliderValue: 0.3,
+        genderState:'boy',
+        connectionInfo: null,
      };
    }
+
+   componentWillMount(){
+  this.props.AddBabyFailed()
+     NetInfo.addEventListener(
+          'change',
+          this._handleConnectionInfoChange
+      );
+
+      NetInfo.fetch().done(
+          (connectionInfo) => { this.setState({connectionInfo}); }
+      );
+
+      navigator.geolocation.getCurrentPosition(
+             (position) => {
+               //alert(position.coords.latitude)
+                 this._getAddress(position.coords.latitude, position.coords.longitude)
+             },
+             (error) => alert(error.message),
+             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+           );
+
+
+   }
+
+
+
+
+
+   _getAddress(lat, lng){
+     const {AddBabyUpdate}=this.props;
+     apiKey='AIzaSyA5m8U4SYKBhV4IldQs409Jv28L3avWYtM';
+     this.getFromLatLng(lat, lng).then(
+      json => {
+        var address_component = json.results[0].formatted_address;
+        //this.setState({address: address_component});
+           if(address_component){
+          //  AddBabyUpdate({prop:'location',value:address_component})
+           }
+
+      },
+      error => {
+        alert(error);
+      }
+    );
+ }
+
+
+ getFromLatLng(lat, lng) {
+
+ if (!apiKey) {
+       return Promise.reject(new Error("Provided API key is invalid"));
+     }
+
+     if (!lat || !lng) {
+       return Promise.reject(new Error("Provided coordinates are invalid"));
+     }
+
+     const latLng = `${lat},${lng}`;
+     const url = `${googleApiUrl}?key=${apiKey}&latlng=${encodeURI(latLng)}`;
+
+     return this.handleUrl(url);
+}
+
+
+async handleUrl(url) {
+  const response = await fetch(url).catch(
+    error => {
+      return Promise.reject(new Error("Error fetching data"));
+    }
+  );
+
+  const json = await response.json().catch(
+    error => {
+      return Promise.reject(new Error("Error parsing server response"));
+    }
+  );
+
+  if (json.status === 'OK') {
+    return json;
+  }
+  else {
+    return Promise.reject(new Error(`Server returned status code ${json.status}`));
+  }
+}
+
+
+
+
+
+   _handleConnectionInfoChange=(connectionInfo)=>{
+  //   alert(connectionInfo)
+       this.setState({
+         connectionInfo
+       });
+     }
+
+
+     componentWillUnmount() {
+
+            NetInfo.removeEventListener(
+                'change',
+                this._handleConnectionInfoChange
+            );
+            navigator.geolocation.clearWatch(this.watchID);
+          }
+
   //  onClose() {
   //    console.log('Modal just closed');
   //  }
@@ -71,12 +179,13 @@ var locationName;
    }
 
 submit=()=>{
-    const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user}=this.props;
-    const {image}=this.state;
-    console.log("image",image);
-    AddBabyUpdate({prop:'gender',value:this.state.genderState})
-      const error=validation(Addbaby);
+  const {navigation}=this.props;
+    const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user,email}=this.props;
+    const {image,connectionInfo}=this.state;
+  //  console.log("image",image);
 
+    AddBabyUpdate({prop:'gender',value:this.state.genderState})
+      const error=validation(Addbaby,connectionInfo);
   //   if(error==='Successfully Registerd'){
       // let o1 = { email:'iamshimil@gmail.com' };
       // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
@@ -94,10 +203,11 @@ if(image){
       //  data['dob']=Addbaby.date;
       //  data['location']=Addbaby.location;
       //  data['relation']=Addbaby.relation;
+// console.log("email",email);
         var formData = new FormData();
-        formData.append("email","HYU@gmail.com");
+        formData.append("email",email);
         formData.append("name",Addbaby.name);
-        formData.append("gender",Addbaby.gender);
+        formData.append("gender",this.state.genderState);
         formData.append("dob",Addbaby.date);
         formData.append("place",Addbaby.location);
         formData.append("relation",Addbaby.relation);
@@ -113,9 +223,11 @@ if(image){
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
           this.setState({image:null})
-           alert(sucecsss)
+          //alert(sucecsss)
 
          ///this.props.AddBabyAdded()
+     }else {
+       alert(error)
      }
 }else{
   alert("Select Profile Picture")
@@ -127,10 +239,14 @@ if(image){
 }
 
 renderAsset=(image)=> {
-  console.log("image",image);
+  //console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="stretch" style={{width:50,height:50}}  source={image} />
+  {Platform.OS==='ios'?
+ <Image  resizeMode="cover" style={styles.selected} source={image} />:
+  <Image  resizeMode="cover" style={styles.selected} borderRadius={100} source={image} />
+}
+
     </View>
   )
 }
@@ -168,9 +284,27 @@ pickSingleFromGallery=(cropping)=> {
   render() {
     const {width,height}=Dimensions.get('window');
 
-    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user}=this.props;
+    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
-console.log("user",user);
+  /*  if(this.state.address){
+        location = this.state.address;
+    }
+    */
+      //alert(this.state.address);
+    //alert(genderState)
+  //  alert(sucecsss)
+  //console.log("sucecsss",sucecsss);
+  //alert(email)
+        if(sucecsss){
+        Alert.alert(
+            'Alert',
+            'Added Successfully',
+            [
+              {text: 'OK', onPress: () =>  {navigation.goBack(),this.props.AddBabyFailed()}},
+            ],
+            { cancelable: false }
+          )
+      }
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -202,6 +336,8 @@ console.log("user",user);
            autoFocus={true}
            returnKeyType={'search'}
            listViewDisplayed='auto'
+           currentLocation={true}
+           currentLocationLabel="Current location"
            fetchDetails={true}
            renderDescription={(row) => row.description}
            onPress={(data, details = null) => {
@@ -235,7 +371,6 @@ console.log("user",user);
                     fontFamily: 'GothamRounded-Book',
                   }
                 }}
-               currentLocation={false}
                currentLocationLabel="Current location"
                nearbyPlacesAPI='GooglePlacesSearch'
                GoogleReverseGeocodingQuery={{
@@ -431,7 +566,7 @@ console.log("user",user);
 const mapStateToProps=({Addbaby,Signup,Login})=>{
   const {name,gender,date,location,relation,loading,sucecsss}=Addbaby;
   //const {data}=Signup;
-  const {user}=Login;
+  const {user,email}=Login;
   return{
        name,
        gender,
@@ -441,11 +576,12 @@ const mapStateToProps=({Addbaby,Signup,Login})=>{
        loading,
        sucecsss,
        Addbaby,
-       user
+       user,
+       email
 
 
   }
 
 }
 
-export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload,AddBabyAdded}) (AddBaby);
+export default connect(mapStateToProps,{AddBabyUpdate,AddBabyUpload,AddBabyAdded,AddBabyFailed}) (AddBaby);

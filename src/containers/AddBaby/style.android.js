@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   babyTitle: {
     flexDirection: 'column',
@@ -208,7 +209,9 @@ const styles = StyleSheet.create({
 selected:{
   width: PixelRatio.getPixelSizeForLayoutSize(50),
   height: PixelRatio.getPixelSizeForLayoutSize(50),
-  borderRadius:80
+//  overflow: 'hidden',
+  //borderRadius: 100,
+
 },
 genderdefault:{
   paddingLeft: 5,

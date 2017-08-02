@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   halfFlex: {
-    flex:0.9,
+    flex:0.7,
+    marginBottom:10
   },
   btnStyle: {
     height: 35,

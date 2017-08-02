@@ -7,13 +7,14 @@ import {
   Dimensions,
   TouchableHighlight,
   Image,
+  AsyncStorage,
   Platform
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width, height}= Dimensions.get('window');
 import DrawerItem from './DrawerItem'
 import {connect} from 'react-redux';
-import {logout} from 'app/containers/Login/LoginAction';
+import {logout,socialLoginFail} from 'app/containers/Login/LoginAction';
 import { NavigationActions } from 'react-navigation'
 
 
@@ -22,13 +23,14 @@ import { NavigationActions } from 'react-navigation'
  class Drawer extends Component {
   state={active:'one'}
 
-handleLogout=()=>{
-        const {logout}=this.props;
+ handleLogout=async()=>{
+        const {logout,socialLoginFail}=this.props;
         const { navigate } = this.props.navigation;
       this.setState({active:'eight'}),
       logout(),
+      socialLoginFail()
       navigate('Login')
-
+        await AsyncStorage.clear()
         //this.props.navigation.dispatch(resetAction)
 
 }
@@ -40,9 +42,15 @@ handleLogout=()=>{
       <View style={styles.avatarContainer}>
         <View style={{ flex: 1 }}>
           <View style={styles.imageContainer}>
+          {Platform.OS==='ios'?
             <View style={styles.image}>
               <Image resizeMode="stretch" style={styles.userImg} source={require('./images/user.png')} />
             </View>
+            :
+            <View style={{width:66,height:66,borderRadius:50}}>
+            <Image resizeMode="contain" style={{width:66,height:66}} resizeMode="cover"  borderRadius={66} source={require('./images/user.png')} />
+            </View>
+          }
           </View>
           <View style={styles.nameContainer}>
             <Text style={{ fontSize: 20, color: 'white' }}> John Smith</Text>
@@ -191,4 +199,4 @@ const styles = StyleSheet.create({
   }
 
 });
-export default connect(null,{logout})(Drawer)
+export default connect(null,{logout,socialLoginFail})(Drawer)

@@ -15,8 +15,8 @@
 
    render(){
      return(
-         <View style={{flex:1}}>
-            <PlaceAutoComplete/>
+         <View style={{flex:1,backgroundColor:'red'}}>
+
          </View>
        )
    }

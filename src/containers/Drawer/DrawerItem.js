@@ -10,7 +10,7 @@ export default class DrawerItem extends Component{
     super(props);
   }
   renderIcon=( ) =>{
-    const {iconColor}=this.props; 
+    const {iconColor}=this.props;
     let icon;
     switch (this.props.iconfamily) {
       case 'FontAwesome':

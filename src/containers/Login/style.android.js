@@ -25,8 +25,11 @@ var styles = StyleSheet.create({
   },
   btnStyle: {
     height: 35,
-    elevation: 3,
-    backgroundColor: '#FF57A5', borderRadius: 5,  shadowOpacity: 0.2, shadowOffset:{
+    elevation: 0,
+    backgroundColor: '#FF57A5',
+    borderRadius: 5,
+    shadowOpacity: 0.2,
+    shadowOffset:{
     width: 1,
     height: 1,
     },
@@ -76,7 +79,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   componentContainer: {
-    flex:0.6,
+    flex:0.5,
     width:width/1.4,
     alignSelf:'center',
   },
@@ -143,6 +146,7 @@ var styles = StyleSheet.create({
   },
   popup: {
     width: width * 0.8,
+
   }
 });
 

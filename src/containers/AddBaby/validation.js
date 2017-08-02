@@ -1,8 +1,11 @@
-export const validation=(Addbaby)=>{
-  console.log(Addbaby,"affff");
+export const validation=(Addbaby,connectionInfo)=>{
+  //alert(connectionInfo);
   let err;
 const {name,gender,date,location,relation,image}=Addbaby;
-if(!name){
+if(connectionInfo==='NONE'&&connectionInfo==='none'){
+err="Please Check your Network"
+
+}else if(!name){
   err="Please Add your Baby name"
 }else if(!location){
   err="Please Enter Location"

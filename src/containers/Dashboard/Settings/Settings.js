@@ -23,7 +23,8 @@ import style from './style'
 
   render(){
     const {navigation,fingerPrint,fingerPrintActivate}=this.props;
-  console.log(actions.fingerPrintActivate);
+  //       const { state } = this.props.navigation;
+  // console.log(state);
         return(
           <View style={style.container}>
             <Header
@@ -49,7 +50,7 @@ import style from './style'
         <View style={style.headerContainer}>
         <Text style={style.header}>App Settings</Text>
         </View>
-                  <NotificationSettings                  
+                  <NotificationSettings
                   />
                     <OtherSettings />
 

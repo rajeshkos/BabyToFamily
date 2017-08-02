@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -83,7 +79,7 @@ handleSend=(email)=>{
 const {connectionInfo}=this.state;
         let intRegex = /[0-9 -()+]+$/;
        let eml = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-if(connectionInfo!=='none'){
+if(connectionInfo!=='none'&&connectionInfo!=='NONE'){
 
        if(intRegex.test(email)) {
 

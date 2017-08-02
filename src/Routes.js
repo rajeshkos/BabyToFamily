@@ -1,13 +1,20 @@
 import React,{Component} from 'react';
 import {
   DrawerNavigator,
-  StackNavigator,
-  TabNavigator,
-   TabBarBottom
+   StackNavigator,
+   TabNavigator,
+   TabBarBottom,
+   addNavigationHelpers,
 } from 'react-navigation';
 
+import {
+    BackHandler,
+    Alert
+} from 'react-native'
 import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { connect } from 'react-redux';
+
 /*
 import Home from 'app/containers/tabs/Home';
 import Settings from 'app/containers/tabs/Settings';
@@ -37,6 +44,11 @@ import Settings from 'app/containers/Dashboard/Settings'
 import AddMilestone from 'app/containers/Profile/AddMilestone'
 import MilestoneScreen from 'app/containers/Profile/AddMilestone/MilestoneScreen'
 import ChangePassword from 'app/containers/Dashboard/Settings/ChangePassword'
+import IntroScreenOne from 'app/containers/WalkScreen/IntroScreenOne'
+import BottomScreen from 'app/containers/WalkScreen/BottomScreen'
+import IntroPages from 'app/containers/WalkScreen/IntroPages'
+
+
 // Stack navigation for Settings and Profile screens
 
 const Auth=StackNavigator({
@@ -59,7 +71,8 @@ const Auth=StackNavigator({
 
 
 const TabScreen=StackNavigator({
-   Dashboard:{screen:Dashboard},
+  // Dashboard:{screen:Dashboard},
+  Dashboard:{screen:Dashboard},
    Community:{screen:Community},
    Gallery:{screen:Gallery},
    Nesting:{screen:Nesting},
@@ -113,6 +126,11 @@ const DrawerPage = DrawerNavigator({
 });
 
 const Routes = StackNavigator({
+  IntroPages:{screen:IntroPages,
+    navigationOptions: {
+      header: null,
+    }
+  },
   Auth: {
     screen:Auth,
     navigationOptions: {
@@ -120,6 +138,7 @@ const Routes = StackNavigator({
       headerBackTitle: 'Back',
     },
   },
+
   Home:{
     screen:DrawerPage,
     navigationOptions: {
@@ -203,5 +222,23 @@ const  Routes=StackNavigator({
   headerMode: 'none',
 });
 */
+//  class  RotesWithState extends Component{
+//   constructor(props){
+//     super(props);
+//   }
+//   render(){
+//           //  const { dispatch, nav } = this.props;
+//     return (
+//       <Routes
+//     />
+//     )
+//   }
+// }
+// function mapStateToProps(state) {
+//   console.log(state);
+//   return {
+//   //  nav: state.nav,
+//   };
+// }
 
 export default Routes;

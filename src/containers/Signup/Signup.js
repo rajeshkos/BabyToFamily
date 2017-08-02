@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -17,8 +13,7 @@ import {
   ScrollView,
   Platform,
   AsyncStorage,
-  NetInfo,
-  KeyboardAvoidingView,
+  NetInfo
 
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
@@ -33,7 +28,8 @@ const {width,height}=Dimensions.get('window');
 import CountryPicker, {getAllCountries} from 'react-native-country-picker-modal';
 import PhoneInput from 'react-native-phone-input'
 import DeviceInfo from 'react-native-device-info';
-
+import { NetworkInfo } from 'react-native-network-info';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './SignupActions'
  class Signup extends Component {
 
@@ -42,9 +38,10 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
    this.state = {
      user: undefined,
      cca2:'',
-     callingCode:'',
+     callingCode:1,
      Mobilenumber:'',
-     connectionInfo: null
+     connectionInfo: null,
+     ip:null
 
 
    };
@@ -53,7 +50,36 @@ import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './Signup
            header: null
        }
 componentWillMount(){
-  this.setState({cca2:DeviceInfo.getDeviceCountry()});
+  this.setState({cca2:'US'});
+
+//   NetworkInfo.getIPAddress(ip => {
+//   fetch('https://ipinfo.io/',method:'POST',{})
+// });
+    //fetch('https://geoip.maxmind.com/geoip/v2.1/country/',{},{'192'})
+
+    //const infoUrl = 'http://ipinfo.io/192.64.0.138';
+    //console.log(this.state.ip);
+    /*
+    fetch('https://ipinfo.io', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }
+          })
+    .then((response)=>response.json())
+    .then((responseJson) =>console.log(responseJson.country))
+*/
+
+    NetInfo.addEventListener(
+         'change',
+         this._handleConnectionInfoChange
+     );
+     NetInfo.fetch().done(
+         (connectionInfo) => { this.setState({connectionInfo}) }
+     );
+
+
   //console.log(DeviceInfo.getDeviceCountry(),"hh");
 }
    componentDidMount() {
@@ -65,19 +91,12 @@ componentWillMount(){
            }
          });
 
-         this.setState({
-             pickerData: this.refs.phone.getPickerData()
+         //this.setState({
+          //   pickerData: this.refs.phone.getPickerData()
 
-         })
+         //})
 
 
-         NetInfo.addEventListener(
-              'change',
-              this._handleConnectionInfoChange
-          );
-          NetInfo.fetch().done(
-              (connectionInfo) => { this.setState({connectionInfo}); }
-          );
 
 
        }
@@ -100,28 +119,28 @@ componentWillMount(){
        }
 
 
-       onPressFlag=()=>{
-           this.refs.countryPicker.openModal()
-       }
+      // onPressFlag=()=>{
+        //   this.refs.countryPicker.openModal()
+       //}
 
-       selectCountry=(country)=>{
+      /* selectCountry=(country)=>{
            this.refs.phone.selectCountry(country.cca2.toLowerCase())
            this.setState({cca2: country.cca2})
            this.setState({callingCode:country.callingCode})
 
        }
-
+*/
 
  handleOpenURL = ({ url }) => {
       const {navigate}=this.props.navigation;
-         console.log(url,"url");
+      //   console.log(url,"url");
          // Extract stringified user string out of the URL
          const [, user_string] = url.match(/user=([^#]+)/);
          this.setState({
            // Decode the user string and parse it into JSON
            user: JSON.parse(decodeURI(user_string))
          });
-         console.log("yul",this.state.user);
+        // console.log("yul",this.state.user);
          if (Platform.OS === 'ios') {
            SafariView.dismiss();
            if(this.state.user){
@@ -131,7 +150,7 @@ componentWillMount(){
        }
 
 
-loginWithFacebook = () => this.openURL('http://172.24.3.104:3000/auth/facebook');
+loginWithFacebook = () => this.openURL('http://52.39.212.226:4089/auth/facebook');
 
 loginWithInstagram = () => this.openURL('http://52.39.212.226:4089/auth/instagram');
 
@@ -151,64 +170,20 @@ openURL = (url) => {
 }
 setPhoneNumber=(text)=>{
 
-     this.setState({Mobilenumber:text});
-
-}
-
-onFocus=()=>{
-  const {callingCode,Mobilenumber}=this.state;
-  const {SignupUpdate}=this.props;
-
-     SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})
-
-}
-signUp=(props)=>{
-    const {callingCode,Mobilenumber,connectionInfo}=this.state;
-//this.props.
-//  console.log(name,email,mobile,password,cpassword);
-const {name,email,mobile,password,cpassword,navigation,loading}=props;
-
-  // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
-  if(connectionInfo!=='none'){
-       if(!name){
-         alert('Please enter your Name');}
-          else if (!email) {
-              alert('Please enter your Email ID')
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-              alert( 'Invalid Email ID');
-           }
-           /*else if(!this.state.callingCode){
-              alert('Select Country Code')
-           } else if (!mobile) {
-              alert('Please enter your Mobile Number')
-           }else if(isNaN(Number(mobile))){
-             alert('Mobile must be number')
-           }*/else if(!password){
-             alert('Please enter your Password')
-           }else if(!cpassword){
-             alert('Please enter your Confirm Password')
-           }else if(password!==cpassword){
-             alert('Both Password must be same');
-             this.props.passwordDontmatch();
-           }else{
-             //AsyncStorage.setItem("mobile", JSON.stringify(mobile));
-
-            this.props.SignupChecking({name,email,mobile,password,navigation});
-           }
-}else{
-  alert("Please Check your Network")
-}
+     //this.setState({Mobilenumber:text});
 
 }
 setFocus(event, heightUp){
-  this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
+  //this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
 }
-getCountry(){
+
+
+getCountry=()=>{
 if(Platform.OS==='ios'){
   return(
           <View style={styles.containerPhone }>
           <View style={styles.flagContainer}>
-          <View style={{padding: 10}}></View>
+          <View style={{padding: 15}}></View>
               <PhoneInput
                   ref='phone'
                   onPressFlag={this.onPressFlag}
@@ -219,6 +194,7 @@ if(Platform.OS==='ios'){
                   onChange={(value)=> this.selectCountry(value)}
                   translation='eng'
                   cca2={this.state.cca2}
+                  styles={{backgroundColor:'transparent'}}
               >
                 <View ></View>
               </CountryPicker>
@@ -226,13 +202,13 @@ if(Platform.OS==='ios'){
           </View>)
 }else{
 return(
-          <View style={{alignSelf:'center',justifyContent:'center',width:180}}>
+          <View style={{alignSelf:'center',justifyContent:'center', width:180}}>
                <PhoneInput
                    ref='phone'
                    onPressFlag={this.onPressFlag}
-                     style={{position:'absolute',top:14,left:75}}
-                    onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
-                  
+                   style={{position:'absolute',top:10,left:75}}
+                   textStyle={{color: 'black'}}
+                   onChangePhoneNumber={(value)=> {this.setState({callingCode:value})}}
                />
 
                <CountryPicker
@@ -240,9 +216,8 @@ return(
                    onChange={(value)=> this.selectCountry(value)}
                    translation='eng'
                    cca2={this.state.cca2}
-
+                   styles={{backgroundColor:'transparent'}}
                >
-
                </CountryPicker>
 
                </View>
@@ -251,7 +226,38 @@ return(
 
  }
 
+onFocus=(event)=>{
+  const {callingCode,Mobilenumber}=this.state;
+  const {SignupUpdate}=this.props;
+     SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})
+      // this.setFocus(event, (height-50));
+}
+signUp=(props)=>{
+    const {callingCode,Mobilenumber,connectionInfo}=this.state;
+//this.props.
+//  console.log(name,email,mobile,password,cpassword);
+const {name,email,mobile,password,cpassword,navigation,loading}=props;
+let role='user';
+  // console.log("mobile",this.state.callingCode+this.state.Mobilenumber);
+  if(connectionInfo!=='NONE'&&connectionInfo!=='none'){
+        if(!name){
+         alert('Please enter your Name');}
+          else if (!email) {
+              alert('Please enter your Email ID')
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+              alert( 'Invalid Email ID');
+           } else if(!password){
+             alert('Please enter your Password')
 
+           }else{
+//console.log(name,email,mobile,password,role);
+            this.props.SignupChecking({name,email,mobile:'',password,role,navigation});
+           }
+}else{
+  alert("Please Check your Network")
+}
+
+}
   render() {
     //console.log(DeviceInfo);
   const {callingCode,Mobilenumber}=this.state;
@@ -259,31 +265,29 @@ return(
 // console.log(loading,'loading');
 
     return (
+        <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}}  enableOnAndroid={true}>
+        <Image  style={{width:width,height:height, }} resizeMode="cover" source={require('./Images/Logo/header.png')}>
+  <View style={{paddingTop:height/2-50, flex:1}}>
 
-      <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
 
-        <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
         <StatusBar hidden={true} />
-         <View style={styles.container}>
-          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} >
-           <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:40,height:40,alignItems:'center',justifyContent:'center'}}>
-            <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
-            <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
-            </TouchableHighlight>
-           </View>
-          </Image>
-         </View>
 
 
+        {/*
+  <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:40,height:40,alignItems:'center',justifyContent:'center'}}>
+        <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
+        <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
+        </TouchableHighlight>
 
-                  {this.getCountry()}
+       </View>
+*/}
 
 
-
-
+          {/*this.getCountry()*/}
 
 
             <View style={styles.componentContainer}>
+
 
           <View style={styles.componentSubContainer}>
 
@@ -296,12 +300,6 @@ return(
                   secureTextEntry={false}
                   keyboardType="default"
                   placeholderTextColor="#333333"
-                  onFocus={(event) => {
-                    this.setFocus(event, (height-60));
-                    }}
-                    onBlur={(event) => {
-                      this.setFocus(event, height);
-                      }}
                   onChangeText={(text)=>SignupUpdate({prop:'name',value:text})}
 
                 />
@@ -313,22 +311,17 @@ return(
                     iconName={ require('./Images/mail/mail.png')}
                     value={email}
                     secureTextEntry={false}
-                    autoCapitalize="none"
                     maxLength={64}
                     placeholder="Email"
+                    autoCapitalize="none"
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onFocus={(event) => {
-                      this.setFocus(event, (height-60));
-                      }}
-                      onBlur={(event) => {
-                        this.setFocus(event, height);
-                        }}
                     onChangeText={(text)=>SignupUpdate({prop:'email',value:text})}
                   />
               </View>
 
-              <View style={styles.halfFlex}>
+            {/*  <View style={[styles.halfFlex,{flexDirection:'row',marginHorizontal:15}]}>
+
                   <InputWithIcon
                     iconName={require('./Images/mobile/mob.png')}
                     value={this.state.Mobilenumber}
@@ -339,30 +332,19 @@ return(
                     placeholderTextColor="#333333"
                     callingCode={this.state.callingCode}
                     onChangeText={(text)=>this.setPhoneNumber(text)}
-                    onFocus={(event) => {
-                      this.setFocus(event, (height-60));
-                      }}
-                      onBlur={(event) => {
-                        this.setFocus(event, height);
-                        }}
+                    onBlur={()=>this.onFocus()}
                   />
               </View>
-
+*/}
               <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
-                    maxLength={16}
-                    placeholder="Password"
+                    placeholder="Choose Password"
                      secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onFocus={(event) => {
-                      this.setFocus(event, (height-60));
-                      }}
-                      onBlur={(event) => {
-                        this.setFocus(event, height);
-                        }}
+                    onFocus={(event)=>this.onFocus(event)}
                    onChangeText={(text)=>SignupUpdate({prop:'password',value:text})}
                   />
               </View>
@@ -374,29 +356,29 @@ return(
                                 null
                           }
 
-              <View style={styles.halfFlex}>
+            { /* <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={ cpassword }
                     placeholder="Confirm Password"
-                    maxLength={16}
                     secureTextEntry
-                    keyboardType="default"
+                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onFocus={(event) => {
-                      this.setFocus(event, (height-60));
-                      }}
-                      onBlur={(event) => {
-                        this.setFocus(event, height);
-                        }}
                     onChangeText={(text)=>SignupUpdate({prop:'cpassword',value:text})}
+                    onBlur={(event) => {
+                      this.setFocus(event, height);
+                      }}
+                      onFocus={(event) => {
+                        this.setFocus(event, (height-50));
+                        }}
                   />
               </View>
 
-            <View style={{flex:1, alignSelf: 'stretch'}}>
+*/}
+            <View style={{flex:1, alignSelf: 'stretch',marginTop:10}}>
               <Button
+              disabled={loading}
                 buttonStyle={styles.btnStyle}
-                disabled={loading}
                 textStyle={{textAlign: 'center', ...Platform.select({
                   ios: {
                     fontFamily: 'GothamRounded-Bold',
@@ -444,10 +426,11 @@ return(
                     </View>
             </View>
             </View>
-       </View>
 
-</ScrollView>
 
+</View>
+</Image>
+</KeyboardAwareScrollView>
     );
   }
 }
