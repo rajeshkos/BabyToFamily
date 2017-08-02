@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -39,6 +40,8 @@
 		424FE75E1F2770F200297218 /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 424FE75C1F2770F100297218 /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		424FE7601F2770F200297218 /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424FE75F1F2770F200297218 /* QBImagePicker.framework */; };
 		424FE7611F2770F200297218 /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 424FE75F1F2770F200297218 /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42654E361F320AA3003715FB /* libStreamingKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42654E351F320A68003715FB /* libStreamingKit.a */; };
+		42654E371F320AC4003715FB /* libReactNativeAudioStreaming.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42654E261F320A06003715FB /* libReactNativeAudioStreaming.a */; };
 		427426B71F25865C00F91A81 /* Gotham Rounded Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 427426AF1F25865C00F91A81 /* Gotham Rounded Bold Italic.otf */; };
 		427426B81F25865C00F91A81 /* Gotham Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 427426B01F25865C00F91A81 /* Gotham Rounded Bold.otf */; };
 		427426B91F25865C00F91A81 /* Gotham Rounded Book Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 427426B11F25865C00F91A81 /* Gotham Rounded Book Italic.otf */; };
@@ -237,6 +240,27 @@
 			remoteGlobalIDString = C2D4DC071AFE5CEB0038CA91;
 			remoteInfo = RNCarrierInfo;
 		};
+		42654E251F320A06003715FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 552E3FCFE7A14D059BD847C3 /* ReactNativeAudioStreaming.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = ReactNativeAudioStreaming;
+		};
+		42654E321F320A68003715FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42654E2D1F320A67003715FB /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D796608261BE7EF75B9CA099BE45490;
+			remoteInfo = "Pods-ReactNativeAudioStreaming";
+		};
+		42654E341F320A68003715FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42654E2D1F320A67003715FB /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8354B6B10F10687EE626DF43663B075A;
+			remoteInfo = StreamingKit;
+		};
 		427426791F25834B00F91A81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1CC0570A2E7C4281BE255D45 /* BVLinearGradient.xcodeproj */;
@@ -405,6 +429,7 @@
 		31374BC875BC44EB83F6C8E5 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		424FE75C1F2770F100297218 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		424FE75F1F2770F200297218 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42654E2D1F320A67003715FB /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-audio-streaming/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		427426AF1F25865C00F91A81 /* Gotham Rounded Bold Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham Rounded Bold Italic.otf"; path = "../fonts/Gotham Rounded Bold Italic.otf"; sourceTree = "<group>"; };
 		427426B01F25865C00F91A81 /* Gotham Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham Rounded Bold.otf"; path = "../fonts/Gotham Rounded Bold.otf"; sourceTree = "<group>"; };
 		427426B11F25865C00F91A81 /* Gotham Rounded Book Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham Rounded Book Italic.otf"; path = "../fonts/Gotham Rounded Book Italic.otf"; sourceTree = "<group>"; };
@@ -418,6 +443,7 @@
 		42B955E11F29F454008A608A /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		473EAF077FEC4A9AB63E5A2E /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		4D4E55E3425E4E2A9998AC81 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		552E3FCFE7A14D059BD847C3 /* ReactNativeAudioStreaming.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioStreaming.xcodeproj; path = "../node_modules/react-native-audio-streaming/ios/ReactNativeAudioStreaming.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6CA562B79515490D9BFBBFF0 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -447,6 +473,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42654E371F320AC4003715FB /* libReactNativeAudioStreaming.a in Frameworks */,
+				42654E361F320AA3003715FB /* libStreamingKit.a in Frameworks */,
 				428C28641F2A6FD6005BD20C /* libRNNetworkInfo.a in Frameworks */,
 				428EF15D1F284D5200797B36 /* libReactNativeFingerprintScanner.a in Frameworks */,
 				428EF15C1F284D4500797B36 /* libimageCropPicker.a in Frameworks */,
@@ -639,6 +667,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		42654E011F320A06003715FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42654E261F320A06003715FB /* libReactNativeAudioStreaming.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42654E2E1F320A67003715FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42654E331F320A68003715FB /* libPods-ReactNativeAudioStreaming.a */,
+				42654E351F320A68003715FB /* libStreamingKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4274266C1F25834B00F91A81 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +770,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				42654E2D1F320A67003715FB /* Pods.xcodeproj */,
 				428C285E1F2A6F9A005BD20C /* RNNetworkInfo.xcodeproj */,
 				428C28341F2A6CFC005BD20C /* ios */,
 				42B955E11F29F454008A608A /* RCTLinking.xcodeproj */,
@@ -746,6 +792,7 @@
 				919A4583054649189AFC378F /* SafariViewManager.xcodeproj */,
 				C74BBE767243490AAF86586F /* RNVectorIcons.xcodeproj */,
 				0DEB08E6467E43A0B762271F /* RNCarrierInfo.xcodeproj */,
+				552E3FCFE7A14D059BD847C3 /* ReactNativeAudioStreaming.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -909,6 +956,10 @@
 					ProjectRef = 1EB9167CDAAE4B05BBBDD745 /* imageCropPicker.xcodeproj */;
 				},
 				{
+					ProductGroup = 42654E2E1F320A67003715FB /* Products */;
+					ProjectRef = 42654E2D1F320A67003715FB /* Pods.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -955,6 +1006,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 42654E011F320A06003715FB /* Products */;
+					ProjectRef = 552E3FCFE7A14D059BD847C3 /* ReactNativeAudioStreaming.xcodeproj */;
 				},
 				{
 					ProductGroup = 427426701F25834B00F91A81 /* Products */;
@@ -1144,6 +1199,27 @@
 			fileType = archive.ar;
 			path = libRNCarrierInfo.a;
 			remoteRef = 423410781F2B402C00B6D927 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42654E261F320A06003715FB /* libReactNativeAudioStreaming.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeAudioStreaming.a;
+			remoteRef = 42654E251F320A06003715FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42654E331F320A68003715FB /* libPods-ReactNativeAudioStreaming.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-ReactNativeAudioStreaming.a";
+			remoteRef = 42654E321F320A68003715FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42654E351F320A68003715FB /* libStreamingKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libStreamingKit.a;
+			remoteRef = 42654E341F320A68003715FB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		4274267A1F25834B00F91A81 /* libBVLinearGradient.a */ = {
@@ -1432,12 +1508,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = Baby2FamilyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1471,12 +1549,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = Baby2FamilyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1512,6 +1592,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = Baby2Family/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1542,6 +1623,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = Baby2Family/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1578,11 +1660,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = "Baby2Family-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1626,11 +1710,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-network-info/ios",
 					"$(SRCROOT)/../node_modules/react-native-carrier-info/RNCarrierInfo",
+					"$(SRCROOT)/../node_modules/react-native-audio-streaming/ios/**",
 				);
 				INFOPLIST_FILE = "Baby2Family-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1675,6 +1761,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Baby2Family-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1699,6 +1786,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

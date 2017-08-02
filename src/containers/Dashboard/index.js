@@ -47,7 +47,7 @@ import Banner from 'app/components/Banner'
 
        <ActionMenu
           PostPressed={()=>alert('Post')}
-          VideoPressed={()=>alert('Video')}
+          VideoPressed={()=>navigate('AudioPlayer')}
           ImagePressed={()=>alert('Me')}
        />
 

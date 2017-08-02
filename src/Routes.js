@@ -47,7 +47,7 @@ import ChangePassword from 'app/containers/Dashboard/Settings/ChangePassword'
 import IntroScreenOne from 'app/containers/WalkScreen/IntroScreenOne'
 import BottomScreen from 'app/containers/WalkScreen/BottomScreen'
 import IntroPages from 'app/containers/WalkScreen/IntroPages'
-
+import AudioPlayer from 'app/containers/Dashboard/AudioPlayer'
 
 // Stack navigation for Settings and Profile screens
 
@@ -70,6 +70,7 @@ const Auth=StackNavigator({
 })
 
 
+
 const TabScreen=StackNavigator({
   // Dashboard:{screen:Dashboard},
   Dashboard:{screen:Dashboard},
@@ -78,7 +79,8 @@ const TabScreen=StackNavigator({
    Nesting:{screen:Nesting},
    Profile:{screen:Profile},
    AddMilestone:{screen:AddMilestone},
-  MilestoneScreen:{screen:MilestoneScreen}
+  MilestoneScreen:{screen:MilestoneScreen},
+  AudioPlayer:{screen:AudioPlayer}
 
 },{
     headerMode: 'none',
