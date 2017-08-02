@@ -29,7 +29,7 @@ import CountryPicker, {getAllCountries} from 'react-native-country-picker-modal'
 import PhoneInput from 'react-native-phone-input'
 import DeviceInfo from 'react-native-device-info';
 import { NetworkInfo } from 'react-native-network-info';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {SignupUpdate,SignupChecking,Signupfail,passwordDontmatch} from './SignupActions'
  class Signup extends Component {
 
@@ -91,10 +91,10 @@ componentWillMount(){
            }
          });
 
-         this.setState({
-             pickerData: this.refs.phone.getPickerData()
+         //this.setState({
+          //   pickerData: this.refs.phone.getPickerData()
 
-         })
+         //})
 
 
 
@@ -119,17 +119,17 @@ componentWillMount(){
        }
 
 
-       onPressFlag=()=>{
-           this.refs.countryPicker.openModal()
-       }
+      // onPressFlag=()=>{
+        //   this.refs.countryPicker.openModal()
+       //}
 
-       selectCountry=(country)=>{
+      /* selectCountry=(country)=>{
            this.refs.phone.selectCountry(country.cca2.toLowerCase())
            this.setState({cca2: country.cca2})
            this.setState({callingCode:country.callingCode})
 
        }
-
+*/
 
  handleOpenURL = ({ url }) => {
       const {navigate}=this.props.navigation;
@@ -170,11 +170,11 @@ openURL = (url) => {
 }
 setPhoneNumber=(text)=>{
 
-     this.setState({Mobilenumber:text});
+     //this.setState({Mobilenumber:text});
 
 }
 setFocus(event, heightUp){
-  this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
+  //this.refs.scrollView.scrollTo({y: height-heightUp, animated: true});
 }
 
 
@@ -230,7 +230,7 @@ onFocus=(event)=>{
   const {callingCode,Mobilenumber}=this.state;
   const {SignupUpdate}=this.props;
      SignupUpdate({prop:'mobile',value:callingCode+Mobilenumber})
-       this.setFocus(event, (height-50));
+      // this.setFocus(event, (height-50));
 }
 signUp=(props)=>{
     const {callingCode,Mobilenumber,connectionInfo}=this.state;
@@ -246,22 +246,12 @@ let role='user';
               alert('Please enter your Email ID')
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
               alert( 'Invalid Email ID');
-           }else if(!this.state.callingCode){
-              alert('Select Country Code')
-
            } else if(!password){
              alert('Please enter your Password')
 
-           }else if(!cpassword){
-
-             alert('Please enter your Confirm Password')
-
-           }else if(password!==cpassword){
-             alert('Both Password must be same');
-             this.props.passwordDontmatch();
            }else{
 //console.log(name,email,mobile,password,role);
-            this.props.SignupChecking({name,email,mobile,password,role,navigation});
+            this.props.SignupChecking({name,email,mobile:'',password,role,navigation});
            }
 }else{
   alert("Please Check your Network")
@@ -275,19 +265,25 @@ let role='user';
 // console.log(loading,'loading');
 
     return (
-      <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
-        <View style={{flex:1, flexDirection: 'column', backgroundColor: '#FFFFFF'}}>
+        <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}}  enableOnAndroid={true}>
+        <Image  style={{width:width,height:height, }} resizeMode="cover" source={require('./Images/Logo/header.png')}>
+  <View style={{paddingTop:height/2-50, flex:1}}>
+
+
         <StatusBar hidden={true} />
-         <View style={styles.container}>
-          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} >
-           <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:40,height:40,alignItems:'center',justifyContent:'center'}}>
-            <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
-            <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
-            </TouchableHighlight>
-           </View>
-          </Image>
-         </View>
-          {this.getCountry()}
+
+
+        {/*
+  <View style={{position:'absolute',top:10,left:10,backgroundColor:'transparent',width:40,height:40,alignItems:'center',justifyContent:'center'}}>
+        <TouchableHighlight style={{flex:1}} onPress={()=>navigation.goBack(null)} underlayColor={'transparent'}>
+        <Icon name="md-arrow-round-back" size={30} color="#FFFFFF"   />
+        </TouchableHighlight>
+
+       </View>
+*/}
+
+
+          {/*this.getCountry()*/}
 
 
             <View style={styles.componentContainer}>
@@ -324,7 +320,7 @@ let role='user';
                   />
               </View>
 
-              <View style={[styles.halfFlex,{flexDirection:'row',marginHorizontal:15}]}>
+            {/*  <View style={[styles.halfFlex,{flexDirection:'row',marginHorizontal:15}]}>
 
                   <InputWithIcon
                     iconName={require('./Images/mobile/mob.png')}
@@ -339,12 +335,12 @@ let role='user';
                     onBlur={()=>this.onFocus()}
                   />
               </View>
-
+*/}
               <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
-                    placeholder="Password"
+                    placeholder="Choose Password"
                      secureTextEntry
                     keyboardType="default"
                     placeholderTextColor="#333333"
@@ -360,7 +356,7 @@ let role='user';
                                 null
                           }
 
-              <View style={styles.halfFlex}>
+            { /* <View style={styles.halfFlex}>
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={ cpassword }
@@ -378,7 +374,8 @@ let role='user';
                   />
               </View>
 
-            <View style={{flex:1, alignSelf: 'stretch'}}>
+*/}
+            <View style={{flex:1, alignSelf: 'stretch',marginTop:10}}>
               <Button
               disabled={loading}
                 buttonStyle={styles.btnStyle}
@@ -429,10 +426,11 @@ let role='user';
                     </View>
             </View>
             </View>
-       </View>
-</ScrollView>
 
 
+</View>
+</Image>
+</KeyboardAwareScrollView>
     );
   }
 }

@@ -10,11 +10,11 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
-  Platform,
   NativeModules,
   PixelRatio,
   Alert,
-  NetInfo
+  NetInfo,
+  Platform
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import InputWithIcon  from 'app/components/InputWithIcon'
@@ -33,8 +33,10 @@ import {validation} from './validation';
 import Api from 'app/lib/api'
 
 import MCIcon from 'react-native-vector-icons/Ionicons';
+const googleApiUrl ='https://maps.google.com/maps/api/geocode/json';
 //md-close-circle
 var locationName;
+var apiKey ;
  class AddBaby extends Component {
    constructor() {
      super();
@@ -43,6 +45,7 @@ var locationName;
        isDisabled: false,
        isOpen: false,
        isDisabled: false,
+       address: '',
         // swipeToClose: true,
        //   sliderValue: 0.3,
         genderState:'boy',
@@ -60,7 +63,83 @@ var locationName;
       NetInfo.fetch().done(
           (connectionInfo) => { this.setState({connectionInfo}); }
       );
+
+      navigator.geolocation.getCurrentPosition(
+             (position) => {
+               //alert(position.coords.latitude)
+                 this._getAddress(position.coords.latitude, position.coords.longitude)
+             },
+             (error) => alert(error.message),
+             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+           );
+
+
    }
+
+
+
+
+
+   _getAddress(lat, lng){
+     const {AddBabyUpdate}=this.props;
+     apiKey='AIzaSyA5m8U4SYKBhV4IldQs409Jv28L3avWYtM';
+     this.getFromLatLng(lat, lng).then(
+      json => {
+        var address_component = json.results[0].formatted_address;
+        //this.setState({address: address_component});
+           if(address_component){
+          //  AddBabyUpdate({prop:'location',value:address_component})
+           }
+
+      },
+      error => {
+        alert(error);
+      }
+    );
+ }
+
+
+ getFromLatLng(lat, lng) {
+
+ if (!apiKey) {
+       return Promise.reject(new Error("Provided API key is invalid"));
+     }
+
+     if (!lat || !lng) {
+       return Promise.reject(new Error("Provided coordinates are invalid"));
+     }
+
+     const latLng = `${lat},${lng}`;
+     const url = `${googleApiUrl}?key=${apiKey}&latlng=${encodeURI(latLng)}`;
+
+     return this.handleUrl(url);
+}
+
+
+async handleUrl(url) {
+  const response = await fetch(url).catch(
+    error => {
+      return Promise.reject(new Error("Error fetching data"));
+    }
+  );
+
+  const json = await response.json().catch(
+    error => {
+      return Promise.reject(new Error("Error parsing server response"));
+    }
+  );
+
+  if (json.status === 'OK') {
+    return json;
+  }
+  else {
+    return Promise.reject(new Error(`Server returned status code ${json.status}`));
+  }
+}
+
+
+
+
 
    _handleConnectionInfoChange=(connectionInfo)=>{
   //   alert(connectionInfo)
@@ -76,6 +155,7 @@ var locationName;
                 'change',
                 this._handleConnectionInfoChange
             );
+            navigator.geolocation.clearWatch(this.watchID);
           }
 
   //  onClose() {
@@ -162,7 +242,11 @@ renderAsset=(image)=> {
   //console.log("image",image);
   return (
   <View style={styles.imageWrap}>
-    <Image  resizeMode="cover" style={styles.selected} borderRadius={100}  source={image} />
+  {Platform.OS==='ios'?
+ <Image  resizeMode="cover" style={styles.selected} source={image} />:
+  <Image  resizeMode="cover" style={styles.selected} borderRadius={100} source={image} />
+}
+
     </View>
   )
 }
@@ -202,6 +286,11 @@ pickSingleFromGallery=(cropping)=> {
 
     const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
+  /*  if(this.state.address){
+        location = this.state.address;
+    }
+    */
+      //alert(this.state.address);
     //alert(genderState)
   //  alert(sucecsss)
   //console.log("sucecsss",sucecsss);

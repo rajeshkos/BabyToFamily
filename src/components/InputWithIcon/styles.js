@@ -102,21 +102,24 @@ container:{
       width: width/1.5,
       color:'black',
     },
-    flagViewContainer:{
+    fingerprintContainer:{
       ...Platform.select({
 
         ios: {
-          width:50,
-          height:18,
-          marginLeft:22,
-          width: 150,
-          flexDirection:'row',
+        position:'absolute',
+        right:8,
+        top:-30,
+        width:50,
+        height:50
         },
         android: {
-          paddingBottom: 0,
-          paddingLeft: 10,
-          width: 200,
-          flexDirection:'row'
+          position:'absolute',
+          right:9,
+          top:-12,
+          width:40,
+          height:70,
+          paddingRight:60,
+          margin:5
         },
       }),
 

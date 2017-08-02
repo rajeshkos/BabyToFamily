@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   selected:{
     width: PixelRatio.getPixelSizeForLayoutSize(85),
-    height: PixelRatio.getPixelSizeForLayoutSize(85),
-    borderRadius:80
+     height: PixelRatio.getPixelSizeForLayoutSize(85),
+     borderRadius:80
   },
   componentSubContainer: {
     width: width/1.4,

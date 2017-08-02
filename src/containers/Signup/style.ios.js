@@ -51,7 +51,8 @@ flagContainer:{
     alignItems: 'center',
   },
   halfFlex: {
-    flex:0.9,
+    flex:.7,
+      marginBottom:10
   },
   btnStyle: {
     height: 30,

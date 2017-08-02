@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 const {width,height}=Dimensions.get('window');
 const InputWithIcon =(props)=>{
-const {onPress,buttonText,editable=true,iconName,maxLength, autoCapitalize, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode}=props;
+const {onPress,buttonText,editable=true,iconName,maxLength, autoCapitalize, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode,sensor}=props;
 const  underlayColor='black';
 const containerStyle=[styles.container];
 if(editable===false){
@@ -21,22 +21,49 @@ return(
       </TouchableHighlight>
     </View>
     <View>
-      {!callingCode?
+      {placeholder!=='Password'?
       <TextInput autoCapitalize = {autoCapitalize} placeholder={placeholder} maxLength={maxLength} secureTextEntry={secureTextEntry} keyboardType={keyboardType} placeholderTextColor={placeholderTextColor} style={[styles.input]} underlineColorAndroid='transparent' {...props}/>
       :
 
-      <View style={styles.flagViewContainer}>
-      <Text style={styles.flagText}>+{callingCode}</Text>
+      <View >
+      {sensor?
       <TextInput
-      placeholder={callingCode?placeholder:''}
-      secureTextEntry={secureTextEntry}
       autoCapitalize = {autoCapitalize}
+      placeholder={placeholder}
+      maxLength={maxLength}
+      secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
       placeholderTextColor={placeholderTextColor}
+      style={[styles.input]}
+      underlineColorAndroid='transparent' {...props}/>
+      :
+      <View style={{flexDirection:'row'}}>
+      <TextInput
+      autoCapitalize = {autoCapitalize}
+      placeholder={placeholder}
       maxLength={maxLength}
-      style={[styles.input,{paddingLeft:8, width: width/2.2}]}
-      underlineColorAndroid='transparent'
-      {...props}/>
+      secureTextEntry={secureTextEntry}
+      keyboardType={keyboardType}
+      placeholderTextColor={placeholderTextColor}
+      style={[styles.input]}
+      underlineColorAndroid='transparent' {...props}/>
+      <TouchableHighlight style={styles.fingerprintContainer} underlayColor={'transparent'} onPress={()=>alert("hi")}>
+        <Image source={require('./assets/finger_print.png')} style={{width:50,height:50}}/>
+      </TouchableHighlight>
+      </View>
+    }
+    {/*<Text style={styles.flagText}>+{callingCode}</Text>
+    <TextInput
+    placeholder={callingCode?placeholder:''}
+    secureTextEntry={secureTextEntry}
+    autoCapitalize = {autoCapitalize}
+    keyboardType={keyboardType}
+    placeholderTextColor={placeholderTextColor}
+    maxLength={maxLength}
+    style={[styles.input,{paddingLeft:8, width: width/2.2}]}
+    underlineColorAndroid='transparent'
+    {...props}/>
+  */}
       </View>
 
     }

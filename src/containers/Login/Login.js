@@ -15,7 +15,9 @@ import {
   Linking,
   Platform,
   NetInfo,
+   Keyboard
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import SafariView from 'react-native-safari-view';
 import { NavigationActions } from 'react-navigation'
 
@@ -46,6 +48,7 @@ import {session_destroy} from 'app/containers/Signup/OTP/OtpActions'
        errorMessage: undefined,
        popupShowed: false,
        connectionInfo: null,
+       sensor:true
      };
    }
 
@@ -104,9 +107,9 @@ handleFingerprintDismissed = () => {
        if(fingerprint&!auth){
                  FingerprintScanner
                    .isSensorAvailable()
-                   .then(()=>this.setState({ popupShowed: true }))
+                   .then(()=>this.setState({ sensor:true }))
 
-                   .catch(error => this.setState({ popupShowed: true }));
+                   .catch(error => this.setState({sensor:false }));
 
                   }
 
@@ -207,17 +210,10 @@ const { errorMessage, popupShowed } = this.state;
     //  console.log(this.state.connectionInfo)
     return (
 
-      <ScrollView   contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
-
-      <View style={styles.fullContainer}>
-
-        <View style={styles.mainContainer}>
+      <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}} enableOnAndroid={true}>
          <StatusBar hidden={true} />
-
-           <View style={styles.container}>
-
-          <Image resizeMode="stretch" style={styles.canvas} source={require('./Images/Logo/logo.png')} />
-         </View>
+          <Image  style={{width:width,height:height, }} resizeMode="cover" source={require('./Images/Logo/header.png')}>
+            <View style={{paddingTop:height/2-50, flex:1}}>
             <View style={styles.componentContainer}>
           <View style={styles.componentInnerContainer}>
 
@@ -242,12 +238,14 @@ const { errorMessage, popupShowed } = this.state;
             </View>
 
               <View style={styles.spaceTextInput}>
+
                   <InputWithIcon
                     iconName={ require('./Images/Password/password.png')}
                     value={password}
                     placeholder="Password"
                     secureTextEntry={true}
                     keyboardType="default"
+                    sensor={this.state.sensor}
                     onFocus={(event) => {
                     //  this.setFocus(event, (height-50));
                       }}
@@ -256,6 +254,7 @@ const { errorMessage, popupShowed } = this.state;
                         }}
                     placeholderTextColor="#333333"
                     onChangeText={(text)=>loginUpdate({prop:'password',value:text})}
+                    onSubmitEditing={Keyboard.dismiss}
                   />
               </View>
 
@@ -312,10 +311,10 @@ const { errorMessage, popupShowed } = this.state;
                  </View>
           </View>
         </View>
-      </View>
+
 
 </View>
-
+</Image>
 
 
 {popupShowed && (
@@ -324,7 +323,7 @@ const { errorMessage, popupShowed } = this.state;
     handlePopupDismissed={this.handleFingerprintDismissed}
   />
 )}
-</ScrollView>
+  </KeyboardAwareScrollView>
 
     );
   }
