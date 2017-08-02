@@ -8,6 +8,7 @@
  import {AppRegistry,View,Text} from 'react-native';
 
  import App from './src/App'
+ import Test from './Test'
 
 
 

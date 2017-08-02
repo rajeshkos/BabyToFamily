@@ -10,6 +10,7 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.4",
 		"react-native-action-button": "^2.7.2",
+		"react-native-audio-streaming": "^2.3.2",
 		"react-native-carrier-info": "0.0.3",
 		"react-native-country-picker-modal": "^0.3.0",
 		"react-native-customisable-switch": "^0.1.0",
