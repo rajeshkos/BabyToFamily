@@ -5,7 +5,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 const {width,height}=Dimensions.get('window');
 const InputWithIcon =(props)=>{
-const {onPress,buttonText,editable=true,iconName,maxLength, autoCapitalize, placeholder, placeholderTextColor, keyboardType, secureTextEntry,callingCode,sensor}=props;
+const {
+  onPress,
+  buttonText,
+  editable=true,
+  iconName,
+  maxLength,
+  autoCapitalize,
+  placeholder,
+  placeholderTextColor,
+  keyboardType,
+  secureTextEntry,
+  callingCode,
+  sensor,
+  fingerPrintPress
+
+}=props;
 const  underlayColor='black';
 const containerStyle=[styles.container];
 if(editable===false){
@@ -47,8 +62,8 @@ return(
       placeholderTextColor={placeholderTextColor}
       style={[styles.input]}
       underlineColorAndroid='transparent' {...props}/>
-      <TouchableHighlight style={styles.fingerprintContainer} underlayColor={'transparent'} onPress={()=>alert("hi")}>
-        <Image source={require('./assets/finger_print.png')} style={{width:50,height:50}}/>
+      <TouchableHighlight style={styles.fingerprintContainer} underlayColor={'transparent'} onPress={fingerPrintPress}>
+        <Image source={require('./assets/finger_print.png')} style={{width:30,height:30}}/>
       </TouchableHighlight>
       </View>
     }

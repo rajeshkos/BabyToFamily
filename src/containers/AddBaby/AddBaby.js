@@ -286,6 +286,7 @@ pickSingleFromGallery=(cropping)=> {
 
     const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
+    //alert(email)
   /*  if(this.state.address){
         location = this.state.address;
     }

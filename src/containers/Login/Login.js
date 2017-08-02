@@ -208,6 +208,7 @@ const { errorMessage, popupShowed } = this.state;
     const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session,fingerprint}=this.props;
   //  console.log("session",session);
     //  console.log(this.state.connectionInfo)
+
     return (
 
       <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}} enableOnAndroid={true}>
@@ -246,6 +247,7 @@ const { errorMessage, popupShowed } = this.state;
                     secureTextEntry={true}
                     keyboardType="default"
                     sensor={this.state.sensor}
+                    fingerPrintPress={()=>alert("Please Authenticate With Finger Print")}
                     onFocus={(event) => {
                     //  this.setFocus(event, (height-50));
                       }}

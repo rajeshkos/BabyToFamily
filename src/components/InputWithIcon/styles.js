@@ -107,19 +107,21 @@ container:{
 
         ios: {
         position:'absolute',
-        right:8,
-        top:-30,
-        width:50,
-        height:50
+        right:0,
+        top:-10,
+        width:30,
+        height:30
         },
         android: {
           position:'absolute',
-          right:9,
-          top:-12,
+          right:20,
+          top:-10,
           width:40,
-          height:70,
-          paddingRight:60,
-          margin:5
+          height:50,
+          alignItems:'center',
+          justifyContent:'center',
+        
+
         },
       }),
 

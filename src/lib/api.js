@@ -26,6 +26,7 @@ console.log(method, url, params, data);
         },
 
     makeImageUpload(method, url, params, data){
+      console.log("data----------->", data);
 
           const settings = {
                method:'POST',
