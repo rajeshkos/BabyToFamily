@@ -85,10 +85,12 @@ var apiKey ;
      apiKey='AIzaSyA5m8U4SYKBhV4IldQs409Jv28L3avWYtM';
      this.getFromLatLng(lat, lng).then(
       json => {
+        //console.log(json);
         var address_component = json.results[0].formatted_address;
+        //alert(address_component)
         //this.setState({address: address_component});
            if(address_component){
-          //  AddBabyUpdate({prop:'location',value:address_component})
+            AddBabyUpdate({prop:'location',value:address_component})
            }
 
       },
@@ -100,7 +102,7 @@ var apiKey ;
 
 
  getFromLatLng(lat, lng) {
-
+//alert(lng)
  if (!apiKey) {
        return Promise.reject(new Error("Provided API key is invalid"));
      }
@@ -129,7 +131,7 @@ async handleUrl(url) {
     }
   );
 
-  if (json.status === 'OK') {
+  if (json.status ==='OK') {
     return json;
   }
   else {
