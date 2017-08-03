@@ -12,6 +12,22 @@ import {
 } from 'react-native';const {width,height}=Dimensions.get('window');
 
 var styles = StyleSheet.create({
+    title: {
+       color: '#583189',
+       fontSize: 25,
+       fontWeight: '700',
+       textAlign: 'center',
+       fontFamily: 'GothamRounded-Book',
+       marginBottom: 5,
+     },
+
+   description: {
+       textAlign: 'center',
+       fontSize: 16,
+       color: '#583189',
+       fontFamily: 'GothamRounded-Book',
+
+     },
 
    canvas: {
      alignItems: 'center',
@@ -119,21 +135,7 @@ var styles = StyleSheet.create({
      flex: 0.5,
      zIndex:5,
    },
-   title: {
-     color: '#583189',
-     fontSize: 25,
-     fontWeight: '700',
-     textAlign: 'center',
-     fontFamily: 'GothamRounded-Book',
-     marginBottom: 5,
-   },
-   description: {
-     textAlign: 'center',
-     fontSize: 16,
-     color: '#583189',
-     fontFamily: 'GothamRounded-Book',
 
-   },
    fixedBox: {
      backgroundColor :'#B5BBEF',
      alignItems: 'center',

@@ -31,6 +31,7 @@ import {AddBabyUpdate,AddBabyUpload,AddBabyAdded,AddBabyFailed} from  './AddBaby
 import moment from 'moment'
 import {validation} from './validation';
 import Api from 'app/lib/api'
+import ModalFilterPicker from 'react-native-modal-filter-picker'
 
 import MCIcon from 'react-native-vector-icons/Ionicons';
 const googleApiUrl ='https://maps.google.com/maps/api/geocode/json';
@@ -50,6 +51,8 @@ var apiKey ;
        //   sliderValue: 0.3,
         genderState:'boy',
         connectionInfo: null,
+        visible: false,
+        picked: null,
      };
    }
 
@@ -149,7 +152,10 @@ async handleUrl(url) {
          connectionInfo
        });
      }
+//componentWillReceiveProps(nextProps){
+//   console.log("rel",nextProps.relation);
 
+//}
 
      componentWillUnmount() {
 
@@ -179,7 +185,34 @@ async handleUrl(url) {
        this.refs.scrollView.scrollTo({y: 0, animated: true});
 
    }
+   onShow = () => {
+     this.setState({ visible: true });
+   }
 
+   onSelect = (picked) => {
+     this.setState({
+       picked: picked,
+       visible: false
+     })
+   }
+
+   onCancel = (picked) => {
+    // console.log("Manik",this.state.picked);
+     this.setState({
+       picked: this.state.picked,
+       visible: false
+     })
+   }
+   setMyText = (text) => {
+     console.log("text------>",text);
+     const {AddBabyUpdate}=this.props;
+      this.setState({
+        myText: text,
+        picked: text,
+      });
+        //AddBabyUpdate({prop:'relation',value:text})
+        //console.log("Manik",text);
+    }
 submit=()=>{
   const {navigation}=this.props;
     const {AddBabyUpdate,Addbaby,AddBabyUpload,data,sucecsss,user,email}=this.props;
@@ -187,7 +220,7 @@ submit=()=>{
   //  console.log("image",image);
 
     AddBabyUpdate({prop:'gender',value:this.state.genderState})
-      const error=validation(Addbaby,connectionInfo);
+      const error=validation(Addbaby,connectionInfo,this.state.picked);
   //   if(error==='Successfully Registerd'){
       // let o1 = { email:'iamshimil@gmail.com' };
       // let  o2 = {data:{name:'shimil',gender:'boy',dob:'2017-05-1',location:'culcutta',relation:'father',image:this.state.image.uri}};
@@ -212,9 +245,9 @@ if(image){
         formData.append("gender",this.state.genderState);
         formData.append("dob",Addbaby.date);
         formData.append("place",Addbaby.location);
-        formData.append("relation",Addbaby.relation);
+        formData.append("relation",this.state.picked);
         formData.append('images',{name:image.uri.match(/[-_\w]+[.][\w]+$/i)[0],uri:image.uri,type: 'image/jpg'})
-
+      //  console.log("Relation ", this.props.relation);
       //  console.log("path",image.uri.match(/[-_\w]+[.][\w]+$/i)[0]);
       //  send.append()
 
@@ -224,7 +257,7 @@ if(image){
       //  console.log(this.props);
       //alert("Successfully Added")
          this.props.AddBabyUpload({formData})
-          this.setState({image:null})
+
           //alert(sucecsss)
 
          ///this.props.AddBabyAdded()
@@ -283,11 +316,58 @@ pickSingleFromGallery=(cropping)=> {
       });
     }).catch(e => alert(e));
   }
+  handleSuccess=()=>{
+    const {navigation}=this.props;
+  //  alert("hii")
+    navigation.goBack()
+    this.props.AddBabyFailed()
+    //this.setState({image:null})
+    //this.setState({picked:null})
+
+  }
+
   render() {
     const {width,height}=Dimensions.get('window');
 
-    const {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
+    let {name,gender,date,location,relation,loading,sucecsss,AddBabyUpdate,navigation,user,email}=this.props;
     const {genderState}=this.state;
+
+    const { visible, picked } = this.state;
+
+    const options = [
+      {
+        key: 'Father',
+        label: 'Father',
+      },
+      {
+        key: 'Mother',
+        label: 'Mother',
+      },
+      {
+        key: 'Brother',
+        label: 'Brother',
+      },
+      {
+        key: 'Sister',
+        label: 'Sister',
+      },
+      {
+        key: 'Grandma',
+        label: 'Grandma',
+      },
+      {
+        key: 'Grandpa',
+        label: 'Grandpa',
+      },
+      {
+        key: 'Nanny',
+        label: 'Nanny',
+      },
+      {
+        key: 'Family Friend',
+        label: 'Family Friend',
+      },
+    ];
     //alert(email)
   /*  if(this.state.address){
         location = this.state.address;
@@ -303,11 +383,19 @@ pickSingleFromGallery=(cropping)=> {
             'Alert',
             'Added Successfully',
             [
-              {text: 'OK', onPress: () =>  {navigation.goBack(),this.props.AddBabyFailed()}},
+              {text: 'OK', onPress: () => this.handleSuccess() },
             ],
             { cancelable: false }
           )
+      }else{
+
+      //  this.setState({picked:null})
       }
+      //if(this.state.picked){
+        //AddBabyUpdate({prop:'relation',value:this.state.picked})
+    // /  }
+      //AddBabyUpdate({prop:'relation',value:relation})
+    //  console.log("relation",relation);
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
@@ -512,19 +600,30 @@ pickSingleFromGallery=(cropping)=> {
             <View style={styles.boxWrap}>
                 <InputWithIcon
                     iconName= {require('./Images/addbaby/relation.png')}
-                    value={relation}
+                    value={this.state.picked}
                     placeholder="Relation"
                     maxLength={20}
                     secureTextEntry={false}
                     keyboardType="default"
                     placeholderTextColor="#333333"
-                    onChangeText={(text)=>AddBabyUpdate({prop:'relation',value:text})}
                     onFocus={(event) => {
-                      this.setFocus(event, (height-250));
+                      {/*this.setFocus(event, (height-250));*/}
+                      this.onShow();
                       }}
                       onBlur={(event)=>this.setunFocus(event, (height-250))}
                />
             </View>
+
+            <ModalFilterPicker
+              visible={visible}
+              onSelect={this.onSelect}
+              onCancel={this.onCancel}
+              options={options}
+              placeholderText='Type Relation if not mentioned'
+              noResultsText='No Result found'
+              cancelButtonText='Save'
+              setMyText={(text)=>this.setMyText(text)}
+            />
 
             <View style={{flex:1, alignSelf: 'stretch'}}>
 

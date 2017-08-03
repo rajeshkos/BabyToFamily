@@ -24,6 +24,7 @@
 		"react-native-keyboard-aware-scroll-view": "^0.2.9",
 		"react-native-linear-gradient": "^2.0.0",
 		"react-native-material-switch": "0.0.4",
+		"react-native-modal-filter-picker": "^1.1.0",
 		"react-native-modalbox": "^1.4.0",
 		"react-native-network-info": "^2.2.0",
 		"react-native-pages": "^0.5.3",

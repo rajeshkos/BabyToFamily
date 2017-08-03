@@ -130,7 +130,7 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
 
               <View style={styles.subHeadingMainTwo}>
                   <Text style={styles.headingTextTwo}>We just need your registered </Text>
-                  <Text style={styles.headingTextThree}>Mobile No. </Text>
+                  <Text style={styles.headingTextThree}>Email ID </Text>
               </View>
               {loading?
                <View style={{position:'absolute',top:90}}>
@@ -139,8 +139,6 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
                :null
                }
               <View style={styles.subHeadingMainThree}>
-                  <Text style={styles.headingTextTwo}>or </Text>
-                  <Text style={styles.headingTextThree}>Email ID </Text>
                   <Text style={styles.headingTextTwo}>to send your password </Text>
               </View>
               <View style={styles.subHeadingMainThree}>
@@ -156,7 +154,7 @@ const {email,password,loading,forgotUpdate,navigation,forgotfail}=this.props;
                     autoCapitalize="none"
                     secureTextEntry={false}
                     maxLength={64}
-                    placeholder="Email or Mobile No."
+                    placeholder="Email"
                     onFocus={(event) => {
                       this.setFocus(event, (height-100));
                       }}
