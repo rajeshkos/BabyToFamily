@@ -270,7 +270,6 @@ let role='user';
   <View style={{paddingTop:height/2-50, flex:1}}>
 
 
-        <StatusBar hidden={true} />
 
 
         {/*

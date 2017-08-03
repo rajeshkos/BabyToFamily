@@ -1,4 +1,4 @@
-import WalkScreen from './WalkScreen';
+import WalkThrough from './WalkThrough';
 
 
-export default WalkScreen ;
+export default WalkThrough ;

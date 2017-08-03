@@ -42,8 +42,8 @@ console.log(method, url, params, data);
              if (data) {
                  settings.body = data;
              }
-          //  console.log("from make upload",method, url, params, data);
-              //  console.log( fetch(`${url}`, settings));
+               console.log("from make upload",method, url, params, data);
+               console.log( fetch(`${url}`, settings));
                   return fetch(`${url}`, settings);
         }
 

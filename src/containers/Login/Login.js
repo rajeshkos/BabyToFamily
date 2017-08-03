@@ -48,7 +48,7 @@ import {session_destroy} from 'app/containers/Signup/OTP/OtpActions'
        errorMessage: undefined,
        popupShowed: false,
        connectionInfo: null,
-       sensor:true
+       sensor:false
      };
    }
 
@@ -208,11 +208,11 @@ const { errorMessage, popupShowed } = this.state;
     const {loginUpdate,loginChecking,email,password,loading,auth,user,navigation,logout,session,fingerprint}=this.props;
   //  console.log("session",session);
     //  console.log(this.state.connectionInfo)
-
+//alert(this.state.connectionInfo)
     return (
 
       <KeyboardAwareScrollView style={{flex:1, backgroundColor:'#fff'}} enableOnAndroid={true}>
-         <StatusBar hidden={true} />
+      
           <Image  style={{width:width,height:height, }} resizeMode="cover" source={require('./Images/Logo/header.png')}>
             <View style={{paddingTop:height/2-50, flex:1}}>
             <View style={styles.componentContainer}>

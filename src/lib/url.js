@@ -8,3 +8,4 @@ export default  {
   ADD_BABY_DETAIL:'http://172.24.3.104:3000/addbaby',
   //GOOGLE_API_URL:'https://maps.google.com/maps/api/geocode/json'
 }
+//172.24.3.104:3000

@@ -9,9 +9,13 @@ function* uploadImage(action) {
  //console.log("action",action.payload);
  try {
       yield put({type:ADD_BABY_CHECKING})
-     const user = yield call(Api.makeImageUpload, 'POST',URL.ADD_BABY_DETAIL,{},action.payload.formData);
-    //  console.log("user",user);
-      yield put({type:ADDBABY_ADDED})
+      const user = yield call(Api.makeImageUpload, 'POST',URL.ADD_BABY_DETAIL,{},action.payload.formData);
+       if(user.status===200){
+       yield put({type:ADDBABY_ADDED})
+    }else {
+        yield put({type:ADDBABY_FAILED,payload:"error"})
+        alert("Failed To Upload")
+    }
   } catch (e) {
     // console.log("error",e);
      yield put({type:ADDBABY_FAILED,payload:e})

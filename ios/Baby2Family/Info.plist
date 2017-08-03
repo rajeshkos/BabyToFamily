@@ -31,10 +31,10 @@
 			<array>
 				<string>baby</string>
 			</array>
-      <key>UIBackgroundModes</key>
-      <array>
-        <string>audio</string>
-      </array>
+			<key>UIBackgroundModes</key>
+			<array>
+				<string>audio</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

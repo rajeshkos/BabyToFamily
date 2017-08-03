@@ -399,7 +399,7 @@ pickSingleFromGallery=(cropping)=> {
     return (
       <View style={styles.mainContainerTop}>
         <ScrollView  ref="scrollView" contentContainerStyle={{flex:1,  justifyContent: 'center'}}>
-        <StatusBar hidden={true} />
+
           <Modal
             style={[styles.modal, styles.modal3]}
             animationInTiming={2000}
@@ -628,7 +628,7 @@ pickSingleFromGallery=(cropping)=> {
             <View style={{flex:1, alignSelf: 'stretch'}}>
 
             <Button
-            disabled={loading}
+              disabled={loading}
               buttonStyle={styles.btnStyle}
               textStyle={{textAlign: 'center', ...Platform.select({
                 ios: {

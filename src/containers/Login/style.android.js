@@ -134,7 +134,7 @@ var styles = StyleSheet.create({
     color: '#B5BBEF',
     opacity: 1,
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'gotham_rounded_book',
   },
   errorMessage: {
