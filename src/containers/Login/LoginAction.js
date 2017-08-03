@@ -53,7 +53,7 @@ dispatch(loginCheck());
    Api.makeRequest('POST',URL.LOGIN_URL,{},{email:email.toLowerCase(),password:password})
    .then((response) => response.json())
    .then((responseJson) =>{
-    //   console.log("responseJson",responseJson);
+      console.log("responseJson",responseJson);
          switch (responseJson.status) {
            case 200:
                    dispatch(loginSuccess({responseJson}));

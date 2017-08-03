@@ -26,7 +26,6 @@ console.log(email);
 Api.makeRequest('POST',URL.FORGOT_PASSWORD,{},{email:email.toLowerCase()})
  .then((response) => response.json())
  .then((responseJson) =>{
-console.log("responseJson",responseJson);
   if(responseJson.status===200){
     dispatch(forgotSuccessfull());
     Alert.alert(
